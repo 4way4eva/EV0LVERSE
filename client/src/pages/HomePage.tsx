@@ -7,6 +7,7 @@ import VaultBrowser from "@/components/VaultBrowser";
 import MintInterface from "@/components/MintInterface";
 import CeremonialProtocol from "@/components/CeremonialProtocol";
 import ExtractionDossier from "@/components/ExtractionDossier";
+import HeroDirectory from "@/components/HeroDirectory";
 import ThemeToggle from "@/components/ThemeToggle";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
@@ -35,10 +36,11 @@ export default function HomePage() {
 
       <div className="container px-6 py-16">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 mb-8">
+          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-9 mb-8">
             <TabsTrigger value="enato" data-testid="tab-enato">ENATO</TabsTrigger>
             <TabsTrigger value="tokens" data-testid="tab-tokens">Tokens</TabsTrigger>
             <TabsTrigger value="hydrocoin" data-testid="tab-hydrocoin">HydroCoin</TabsTrigger>
+            <TabsTrigger value="heroes" data-testid="tab-heroes">Heroes</TabsTrigger>
             <TabsTrigger value="mint" data-testid="tab-mint">Mint</TabsTrigger>
             <TabsTrigger value="gallery" data-testid="tab-gallery">Gallery</TabsTrigger>
             <TabsTrigger value="vault" data-testid="tab-vault">Vault</TabsTrigger>
@@ -62,6 +64,10 @@ export default function HomePage() {
               </p>
               <HydroCoinDashboard />
             </div>
+          </TabsContent>
+
+          <TabsContent value="heroes">
+            <HeroDirectory />
           </TabsContent>
 
           <TabsContent value="mint">
@@ -108,21 +114,21 @@ export default function HomePage() {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Currency Systems</h4>
+              <h4 className="font-semibold mb-4">Systems</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>ENATO Fiat</li>
-                <li>HydroCoin</li>
-                <li>Blu-Tillion</li>
+                <li>ENATO Sovereign Fiat</li>
+                <li>HydroCoin Asset-Backed</li>
+                <li>Hero Lineages</li>
                 <li>Multi-Token Economy</li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Resources</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>ENATO Codex Constitution</li>
+                <li>EvolVerse Bible of Heroes</li>
                 <li>BLEUChain Protocol</li>
+                <li>Codex Sovereign Scroll</li>
                 <li>MetaVault Documentation</li>
-                <li>Block Explorer</li>
               </ul>
             </div>
           </div>
