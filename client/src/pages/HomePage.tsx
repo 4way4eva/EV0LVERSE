@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
-import Header from "@/components/Header";
 import HydroCoinDashboard from "@/components/HydroCoinDashboard";
+import ENATODashboard from "@/components/ENATODashboard";
+import MultiTokenEconomy from "@/components/MultiTokenEconomy";
 import NFTGallery from "@/components/NFTGallery";
 import VaultBrowser from "@/components/VaultBrowser";
 import MintInterface from "@/components/MintInterface";
@@ -11,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
 
 export default function HomePage() {
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const [activeTab, setActiveTab] = useState("enato");
 
   return (
     <div className="min-h-screen bg-background">
@@ -34,8 +35,10 @@ export default function HomePage() {
 
       <div className="container px-6 py-16">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 mb-8">
-            <TabsTrigger value="dashboard" data-testid="tab-dashboard">Dashboard</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 lg:grid-cols-8 mb-8">
+            <TabsTrigger value="enato" data-testid="tab-enato">ENATO</TabsTrigger>
+            <TabsTrigger value="tokens" data-testid="tab-tokens">Tokens</TabsTrigger>
+            <TabsTrigger value="hydrocoin" data-testid="tab-hydrocoin">HydroCoin</TabsTrigger>
             <TabsTrigger value="mint" data-testid="tab-mint">Mint</TabsTrigger>
             <TabsTrigger value="gallery" data-testid="tab-gallery">Gallery</TabsTrigger>
             <TabsTrigger value="vault" data-testid="tab-vault">Vault</TabsTrigger>
@@ -43,8 +46,22 @@ export default function HomePage() {
             <TabsTrigger value="dossier" data-testid="tab-dossier">Dossier</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="dashboard">
-            <HydroCoinDashboard />
+          <TabsContent value="enato">
+            <ENATODashboard />
+          </TabsContent>
+
+          <TabsContent value="tokens">
+            <MultiTokenEconomy />
+          </TabsContent>
+
+          <TabsContent value="hydrocoin">
+            <div>
+              <h2 className="text-3xl font-display font-bold mb-2">HydroCoin</h2>
+              <p className="text-muted-foreground mb-8">
+                Water-backed cryptocurrency powering sustainable infrastructure
+              </p>
+              <HydroCoinDashboard />
+            </div>
           </TabsContent>
 
           <TabsContent value="mint">
@@ -87,30 +104,30 @@ export default function HomePage() {
             <div>
               <h3 className="font-ceremonial text-lg font-bold mb-4">BLEULIONTREASURY™</h3>
               <p className="text-sm text-muted-foreground">
-                Sovereign governance and water-backed currency across the EvolVerse ecosystem
+                Sovereign governance and multi-currency economy across the EvolVerse ecosystem
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">Realms</h4>
+              <h4 className="font-semibold mb-4">Currency Systems</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>AquaEvolverse</li>
-                <li>GalacticEvolverse</li>
-                <li>CivicEvolverse</li>
-                <li>MirrorEvolverse</li>
+                <li>ENATO Fiat</li>
+                <li>HydroCoin</li>
+                <li>Blu-Tillion</li>
+                <li>Multi-Token Economy</li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Resources</h4>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>Documentation</li>
-                <li>Smart Contracts</li>
-                <li>IPFS Gateway</li>
+                <li>ENATO Codex Constitution</li>
+                <li>BLEUChain Protocol</li>
+                <li>MetaVault Documentation</li>
                 <li>Block Explorer</li>
               </ul>
             </div>
           </div>
           <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            <p>© 2025 BLEULIONTREASURY. All rights reserved. Hash Authenticated.</p>
+            <p>© 2025 BLEULIONTREASURY. ENATO Sovereign. Council Certified. Hash Authenticated.</p>
           </div>
         </div>
       </footer>
