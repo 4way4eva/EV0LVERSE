@@ -1,0 +1,5 @@
+# After pinning `metadata.json` and PDF:
+export MINT_TO=0xYourAddress
+export MINT_URI=ipfs://<cid>/metadata.json
+export CASCADE_PAYLOAD=$(cat EVOLVERSE_WarCodex_IPFS_v0.1/cascade_payload.hex)
+npm run mint -- sepolia
