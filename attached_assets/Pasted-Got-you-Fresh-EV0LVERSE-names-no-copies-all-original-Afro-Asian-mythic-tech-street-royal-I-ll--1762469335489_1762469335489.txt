@@ -1,0 +1,144 @@
+Got you. Fresh EV0LVERSE names—no copies, all original. Afro-Asian, mythic-tech, street-royal. I’ll give you a clean naming spine plus a stacked roster so you can pick, mint, and march.
+
+EV0LVERSE Naming Spine (how our names feel)
+	•	Consonant crown + vowel flare: short, punchy, chantable (e.g., Khayu, Zhari, Tenz).
+	•	Dual-root fusion (Afro x Asia) + element or animal: Maji-, Shango-, Vajra-, Levi-, Onyx-.
+	•	Glyph hooks for ENFT traits: attach a sigil (🜂 fire, 🜄 water, 🜁 air, 🜃 earth, ✺ light, ☲ thunder).
+
+⸻
+
+Core Squads (special ops units)
+	•	House of Khari (urban tacticians)
+	•	Vajra Nine (lightning strikers)
+	•	Onyx Jackals (stealth recon)
+	•	Blue Crown Armada (sea/sky dominance)
+	•	Shango Choir (sound/tempo warfare)
+	•	Lotus Wraiths (counter-sorcery, psi ops)
+
+⸻
+
+Crown Cities (our Gotham/Wakanda killers)
+	•	BleuZion (capital dome; finance + arts)
+	•	Atlazura (submerged vault-city; Atlantis successor)
+	•	Panther EOS (pan-continental tech citadel)
+	•	Qamar Gate (lunar-synced skyport megalopolis)
+	•	Kora Meridian (equatorial energy hub, sun/geo)
+	•	Ivory Rook (arctic bastion; polar defense labs)
+
+⸻
+
+Prime Heroes (use as playable leaders or NPC anchors)
+	•	Zhari Mansa — thunder marshal; storm vectors + street command.
+	•	Eko Tenz — gravity dancer; parkour gravity-bend, alley king.
+	•	Aya Seraph — prism healer; refracts pain into force shields.
+	•	Khayu Drake — drake-engine gauntlets; plasma cuts, dragon feints.
+	•	Maji Nuru — kinetic accountant; turns ledgers into force multipliers.
+	•	Lotus Jinn — mirage coder; AR illusions with real-world actuators.
+	•	Rook Sol — polar tactician; cryo-domes, ice-rail artillery.
+	•	Sable Veda — memory thief; copies enemy move-sets once seen.
+	•	Kora T’Lune — moon-draw fighter; tide/ion control in low light.
+	•	Ashanti Vox — soundsmith; sub-bass knockdowns & crowd shields.
+	•	Tenzin Kuro — voidstep monk; micro-teleport in heartbeat windows.
+	•	Nahara Quill — sigil archer; glyph arrows (seal, bind, reveal).
+
+(Each name is free/clear; tie them to ENFTs with glyph traits and city allegiance.)
+
+⸻
+
+Villain-Scale Nemeses (original, for marquee arcs)
+	•	The Papercrown — empire of contracts; weaponized paperwork & liens.
+	•	Omega Florin — currency cultist; siphons value from attention.
+	•	The Salt Court — seven desert judges; dehydration hexes & mirage law.
+	•	Vermilion Choir — brain-hijack ads; memetic warfare hymns.
+	•	Harbor King — privatized oceans; drone navies & toll tempests.
+
+⸻
+
+Signature Devices (ENFT-ready gear lines)
+	•	Vajra Frame (exo-suit spine; sprint + shock + glide)
+	•	Rook Halo (polar shield ring; cryo countermeasures)
+	•	Seraph Loom (bio-mesh healer glove; converts trauma → armor)
+	•	Jackal Veil (active stealth cape; absorbs cameras/LiDAR)
+	•	Mansa Baton (crowd-control staff; thunder cadence commands)
+	•	Quill Forge (glyph bow; craft arrows from ambient signals)
+
+⸻
+
+Vehicles (street to sky)
+	•	Blue Leviathan (submersible cruiser)
+	•	Crown Runner (mag-lev sneakerboard + avatar twin)
+	•	Ivory Rail (arctic coiltrain; mobile lab)
+	•	Lotus Kite (urban e-glider; silent insertions)
+	•	Zulu Fang (hyperbike; drift-telemetry for bets/ENFT clips)
+	•	Qamar Ark (orbital shuttle; moon window timings)
+
+⸻
+
+Civilian Lines (fashion + utility)
+	•	Upper Echelon (smart cloth suits)
+	•	Temple Haze (thermo hoodies; vibe-linked)
+	•	Crown Ink (living tattoos; biometric keys)
+	•	Blue Salt (adapt foods + mineral tonics)
+	•	Mirror Gold (NFC jewelry wallets)
+
+⸻
+
+City-vs-City Flex (your “we beat theirs” board)
+	•	Gotham → BleuZion (crime sensors + ledger courts)
+	•	Metropolis → Kora Meridian (solar-geo grid + speedways)
+	•	Wakanda → Panther EOS (open export labs + diaspora equity)
+	•	Themyscira → Qamar Gate (queenship academies + sky guard)
+	•	Atlantis (theirs) → Atlazura (master vault + sea-rights law)
+
+⸻
+
+Ops Names (mission codex)
+	•	Cinder Chorus (riot quell + safe-route open)
+	•	Moonlit Ledger (asset seizure from shadow banks)
+	•	Drift Crown (street races → city energy harvest)
+	•	Glacier Hymn (polar breach denial)
+	•	Azure Trident (three-front naval squeeze)
+	•	Vulture Bloom (post-battle salvage into community credit)
+
+⸻
+
+Token & ENFT Naming (clean, mintable)
+	•	Currency: BLEU (BLEU), PINK (YLD), SHILL (CIV)
+	•	City passes: CROWN-PASS: [CITY] (e.g., CROWN-PASS: BLEUZION)
+	•	Gear ENFTs: VAJRA-FRAME // Mk-I (🗲 speed, ☲ shock)
+	•	Hero ENFTs: ZHARI-MANSA // Storm Marshal (✺, ☲)
+	•	Vehicle ENFTs: CROWN-RUNNER // Drift Spec A
+
+Metadata trait kit
+{"city":"BleuZion","squad":"Vajra Nine","sigils":["☲","✺"],"role":"Storm Marshal","device":"Vajra Frame","vehicle":"Crown Runner"}
+
+⸻
+
+Quick 12-Hero “League” (for your first drop)
+	1.	Zhari Mansa — storm marshal (☲)
+	2.	Eko Tenz — gravity dancer (◼︎)
+	3.	Aya Seraph — prism healer (✺)
+	4.	Khayu Drake — plasma fists (🜂)
+	5.	Maji Nuru — kinetic accountant (∞)
+	6.	Lotus Jinn — mirage coder (卍 stylized)
+	7.	Rook Sol — cryo tactician (🜄)
+	8.	Sable Veda — mimic memory (⌘)
+	9.	Kora T’Lune — tide/ion (☾)
+	10.	Ashanti Vox — bass shield (♩)
+	11.	Tenzin Kuro — voidstep (⟂)
+	12.	Nahara Quill — sigil archer (➹)
+
+⸻
+
+How to deploy, fast
+	•	Pick 5 cities + 1 squad to start (e.g., BleuZion + Vajra Nine).
+	•	Mint 12 hero ENFTs (above) + 6 device ENFTs + 4 vehicles.
+	•	Add city passes for BleuZion and Atlazura.
+	•	List one hero + one device as showcase; vault the rest to MetaVault.
+
+If you want, I’ll output:
+	•	a JSON pack (heroes, devices, cities) ready to pin,
+	•	a mint batch with your contract + wallet,
+	•	and a one-pager “EV0L Brand Bible: Names & Glyphs” you can hand to artists and devs.
+
+Call the lane and I’ll drop the files as code/metadata blocks you can paste straight into GitHub.

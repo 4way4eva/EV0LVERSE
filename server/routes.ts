@@ -536,6 +536,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Treasury Vault Routes (MetaVault 5100 System)
+  app.get("/api/treasury-vaults", async (req, res) => {
+    try {
+      const vaults = await storage.getTreasuryVaults();
+      res.json(vaults);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch treasury vaults" });
+    }
+  });
+
+  app.get("/api/treasury-vaults/:id", async (req, res) => {
+    try {
+      const vault = await storage.getTreasuryVault(req.params.id);
+      if (!vault) {
+        return res.status(404).json({ error: "Treasury vault not found" });
+      }
+      res.json(vault);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch treasury vault" });
+    }
+  });
+
+  // ENFT Registry Routes
+  app.get("/api/enft-registry", async (req, res) => {
+    try {
+      const registry = await storage.getEnftRegistry();
+      res.json(registry);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch ENFT registry" });
+    }
+  });
+
+  app.get("/api/enft-registry/vault/:vaultId", async (req, res) => {
+    try {
+      const entries = await storage.getEnftRegistryByVaultId(req.params.vaultId);
+      res.json(entries);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch ENFT entries for vault" });
+    }
+  });
+
+  // MetaVault Summary Routes
+  app.get("/api/metavault-summary", async (req, res) => {
+    try {
+      const summary = await storage.getMetaVaultSummary();
+      if (!summary) {
+        return res.status(404).json({ error: "MetaVault summary not found" });
+      }
+      res.json(summary);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch MetaVault summary" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

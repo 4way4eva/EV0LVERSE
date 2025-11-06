@@ -19,6 +19,7 @@ import EvolStudiosPage from "@/pages/EvolStudiosPage";
 import MythologyConsolePage from "@/pages/MythologyConsolePage";
 import CodexAuditConsolePage from "@/pages/CodexAuditConsolePage";
 import MetaScaleObservatoryPage from "@/pages/MetaScaleObservatoryPage";
+import TreasuryLedgerPage from "@/pages/TreasuryLedgerPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -37,6 +38,7 @@ function Router() {
       <Route path="/mythology" component={MythologyConsolePage} />
       <Route path="/codex-audit" component={CodexAuditConsolePage} />
       <Route path="/metascale-observatory" component={MetaScaleObservatoryPage} />
+      <Route path="/treasury-ledger" component={TreasuryLedgerPage} />
       <Route component={NotFound} />
     </Switch>
   );

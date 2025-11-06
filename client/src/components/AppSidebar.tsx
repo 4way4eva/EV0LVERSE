@@ -87,6 +87,11 @@ const menuItems = [
     title: "Operations",
     items: [
       {
+        title: "Treasury Ledger",
+        url: "/treasury-ledger",
+        icon: Coins,
+      },
+      {
         title: "Ceremonial Protocols",
         url: "/ceremonial",
         icon: Flame,

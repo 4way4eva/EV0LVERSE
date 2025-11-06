@@ -35,6 +35,12 @@ import {
   type InsertMetaNation,
   type MetaGalaxy,
   type InsertMetaGalaxy,
+  type TreasuryVault,
+  type InsertTreasuryVault,
+  type EnftRegistry,
+  type InsertEnftRegistry,
+  type MetaVaultSummary,
+  type InsertMetaVaultSummary,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 
@@ -125,6 +131,17 @@ export interface IStorage {
   getAllMetaGalaxies(): Promise<MetaGalaxy[]>;
   getMetaGalaxy(id: string): Promise<MetaGalaxy | undefined>;
   getMetaGalaxiesByConsciousnessLevel(level: string): Promise<MetaGalaxy[]>;
+  
+  // Treasury Vault methods
+  getTreasuryVaults(): Promise<TreasuryVault[]>;
+  getTreasuryVault(id: string): Promise<TreasuryVault | undefined>;
+  
+  // ENFT Registry methods
+  getEnftRegistry(): Promise<EnftRegistry[]>;
+  getEnftRegistryByVaultId(vaultId: string): Promise<EnftRegistry[]>;
+  
+  // MetaVault Summary methods
+  getMetaVaultSummary(): Promise<MetaVaultSummary | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -146,6 +163,9 @@ export class MemStorage implements IStorage {
   private metaSchools: Map<string, MetaSchool>;
   private metaNations: Map<string, MetaNation>;
   private metaGalaxies: Map<string, MetaGalaxy>;
+  private treasuryVaults: Map<string, TreasuryVault>;
+  private enftRegistry: Map<string, EnftRegistry>;
+  private metaVaultSummary: MetaVaultSummary | undefined;
 
   constructor() {
     this.users = new Map();
@@ -166,6 +186,9 @@ export class MemStorage implements IStorage {
     this.metaSchools = new Map();
     this.metaNations = new Map();
     this.metaGalaxies = new Map();
+    this.treasuryVaults = new Map();
+    this.enftRegistry = new Map();
+    this.metaVaultSummary = undefined;
     
     this.seedData();
   }
@@ -1497,6 +1520,150 @@ export class MemStorage implements IStorage {
       const id = randomUUID();
       this.metaGalaxies.set(id, { ...galaxy, id });
     }
+
+    // Seed Treasury Vaults (MetaVault 5100 System with Fibonacci weights)
+    // Total weight = 2+3+5+8+13 = 31
+    // $51T cap allocation, $1.1T/day yield pool
+    const totalWeight = 31;
+    const totalCap = 51_000_000_000_000; // $51 trillion
+    const dailyYield = 1_100_000_000_000; // $1.1 trillion/day
+
+    const vaultConfigs = [
+      {
+        name: "Witness",
+        densityWeight: 2,
+        enftCount: 144,
+        description: "First testimony vault, holding primary witness artifacts",
+        vaultGuardian: "EVOLYNN",
+        status: "Active",
+      },
+      {
+        name: "Branch",
+        densityWeight: 3,
+        enftCount: 89,
+        description: "Branching pathways vault, multi-stream allocations",
+        vaultGuardian: "DR. SOSA",
+        status: "Active",
+      },
+      {
+        name: "Frozen",
+        densityWeight: 5,
+        enftCount: 55,
+        description: "Time-locked assets, frozen for ceremonial release",
+        vaultGuardian: "PHIYAH",
+        status: "Frozen",
+      },
+      {
+        name: "Rare",
+        densityWeight: 8,
+        enftCount: 34,
+        description: "High-density rare artifacts with elevated value",
+        vaultGuardian: "KONGO SONIX",
+        status: "Active",
+      },
+      {
+        name: "Cipher",
+        densityWeight: 13,
+        enftCount: 21,
+        description: "Encrypted codex vault, highest security tier",
+        vaultGuardian: "DRIFT WALKER",
+        status: "Active",
+      },
+    ];
+
+    const vaultIds: string[] = [];
+    let totalEnfts = 0;
+    let totalBleuBills = 0;
+    let totalPinkBills = 0;
+    let totalShills = 0;
+
+    for (const config of vaultConfigs) {
+      const id = randomUUID();
+      vaultIds.push(id);
+      
+      // Calculate proportional allocations
+      const allocationAmount = (totalCap * config.densityWeight) / totalWeight;
+      const yieldAmount = (dailyYield * config.densityWeight) / totalWeight;
+      
+      // Calculate bills/coins minted
+      const bleuBills = Math.floor(allocationAmount / 10_000);
+      const pinkBills = Math.floor(allocationAmount / 1_000);
+      const shills = Math.floor(allocationAmount / 100);
+      
+      totalEnfts += config.enftCount;
+      totalBleuBills += bleuBills;
+      totalPinkBills += pinkBills;
+      totalShills += shills;
+      
+      const vault: TreasuryVault = {
+        id,
+        name: config.name,
+        densityWeight: config.densityWeight,
+        capAllocation: `$${(allocationAmount / 1_000_000_000_000).toFixed(2)}T`,
+        dailyYield: `$${(yieldAmount / 1_000_000_000).toFixed(2)}B/day`,
+        enftCount: config.enftCount,
+        bleuBills,
+        pinkBills,
+        shills,
+        status: config.status,
+        description: config.description,
+        vaultGuardian: config.vaultGuardian,
+      };
+      
+      this.treasuryVaults.set(id, vault);
+    }
+
+    // Seed ENFT Registry (sample ENFTs across vaults)
+    const enftData = [
+      { vault: 0, name: "Codex - Witness #0001", codexReference: "Primary Witness Testament", densityScore: "High", attributes: ["Founding Document", "First Seal", "144 Watchers"] },
+      { vault: 0, name: "Codex - Witness #0144", codexReference: "Final Witness Testament", densityScore: "High", attributes: ["Completion Seal", "Guardian Network"] },
+      { vault: 1, name: "Nag Hammadi Scroll #13", codexReference: "Gospel of Truth", densityScore: "Medium", attributes: ["Ancient Text", "Branch Protocol"] },
+      { vault: 1, name: "Dead Sea Scroll Fragment", codexReference: "Community Rule", densityScore: "Medium", attributes: ["Historical Artifact", "Multi-Stream"] },
+      { vault: 2, name: "Frozen Covenant #01", codexReference: "Time-Lock Genesis", densityScore: "High", attributes: ["Ceremonial Release", "Frozen Asset"] },
+      { vault: 2, name: "Frozen Covenant #55", codexReference: "Final Freeze Protocol", densityScore: "High", attributes: ["Ultimate Lock", "Ceremonial Key"] },
+      { vault: 3, name: "Selden Codex", codexReference: "Maya Calendar Stone", densityScore: "High", attributes: ["Rare Artifact", "Astronomical Data", "Ceremonial Calendar"] },
+      { vault: 3, name: "Maya Dresden Codex", codexReference: "Venus Table", densityScore: "High", attributes: ["Rare Manuscript", "Planetary Cycles"] },
+      { vault: 4, name: "Cipher Stone Alpha", codexReference: "Encrypted Prime", densityScore: "High", attributes: ["Highest Security", "Master Encryption", "Root Key"] },
+      { vault: 4, name: "Cipher Stone Omega", codexReference: "Final Encryption", densityScore: "High", attributes: ["Ultimate Seal", "Omega Protocol"] },
+    ];
+
+    let tokenIdCounter = 1;
+    for (const enft of enftData) {
+      const id = randomUUID();
+      const vaultId = vaultIds[enft.vault];
+      
+      const enftEntry: EnftRegistry = {
+        id,
+        tokenId: tokenIdCounter++,
+        vaultId,
+        name: enft.name,
+        codexReference: enft.codexReference,
+        densityScore: enft.densityScore,
+        metadata: `ipfs://bafybei${randomUUID().substring(0, 50)}`,
+        provenanceHash: `0x${randomUUID().replace(/-/g, '')}`,
+        mintTransaction: `0x${randomUUID().replace(/-/g, '')}`,
+        currentOwner: "0xBLEULIONTREASURY",
+        mintedDate: new Date().toISOString().split('T')[0],
+        attributes: enft.attributes,
+      };
+      
+      this.enftRegistry.set(id, enftEntry);
+    }
+
+    // Seed MetaVault Summary
+    this.metaVaultSummary = {
+      id: randomUUID(),
+      vaultName: "MetaVault 5100",
+      totalCapCeiling: "$51T",
+      dailyYieldPool: "$1.1T/day",
+      totalVaults: 5,
+      totalEnfts,
+      totalBleuBills,
+      totalPinkBills,
+      totalShills,
+      lastUpdated: new Date().toISOString(),
+      status: "Operational",
+    };
   }
 
   // User methods
@@ -1784,6 +1951,31 @@ export class MemStorage implements IStorage {
     return Array.from(this.metaGalaxies.values()).filter(
       (galaxy) => galaxy.consciousnessLevel.toLowerCase() === level.toLowerCase(),
     );
+  }
+
+  // Treasury Vault methods
+  async getTreasuryVaults(): Promise<TreasuryVault[]> {
+    return Array.from(this.treasuryVaults.values());
+  }
+
+  async getTreasuryVault(id: string): Promise<TreasuryVault | undefined> {
+    return this.treasuryVaults.get(id);
+  }
+
+  // ENFT Registry methods
+  async getEnftRegistry(): Promise<EnftRegistry[]> {
+    return Array.from(this.enftRegistry.values());
+  }
+
+  async getEnftRegistryByVaultId(vaultId: string): Promise<EnftRegistry[]> {
+    return Array.from(this.enftRegistry.values()).filter(
+      (enft) => enft.vaultId === vaultId,
+    );
+  }
+
+  // MetaVault Summary methods
+  async getMetaVaultSummary(): Promise<MetaVaultSummary | undefined> {
+    return this.metaVaultSummary;
   }
 }
 
