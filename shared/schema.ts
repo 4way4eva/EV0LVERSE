@@ -247,3 +247,77 @@ export const insertMythologyDeitySchema = createInsertSchema(mythologyDeities).o
 
 export type InsertMythologyDeity = z.infer<typeof insertMythologyDeitySchema>;
 export type MythologyDeity = typeof mythologyDeities.$inferSelect;
+
+// Codex Layers (10-layer EV0L Codex system: Infinity Core → Justice)
+export const codexLayers = pgTable("codex_layers", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  codex: text("codex").notNull(), // Infinity Core, Assurance Layer, Knowledge Layer, etc.
+  layerNumber: integer("layer_number").notNull(), // 1-10
+  glyph: text("glyph").notNull(), // ♾️, ✅, 📚, 🧩, 🔰, ⚔️, 💉, 🚛, ⚡, ⚖️
+  lawEnglish: text("law_english").notNull(),
+  lawSwahili: text("law_swahili"),
+  lawYoruba: text("law_yoruba"),
+  lawHebrew: text("law_hebrew"),
+  lawArabic: text("law_arabic"),
+  lawNahuatl: text("law_nahuatl"),
+  hmmm: text("hmmm").array().notNull(), // Harmonic resonance codes
+  hieroglyphs: text("hieroglyphs").array().notNull(), // Sacred symbols
+  streams: text("streams").array().notNull(), // Revenue/value streams
+  status: text("status").notNull(), // PPPPI_sealed, BlueLock_bound, ENFT_monetized, etc.
+});
+
+export const insertCodexLayerSchema = createInsertSchema(codexLayers).omit({
+  id: true,
+});
+
+export type InsertCodexLayer = z.infer<typeof insertCodexLayerSchema>;
+export type CodexLayer = typeof codexLayers.$inferSelect;
+
+// Environmental Cities (Climate, Weather, Density Tracking)
+export const environmentalCities = pgTable("environmental_cities", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  cityName: text("city_name").notNull(),
+  region: text("region").notNull(), // Aquatic, TropiCore, Volcanic, Polar, Dimensional, Galactic
+  climate: text("climate").notNull(), // Tropical, Temperate, Arctic, Desert, etc.
+  currentWeather: text("current_weather"), // Sunny, Rainy, Stormy, etc.
+  temperature: decimal("temperature", { precision: 5, scale: 2 }), // Celsius
+  populationDensity: integer("population_density"), // People per km²
+  latitude: decimal("latitude", { precision: 10, scale: 7 }),
+  longitude: decimal("longitude", { precision: 10, scale: 7 }),
+  biome: text("biome").notNull(), // Sovereign biome designation
+  vaultGuardian: text("vault_guardian"), // Assigned guardian/custodian
+  safeHavenStatus: text("safe_haven_status").notNull(), // Active, Planned, Under Construction
+  mallNode: text("mall_node"), // Reference to associated mall
+});
+
+export const insertEnvironmentalCitySchema = createInsertSchema(environmentalCities).omit({
+  id: true,
+});
+
+export type InsertEnvironmentalCity = z.infer<typeof insertEnvironmentalCitySchema>;
+export type EnvironmentalCity = typeof environmentalCities.$inferSelect;
+
+// Image Audits (ENFT Density Metrics & Provenance)
+export const imageAudits = pgTable("image_audits", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  fileName: text("file_name").notNull(),
+  sizeKb: decimal("size_kb", { precision: 10, scale: 2 }).notNull(),
+  resolution: text("resolution").notNull(), // 1024x1536
+  megapixels: decimal("megapixels", { precision: 5, scale: 3 }).notNull(),
+  bytesPerMegapixel: decimal("bytes_per_megapixel", { precision: 10, scale: 2 }).notNull(),
+  entropyBits: decimal("entropy_bits", { precision: 5, scale: 3 }).notNull(), // Information density
+  edgeDensity: decimal("edge_density", { precision: 5, scale: 3 }).notNull(), // Visual complexity
+  colorfulness: decimal("colorfulness", { precision: 5, scale: 2 }).notNull(),
+  compressionRatio: decimal("compression_ratio", { precision: 5, scale: 2 }).notNull(),
+  densityScore: decimal("density_score", { precision: 5, scale: 3 }).notNull(), // Overall quality metric
+  ipfsCid: text("ipfs_cid"), // NFT.Storage CID
+  keccakHash: text("keccak_hash"), // Provenance verification
+  enftTokenId: text("enft_token_id"), // Associated ENFT token
+});
+
+export const insertImageAuditSchema = createInsertSchema(imageAudits).omit({
+  id: true,
+});
+
+export type InsertImageAudit = z.infer<typeof insertImageAuditSchema>;
+export type ImageAudit = typeof imageAudits.$inferSelect;

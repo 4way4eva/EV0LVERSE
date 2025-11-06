@@ -16,6 +16,7 @@ import MarketIntelligencePage from "@/pages/MarketIntelligencePage";
 import StoryModePage from "@/pages/StoryModePage";
 import ProductShowcasePage from "@/pages/ProductShowcasePage";
 import EvolStudiosPage from "@/pages/EvolStudiosPage";
+import MythologyConsolePage from "@/pages/MythologyConsolePage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -31,6 +32,7 @@ function Router() {
       <Route path="/story-mode" component={StoryModePage} />
       <Route path="/products" component={ProductShowcasePage} />
       <Route path="/evol-studios" component={EvolStudiosPage} />
+      <Route path="/mythology" component={MythologyConsolePage} />
       <Route component={NotFound} />
     </Switch>
   );

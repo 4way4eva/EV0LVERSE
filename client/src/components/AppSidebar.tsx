@@ -28,6 +28,7 @@ import {
   BookOpen,
   Package,
   Film,
+  Sparkles,
 } from "lucide-react";
 
 const menuItems = [
@@ -63,6 +64,11 @@ const menuItems = [
         title: "Mall Command",
         url: "/mall-command",
         icon: Building2,
+      },
+      {
+        title: "Mythology Console",
+        url: "/mythology",
+        icon: Sparkles,
       },
     ],
   },
