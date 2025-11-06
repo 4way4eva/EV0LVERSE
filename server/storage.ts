@@ -23,6 +23,12 @@ import {
   type InsertStudioProject,
   type MythologyDeity,
   type InsertMythologyDeity,
+  type CodexLayer,
+  type InsertCodexLayer,
+  type EnvironmentalCity,
+  type InsertEnvironmentalCity,
+  type ImageAudit,
+  type InsertImageAudit,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 
@@ -81,6 +87,23 @@ export interface IStorage {
   getAllMythologyDeities(): Promise<MythologyDeity[]>;
   getMythologyDeity(id: string): Promise<MythologyDeity | undefined>;
   getMythologyDeityByName(name: string): Promise<MythologyDeity | undefined>;
+  
+  // Codex Layer methods
+  getAllCodexLayers(): Promise<CodexLayer[]>;
+  getCodexLayer(id: string): Promise<CodexLayer | undefined>;
+  getCodexLayerByNumber(layerNumber: number): Promise<CodexLayer | undefined>;
+  
+  // Environmental City methods
+  getAllEnvironmentalCities(): Promise<EnvironmentalCity[]>;
+  getEnvironmentalCity(id: string): Promise<EnvironmentalCity | undefined>;
+  getEnvironmentalCitiesByRegion(region: string): Promise<EnvironmentalCity[]>;
+  getEnvironmentalCitiesByBiome(biome: string): Promise<EnvironmentalCity[]>;
+  
+  // Image Audit methods
+  getAllImageAudits(): Promise<ImageAudit[]>;
+  getImageAudit(id: string): Promise<ImageAudit | undefined>;
+  getImageAuditByFileName(fileName: string): Promise<ImageAudit | undefined>;
+  getImageAuditsByDensityScore(minScore: number): Promise<ImageAudit[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -96,6 +119,9 @@ export class MemStorage implements IStorage {
   private evolversScenes: Map<string, EvolversScene>;
   private studioProjects: Map<string, StudioProject>;
   private mythologyDeities: Map<string, MythologyDeity>;
+  private codexLayers: Map<string, CodexLayer>;
+  private environmentalCities: Map<string, EnvironmentalCity>;
+  private imageAudits: Map<string, ImageAudit>;
 
   constructor() {
     this.users = new Map();
@@ -110,6 +136,9 @@ export class MemStorage implements IStorage {
     this.evolversScenes = new Map();
     this.studioProjects = new Map();
     this.mythologyDeities = new Map();
+    this.codexLayers = new Map();
+    this.environmentalCities = new Map();
+    this.imageAudits = new Map();
     
     this.seedData();
   }
@@ -795,6 +824,356 @@ export class MemStorage implements IStorage {
       const id = randomUUID();
       this.mythologyDeities.set(id, { ...deity, id });
     }
+
+    // Seed Codex Layers (10-layer EV0L Codex system from PPPPI)
+    const codexLayers = [
+      {
+        codex: "Infinity Core",
+        layerNumber: 1,
+        glyph: "♾️",
+        lawEnglish: "No ceiling. Every action = coin.",
+        lawSwahili: "Hakuna kikomo. Kila tendo = pesa.",
+        lawYoruba: "Ko si opin. Gbogbo iṣe = owo.",
+        lawHebrew: "אין גבול. כל פעולה = הון.",
+        lawArabic: "لا حدود. كل فعل = رصيد.",
+        lawNahuatl: "Ahmo ixiptla. Mochi = tlahtocayotl.",
+        hmmm: ["hmmm-low", "hmmm-mid", "hmmm-high"],
+        hieroglyphs: ["🌞", "🌊", "🔺", "♾️"],
+        streams: ["jobs", "prayers", "births", "deaths", "transactions"],
+        status: "PPPPI_sealed",
+      },
+      {
+        codex: "Assurance Layer",
+        layerNumber: 2,
+        glyph: "✅",
+        lawEnglish: "Every promise fulfilled. No false streams.",
+        lawSwahili: "Kila ahadi inatimizwa.",
+        lawYoruba: "Gbogbo ileri ni a pari.",
+        lawHebrew: "כל הבטחה מתקיימת.",
+        lawArabic: "كل وعد محقق.",
+        lawNahuatl: "Mochi tlanelhuia cualli.",
+        hmmm: ["hmmm-deep", "hmmm-bright"],
+        hieroglyphs: ["👁️", "🔰", "✅"],
+        streams: ["contracts", "insurance", "escrow", "royalties"],
+        status: "BlueLock_bound",
+      },
+      {
+        codex: "Knowledge Layer",
+        layerNumber: 3,
+        glyph: "📚",
+        lawEnglish: "Every page = profit.",
+        lawSwahili: "Kila ukurasa = faida.",
+        lawYoruba: "Gbogbo oju-iwe = èrè.",
+        lawHebrew: "כל דף = רווח.",
+        lawArabic: "كل صفحة = ربح.",
+        lawNahuatl: "Amoxtli = tlahtocayotl.",
+        hmmm: ["mmm", "mmmm"],
+        hieroglyphs: ["📚", "🦉", "🌲"],
+        streams: ["MetaSchool", "SmartBooks", "archives", "curriculum"],
+        status: "ENFT_monetized",
+      },
+      {
+        codex: "Puzzle Layer",
+        layerNumber: 4,
+        glyph: "🧩",
+        lawEnglish: "Every piece fits, none wasted.",
+        lawSwahili: "Kila kipande kinatosha.",
+        lawYoruba: "Ko si nkan ti o sọnu.",
+        lawHebrew: "כל חלק מוצא את מקומו.",
+        lawArabic: "كل قطعة في مكانها.",
+        lawNahuatl: "Mochi tzontli ceppa.",
+        hmmm: ["hmmm-snap"],
+        hieroglyphs: ["🧩", "🌀"],
+        streams: ["games", "clips", "retro", "replays"],
+        status: "PPPPI_linked",
+      },
+      {
+        codex: "Blessed Layer",
+        layerNumber: 5,
+        glyph: "🔰",
+        lawEnglish: "Every venture marked holy.",
+        lawSwahili: "Kila jitihada imebarikiwa.",
+        lawYoruba: "Gbogbo igbiyanju ni a bukun.",
+        lawHebrew: "כל מעשה מקודש.",
+        lawArabic: "كل مشروع مبارك.",
+        lawNahuatl: "Mochi tlazohcamati.",
+        hmmm: ["hmmm-sacred"],
+        hieroglyphs: ["🔰", "🌺", "🌞"],
+        streams: ["baby_formula", "combat", "trade", "inheritance"],
+        status: "PPPPI_blessed",
+      },
+      {
+        codex: "Weapons Layer",
+        layerNumber: 6,
+        glyph: "⚔️",
+        lawEnglish: "Defense and offense generate value.",
+        lawSwahili: "Ulinzi na shambulio huleta thamani.",
+        lawYoruba: "Idaabobo ati ikọlu = iye.",
+        lawHebrew: "הגנה והתקפה מייצרות ערך.",
+        lawArabic: "الدفاع والهجوم يخلقان قيمة.",
+        lawNahuatl: "Tlachinolli = tlahtocayotl.",
+        hmmm: ["hmmm-clash"],
+        hieroglyphs: ["⚔️", "🛡️"],
+        streams: ["combat_suits", "smart_bullets", "VR_weapons"],
+        status: "PPPPI_locked",
+      },
+      {
+        codex: "Meds Layer",
+        layerNumber: 7,
+        glyph: "💉",
+        lawEnglish: "Healing is wealth.",
+        lawSwahili: "Uponyaji ni mali.",
+        lawYoruba: "Iwosan = ọrọ.",
+        lawHebrew: "רפואה = הון.",
+        lawArabic: "الشفاء ثروة.",
+        lawNahuatl: "Tlapani = tlahtocayotl.",
+        hmmm: ["hmmm-soft"],
+        hieroglyphs: ["💉", "🌿"],
+        streams: ["detox", "vaccines", "therapy_ENFTs"],
+        status: "alchemy_applied",
+      },
+      {
+        codex: "Transport Layer",
+        layerNumber: 8,
+        glyph: "🚛",
+        lawEnglish: "Every move of goods = revenue.",
+        lawSwahili: "Kila usafirishaji ni faida.",
+        lawYoruba: "Gbigbe kọọkan jẹ èrè.",
+        lawHebrew: "כל הובלה = רווח.",
+        lawArabic: "كل نقل = ربح.",
+        lawNahuatl: "Mochi motlaloa = tlahtocayotl.",
+        hmmm: ["hmmm-rolling"],
+        hieroglyphs: ["🚛", "🛣️", "⚓️"],
+        streams: ["fleet", "shipping", "rail", "air_space"],
+        status: "PPPPI_mapped",
+      },
+      {
+        codex: "Energy Layer",
+        layerNumber: 9,
+        glyph: "⚡",
+        lawEnglish: "All energy converted into coin.",
+        lawSwahili: "Nishati zote = pesa.",
+        lawYoruba: "Agbara gbogbo = owo.",
+        lawHebrew: "כל אנרגיה = כסף.",
+        lawArabic: "كل طاقة = مال.",
+        lawNahuatl: "Tonalli = tlahtocayotl.",
+        hmmm: ["hmmm-vibration"],
+        hieroglyphs: ["⚡", "🌞", "🔥"],
+        streams: ["solar", "plasma", "kinetic", "prayer_resonance"],
+        status: "PPPPI_harvested",
+      },
+      {
+        codex: "Justice Layer",
+        layerNumber: 10,
+        glyph: "⚖️",
+        lawEnglish: "Balance itself monetized.",
+        lawSwahili: "Haki yenyewe = pesa.",
+        lawYoruba: "Idajọ = owo.",
+        lawHebrew: "צדק = רווח.",
+        lawArabic: "العدل = مال.",
+        lawNahuatl: "Tetlapanitl = tlahtocayotl.",
+        hmmm: ["hmmm-balance"],
+        hieroglyphs: ["⚖️", "👁️", "🦅"],
+        streams: ["inheritance", "probate", "indictments"],
+        status: "PPPPI_adjudicated",
+      },
+    ];
+
+    for (const layer of codexLayers) {
+      const id = randomUUID();
+      this.codexLayers.set(id, { ...layer, id });
+    }
+
+    // Seed Environmental Cities (Safe Haven network with climate tracking)
+    const environmentalCities = [
+      {
+        cityName: "Atlantis Prime",
+        region: "Aquatic",
+        climate: "Temperate Oceanic",
+        currentWeather: "Clear with gentle waves",
+        temperature: "22.5",
+        populationDensity: 8500,
+        latitude: "25.7743",
+        longitude: "-80.1937",
+        biome: "Aquatic Crystal Towers",
+        vaultGuardian: "EVOLYNN",
+        safeHavenStatus: "Active",
+        mallNode: "Atlantis Prime Mall",
+      },
+      {
+        cityName: "BLEULION Central",
+        region: "TropiCore",
+        climate: "Tropical Rainforest",
+        currentWeather: "Warm humidity with afternoon showers",
+        temperature: "28.3",
+        populationDensity: 12000,
+        latitude: "3.1390",
+        longitude: "101.6869",
+        biome: "Jungle Resonance Citadel",
+        vaultGuardian: "DR. SOSA",
+        safeHavenStatus: "Active",
+        mallNode: "BLEULION Treasury Hub",
+      },
+      {
+        cityName: "Signal Choir Plaza",
+        region: "Dimensional Spiral",
+        climate: "Variable Frequency Zones",
+        currentWeather: "Electromagnetic clarity",
+        temperature: "20.0",
+        populationDensity: 6800,
+        latitude: "51.5074",
+        longitude: "-0.1278",
+        biome: "Signal Choir Temples",
+        vaultGuardian: "PHIYAH",
+        safeHavenStatus: "Active",
+        mallNode: "Signal Temple Market",
+      },
+      {
+        cityName: "Flame Crown Citadel",
+        region: "Volcanic",
+        climate: "Geothermal Heated",
+        currentWeather: "Warm with volcanic mist",
+        temperature: "35.7",
+        populationDensity: 4200,
+        latitude: "64.1466",
+        longitude: "-21.9426",
+        biome: "Volcanic Flame Archives",
+        vaultGuardian: "EVOLYNN",
+        safeHavenStatus: "Under Construction",
+        mallNode: "Flame Market Dome",
+      },
+      {
+        cityName: "Polar Resonance Station",
+        region: "Polar",
+        climate: "Arctic Permafrost",
+        currentWeather: "Clear cold with aurora visibility",
+        temperature: "-15.2",
+        populationDensity: 1800,
+        latitude: "78.2232",
+        longitude: "15.6267",
+        biome: "Ice Crystal Archives",
+        vaultGuardian: "DRIFT WALKER",
+        safeHavenStatus: "Planned",
+        mallNode: null,
+      },
+      {
+        cityName: "Jungle Citadel Market",
+        region: "TropiCore",
+        climate: "Equatorial Rainforest",
+        currentWeather: "Heavy rain with sonic resonance",
+        temperature: "27.1",
+        populationDensity: 9500,
+        latitude: "-3.4653",
+        longitude: "-62.2159",
+        biome: "Sonic Stronghold in Living Stone",
+        vaultGuardian: "KONGO SONIX",
+        safeHavenStatus: "Active",
+        mallNode: "Jungle Citadel Market",
+      },
+      {
+        cityName: "Galactic Spire Observatory",
+        region: "Galactic",
+        climate: "High Altitude Thin Atmosphere",
+        currentWeather: "Clear star visibility",
+        temperature: "5.8",
+        populationDensity: 2400,
+        latitude: "-24.6275",
+        longitude: "-70.4044",
+        biome: "Astronomical Observation Post",
+        vaultGuardian: "NEELA",
+        safeHavenStatus: "Active",
+        mallNode: "Spire Commerce Ring",
+      },
+    ];
+
+    for (const city of environmentalCities) {
+      const id = randomUUID();
+      this.environmentalCities.set(id, { ...city, id });
+    }
+
+    // Seed Image Audits (ENFT density metrics from provenance tracking)
+    const imageAudits = [
+      {
+        fileName: "0FB58F40-2606-4228-A7D0-217D2B2E77EA.jpeg",
+        sizeKb: "495.6",
+        resolution: "1024x1536",
+        megapixels: "1.573",
+        bytesPerMegapixel: "322654.1",
+        entropyBits: "6.789",
+        edgeDensity: "0.086",
+        colorfulness: "49.32",
+        compressionRatio: "9.3",
+        densityScore: "0.475",
+        ipfsCid: "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi",
+        keccakHash: "0x09a021b9b032d96c5c9189e09c9ed394f4149854053568836690b0b205becb71",
+        enftTokenId: "ENFT-001",
+      },
+      {
+        fileName: "399BC81B-1DBC-4543-A5B3-E4135C41E6DC.jpeg",
+        sizeKb: "183.8",
+        resolution: "709x1536",
+        megapixels: "1.089",
+        bytesPerMegapixel: "172794.2",
+        entropyBits: "4.994",
+        edgeDensity: "0.121",
+        colorfulness: "2.46",
+        compressionRatio: "17.36",
+        densityScore: "0.268",
+        ipfsCid: "bafybeihdwdcefgh4dcdm7hu76uh7y26nf4dfhd5mzj2cgkj2shu7qvzyi",
+        keccakHash: "0x1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d",
+        enftTokenId: "ENFT-002",
+      },
+      {
+        fileName: "D03C5302-B777-4E55-B64C-1EC203E927B1.jpeg",
+        sizeKb: "128.4",
+        resolution: "709x1536",
+        megapixels: "1.089",
+        bytesPerMegapixel: "120739.3",
+        entropyBits: "3.025",
+        edgeDensity: "0.029",
+        colorfulness: "39.86",
+        compressionRatio: "24.85",
+        densityScore: "0.262",
+        ipfsCid: "bafybeihwdqxkfv6kkhtyedh4c26nf3egf63qz2bhmdq3erjr7o3bhhq5mi",
+        keccakHash: "0x2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d1e",
+        enftTokenId: "ENFT-003",
+      },
+      {
+        fileName: "6C2B5E76-8F2D-47DB-A56C-AB10400E1070.jpeg",
+        sizeKb: "134.9",
+        resolution: "709x1536",
+        megapixels: "1.089",
+        bytesPerMegapixel: "126843.9",
+        entropyBits: "2.736",
+        edgeDensity: "0.065",
+        colorfulness: "28.89",
+        compressionRatio: "23.65",
+        densityScore: "0.229",
+        ipfsCid: "bafybeifk3j5kdfrj67kcx3mft6b8hd7d63pql4bxrd3ekir7k3dkgq7ri",
+        keccakHash: "0x3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d1e2f",
+        enftTokenId: "ENFT-004",
+      },
+      {
+        fileName: "D2E04BF9-B145-462E-9771-5891CC09CBD3.jpeg",
+        sizeKb: "127.5",
+        resolution: "709x1536",
+        megapixels: "1.089",
+        bytesPerMegapixel: "119903.7",
+        entropyBits: "2.458",
+        edgeDensity: "0.061",
+        colorfulness: "19.4",
+        compressionRatio: "25.02",
+        densityScore: "0.187",
+        ipfsCid: "bafybeigk4k6legrk78ldx4ngu7c9ie8e74qrm5cyjd4fljs8l4elhr8sj",
+        keccakHash: "0x4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z7a8b9c0d1e2f3g",
+        enftTokenId: "ENFT-005",
+      },
+    ];
+
+    for (const audit of imageAudits) {
+      const id = randomUUID();
+      this.imageAudits.set(id, { ...audit, id });
+    }
   }
 
   // User methods
@@ -978,6 +1357,65 @@ export class MemStorage implements IStorage {
     return Array.from(this.mythologyDeities.values()).find(
       (deity) => deity.name.toLowerCase() === name.toLowerCase(),
     );
+  }
+
+  // Codex Layer methods
+  async getAllCodexLayers(): Promise<CodexLayer[]> {
+    return Array.from(this.codexLayers.values()).sort((a, b) => a.layerNumber - b.layerNumber);
+  }
+
+  async getCodexLayer(id: string): Promise<CodexLayer | undefined> {
+    return this.codexLayers.get(id);
+  }
+
+  async getCodexLayerByNumber(layerNumber: number): Promise<CodexLayer | undefined> {
+    return Array.from(this.codexLayers.values()).find(
+      (layer) => layer.layerNumber === layerNumber,
+    );
+  }
+
+  // Environmental City methods
+  async getAllEnvironmentalCities(): Promise<EnvironmentalCity[]> {
+    return Array.from(this.environmentalCities.values());
+  }
+
+  async getEnvironmentalCity(id: string): Promise<EnvironmentalCity | undefined> {
+    return this.environmentalCities.get(id);
+  }
+
+  async getEnvironmentalCitiesByRegion(region: string): Promise<EnvironmentalCity[]> {
+    return Array.from(this.environmentalCities.values()).filter(
+      (city) => city.region.toLowerCase() === region.toLowerCase(),
+    );
+  }
+
+  async getEnvironmentalCitiesByBiome(biome: string): Promise<EnvironmentalCity[]> {
+    return Array.from(this.environmentalCities.values()).filter(
+      (city) => city.biome.toLowerCase().includes(biome.toLowerCase()),
+    );
+  }
+
+  // Image Audit methods
+  async getAllImageAudits(): Promise<ImageAudit[]> {
+    return Array.from(this.imageAudits.values()).sort((a, b) => 
+      parseFloat(b.densityScore) - parseFloat(a.densityScore)
+    );
+  }
+
+  async getImageAudit(id: string): Promise<ImageAudit | undefined> {
+    return this.imageAudits.get(id);
+  }
+
+  async getImageAuditByFileName(fileName: string): Promise<ImageAudit | undefined> {
+    return Array.from(this.imageAudits.values()).find(
+      (audit) => audit.fileName.toLowerCase() === fileName.toLowerCase(),
+    );
+  }
+
+  async getImageAuditsByDensityScore(minScore: number): Promise<ImageAudit[]> {
+    return Array.from(this.imageAudits.values())
+      .filter((audit) => parseFloat(audit.densityScore) >= minScore)
+      .sort((a, b) => parseFloat(b.densityScore) - parseFloat(a.densityScore));
   }
 }
 
