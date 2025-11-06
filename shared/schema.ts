@@ -390,3 +390,71 @@ export const insertMetaGalaxySchema = createInsertSchema(metaGalaxies).omit({
 
 export type InsertMetaGalaxy = z.infer<typeof insertMetaGalaxySchema>;
 export type MetaGalaxy = typeof metaGalaxies.$inferSelect;
+
+// Treasury Vaults (MetaVault 5100 System)
+export const treasuryVaults = pgTable("treasury_vaults", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(), // Witness, Branch, Frozen, Rare, Cipher
+  densityWeight: integer("density_weight").notNull(), // 2, 3, 5, 8, 13 (Fibonacci)
+  capAllocation: text("cap_allocation").notNull(), // Portion of $51T
+  dailyYield: text("daily_yield").notNull(), // Portion of $1.1T/day
+  enftCount: integer("enft_count").notNull(), // Number of ENFTs in this vault
+  bleuBills: integer("bleu_bills").notNull(), // $10k face value bills
+  pinkBills: integer("pink_bills").notNull(), // $1k face value bills
+  shills: integer("shills").notNull(), // $100 face value shills
+  status: text("status").notNull(), // Active, Frozen, Under Construction
+  description: text("description").notNull(),
+  vaultGuardian: text("vault_guardian"), // Guardian entity/character
+});
+
+export const insertTreasuryVaultSchema = createInsertSchema(treasuryVaults).omit({
+  id: true,
+});
+
+export type InsertTreasuryVault = z.infer<typeof insertTreasuryVaultSchema>;
+export type TreasuryVault = typeof treasuryVaults.$inferSelect;
+
+// ENFT Registry (Enhanced Non-Fungible Tokens)
+export const enftRegistry = pgTable("enft_registry", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  tokenId: integer("token_id").notNull().unique(),
+  vaultId: varchar("vault_id").notNull(), // References treasury_vaults
+  name: text("name").notNull(), // e.g., "Codex - Witness #0001"
+  codexReference: text("codex_reference").notNull(), // Which codex/artifact
+  densityScore: text("density_score").notNull(), // High, Medium, Low
+  metadata: text("metadata").notNull(), // IPFS CID or JSON metadata
+  provenanceHash: text("provenance_hash"), // SHA256/Keccak256
+  mintTransaction: text("mint_transaction"), // Blockchain tx hash
+  currentOwner: text("current_owner").notNull(), // Wallet address
+  mintedDate: text("minted_date").notNull(),
+  attributes: text("attributes").array().notNull(), // Traits/properties
+});
+
+export const insertEnftRegistrySchema = createInsertSchema(enftRegistry).omit({
+  id: true,
+});
+
+export type InsertEnftRegistry = z.infer<typeof insertEnftRegistrySchema>;
+export type EnftRegistry = typeof enftRegistry.$inferSelect;
+
+// MetaVault Summary (Overall Treasury Tracking)
+export const metaVaultSummary = pgTable("meta_vault_summary", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  vaultName: text("vault_name").notNull(), // MetaVault 5100
+  totalCapCeiling: text("total_cap_ceiling").notNull(), // $51T
+  dailyYieldPool: text("daily_yield_pool").notNull(), // $1.1T/day
+  totalVaults: integer("total_vaults").notNull(), // 5
+  totalEnfts: integer("total_enfts").notNull(),
+  totalBleuBills: integer("total_bleu_bills").notNull(),
+  totalPinkBills: integer("total_pink_bills").notNull(),
+  totalShills: integer("total_shills").notNull(),
+  lastUpdated: text("last_updated").notNull(),
+  status: text("status").notNull(), // Operational, Maintenance
+});
+
+export const insertMetaVaultSummarySchema = createInsertSchema(metaVaultSummary).omit({
+  id: true,
+});
+
+export type InsertMetaVaultSummary = z.infer<typeof insertMetaVaultSummarySchema>;
+export type MetaVaultSummary = typeof metaVaultSummary.$inferSelect;
