@@ -18,6 +18,7 @@ import ProductShowcasePage from "@/pages/ProductShowcasePage";
 import EvolStudiosPage from "@/pages/EvolStudiosPage";
 import MythologyConsolePage from "@/pages/MythologyConsolePage";
 import CodexAuditConsolePage from "@/pages/CodexAuditConsolePage";
+import MetaScaleObservatoryPage from "@/pages/MetaScaleObservatoryPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -35,6 +36,7 @@ function Router() {
       <Route path="/evol-studios" component={EvolStudiosPage} />
       <Route path="/mythology" component={MythologyConsolePage} />
       <Route path="/codex-audit" component={CodexAuditConsolePage} />
+      <Route path="/metascale-observatory" component={MetaScaleObservatoryPage} />
       <Route component={NotFound} />
     </Switch>
   );

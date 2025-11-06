@@ -29,6 +29,7 @@ import {
   Package,
   Film,
   Sparkles,
+  Layers,
 } from "lucide-react";
 
 const menuItems = [
@@ -74,6 +75,11 @@ const menuItems = [
         title: "Codex Audit Console",
         url: "/codex-audit",
         icon: FileText,
+      },
+      {
+        title: "MetaScale Observatory",
+        url: "/metascale-observatory",
+        icon: Layers,
       },
     ],
   },
