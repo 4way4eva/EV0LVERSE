@@ -321,3 +321,72 @@ export const insertImageAuditSchema = createInsertSchema(imageAudits).omit({
 
 export type InsertImageAudit = z.infer<typeof insertImageAuditSchema>;
 export type ImageAudit = typeof imageAudits.$inferSelect;
+
+// MetaSchools (Educational/Consciousness Sequencing Systems)
+export const metaSchools = pgTable("meta_schools", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(), // e.g., "OSSMOSIS JONES MODE"
+  core: text("core").notNull(), // e.g., "S.O.R.A - Sonic Omnidirectional Reflex Architecture"
+  layers: text("layers").array().notNull(), // Concentric educational layers
+  disciplines: text("disciplines").array().notNull(), // EVOL Duty, Sonic EVOL, etc.
+  philosophy: text("philosophy").notNull(),
+  status: text("status").notNull(), // Active, Emerging, Planned
+  foundingPrinciple: text("founding_principle").notNull(),
+  graduationRequirement: text("graduation_requirement").notNull(),
+  enrollmentCapacity: integer("enrollment_capacity"),
+  currentEnrollment: integer("current_enrollment"),
+});
+
+export const insertMetaSchoolSchema = createInsertSchema(metaSchools).omit({
+  id: true,
+});
+
+export type InsertMetaSchool = z.infer<typeof insertMetaSchoolSchema>;
+export type MetaSchool = typeof metaSchools.$inferSelect;
+
+// MetaNations (Sovereign Nation-State Structures)
+export const metaNations = pgTable("meta_nations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(), // e.g., "MEGAZILLION EMPIRE"
+  governance: text("governance").notNull(), // Vault Network Democracy, Phi-based Resonance
+  population: integer("population"),
+  capital: text("capital").notNull(),
+  territories: text("territories").array().notNull(), // Domain references
+  primaryLanguages: text("primary_languages").array().notNull(),
+  economicModel: text("economic_model").notNull(),
+  culturalIdentity: text("cultural_identity").notNull(),
+  diplomaticStatus: text("diplomatic_status").notNull(), // Allied, Neutral, Contested
+  techTier: integer("tech_tier").notNull(), // 1-10 scale
+  currencySystem: text("currency_system").notNull(),
+  militaryStrength: text("military_strength"),
+});
+
+export const insertMetaNationSchema = createInsertSchema(metaNations).omit({
+  id: true,
+});
+
+export type InsertMetaNation = z.infer<typeof insertMetaNationSchema>;
+export type MetaNation = typeof metaNations.$inferSelect;
+
+// MetaGalaxies (Cosmic-Scale Organizational Structures)
+export const metaGalaxies = pgTable("meta_galaxies", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(), // e.g., "QuaOctsSync Collective"
+  coordinates: text("coordinates").notNull(), // Cosmic coordinates
+  breedingProtocol: text("breeding_protocol").notNull(), // 8-fold reciprocity design
+  chambers: text("chambers").array().notNull(), // Pyro Chamber, Tera Chamber
+  memberCivilizations: text("member_civilizations").array().notNull(),
+  technologyTier: integer("technology_tier").notNull(), // 1-100 scale
+  resourceFlows: text("resource_flows").array().notNull(),
+  diplomaticStatus: text("diplomatic_status").notNull(),
+  consciousnessLevel: text("consciousness_level").notNull(), // Evolved, Transcendent, Ascended
+  breedingEngine: text("breeding_engine"), // Empire of Civilization mechanics
+  galacticRole: text("galactic_role").notNull(), // Architect, Guardian, Cultivator
+});
+
+export const insertMetaGalaxySchema = createInsertSchema(metaGalaxies).omit({
+  id: true,
+});
+
+export type InsertMetaGalaxy = z.infer<typeof insertMetaGalaxySchema>;
+export type MetaGalaxy = typeof metaGalaxies.$inferSelect;
