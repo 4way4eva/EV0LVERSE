@@ -41,6 +41,16 @@ import {
   type InsertEnftRegistry,
   type MetaVaultSummary,
   type InsertMetaVaultSummary,
+  type EvolMedia,
+  type InsertEvolMedia,
+  type EvolProduct,
+  type InsertEvolProduct,
+  type EvolHero,
+  type InsertEvolHero,
+  type EvolEvent,
+  type InsertEvolEvent,
+  type EvolAnalytics,
+  type InsertEvolAnalytics,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 
@@ -142,6 +152,29 @@ export interface IStorage {
   
   // MetaVault Summary methods
   getMetaVaultSummary(): Promise<MetaVaultSummary | undefined>;
+  
+  // EVOL Media methods
+  getAllEvolMedia(): Promise<EvolMedia[]>;
+  getEvolMedia(id: string): Promise<EvolMedia | undefined>;
+  getFeaturedEvolMedia(): Promise<EvolMedia[]>;
+  
+  // EVOL Product methods
+  getAllEvolProducts(): Promise<EvolProduct[]>;
+  getEvolProduct(id: string): Promise<EvolProduct | undefined>;
+  getFeaturedEvolProducts(): Promise<EvolProduct[]>;
+  
+  // EVOL Hero methods
+  getAllEvolHeroes(): Promise<EvolHero[]>;
+  getEvolHero(id: string): Promise<EvolHero | undefined>;
+  getFeaturedEvolHeroes(): Promise<EvolHero[]>;
+  
+  // EVOL Event methods
+  getAllEvolEvents(): Promise<EvolEvent[]>;
+  getEvolEvent(id: string): Promise<EvolEvent | undefined>;
+  
+  // EVOL Analytics methods
+  getAllEvolAnalytics(): Promise<EvolAnalytics[]>;
+  getEvolAnalytics(id: string): Promise<EvolAnalytics | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -166,6 +199,11 @@ export class MemStorage implements IStorage {
   private treasuryVaults: Map<string, TreasuryVault>;
   private enftRegistry: Map<string, EnftRegistry>;
   private metaVaultSummary: MetaVaultSummary | undefined;
+  private evolMedia: Map<string, EvolMedia>;
+  private evolProducts: Map<string, EvolProduct>;
+  private evolHeroes: Map<string, EvolHero>;
+  private evolEvents: Map<string, EvolEvent>;
+  private evolAnalytics: Map<string, EvolAnalytics>;
 
   constructor() {
     this.users = new Map();
@@ -189,6 +227,11 @@ export class MemStorage implements IStorage {
     this.treasuryVaults = new Map();
     this.enftRegistry = new Map();
     this.metaVaultSummary = undefined;
+    this.evolMedia = new Map();
+    this.evolProducts = new Map();
+    this.evolHeroes = new Map();
+    this.evolEvents = new Map();
+    this.evolAnalytics = new Map();
     
     this.seedData();
   }
@@ -1664,6 +1707,178 @@ export class MemStorage implements IStorage {
       lastUpdated: new Date().toISOString(),
       status: "Operational",
     };
+
+    // Seed EVOL Media
+    const evolMediaData = [
+      {
+        title: "EVOL News Network: Breaking Report on Global Sovereignty",
+        category: "News",
+        description: "Live coverage from EVOL News anchors reporting on the latest sovereign movements and treasury developments across the EVOLVERSE.",
+        imageUrl: "/attached_assets/832939A6-193A-4990-9FE8-AB0B214B9F50_1762471254369.png",
+        publishedDate: new Date().toISOString().split('T')[0],
+        author: "EVOL News Team",
+        featured: true,
+        views: 128540,
+      },
+      {
+        title: "Net Worth Analysis: $5.3 Trillion Sovereign Treasury Revealed",
+        category: "Finance",
+        description: "Exclusive financial breakdown showing the total net worth of the BLEULIONTREASURY ecosystem reaching $5.3 trillion.",
+        imageUrl: "/attached_assets/C694D5A3-16B3-4269-9BDC-00A81CBE969F_1762471254369.png",
+        publishedDate: new Date().toISOString().split('T')[0],
+        author: "Dr. Sosa",
+        featured: true,
+        views: 95240,
+      },
+    ];
+
+    for (const media of evolMediaData) {
+      const id = randomUUID();
+      this.evolMedia.set(id, { ...media, id });
+    }
+
+    // Seed EVOL Products
+    const evolProductsData = [
+      {
+        name: "EVOL VR Pro Headset",
+        tagline: "Experience reality beyond dimensions",
+        category: "VR",
+        description: "Next-generation virtual reality headset with neural interface technology, allowing users to access EVOLVERSE realms in full immersion.",
+        imageUrl: "/attached_assets/9C7F66A6-C696-4444-96D0-AF65F38F2402_1762471254369.png",
+        price: "2499.99",
+        specs: ["8K resolution per eye", "Neural interface compatible", "Quantum entanglement sync", "Realm portal access"],
+        featured: true,
+        releaseDate: "2025-Q4",
+      },
+      {
+        name: "EVOL Hoverboard X1",
+        tagline: "Defy gravity, embrace evolution",
+        category: "Transportation",
+        description: "Anti-gravity personal transportation device powered by electromagnetic field manipulation. Travel across Safe Haven cities in style.",
+        imageUrl: "/attached_assets/53E50397-FB5A-4538-B653-1C8BF8C67E32_1762471254369.png",
+        price: "8999.99",
+        specs: ["Max speed: 120 mph", "Flight time: 4 hours", "Electromagnetic levitation", "Auto-pilot mode"],
+        featured: true,
+        releaseDate: "2025-Q3",
+      },
+      {
+        name: "EVOL SonicWave Headphones",
+        tagline: "Hear the frequencies of sovereignty",
+        category: "Audio",
+        description: "Premium wireless headphones with harmonic resonance technology. Tune into Signal Choir broadcasts and ceremonial frequencies.",
+        imageUrl: "/attached_assets/5B0EEFC0-49F9-4353-985D-4EE89400A796_1762471254369.png",
+        price: "599.99",
+        specs: ["Active noise cancellation", "Harmonic resonance tuning", "72-hour battery", "Ceremonial frequency access"],
+        featured: true,
+        releaseDate: "2025-Q2",
+      },
+    ];
+
+    for (const product of evolProductsData) {
+      const id = randomUUID();
+      this.evolProducts.set(id, { ...product, id });
+    }
+
+    // Seed EVOL Heroes
+    const evolHeroesData = [
+      {
+        name: "Sonic Guardian Prime",
+        alias: "The Blue Blur",
+        bio: "Fastest hero in the EVOLVERSE, protector of momentum and forward progress. Uses sonic speed and vibration nullification to defend against distortion forces.",
+        powers: ["Supersonic speed", "Vibration manipulation", "Time dilation", "Ring energy conversion"],
+        imageUrl: "/attached_assets/4BC5E8DB-EAC1-48FA-A0BE-2BDAF147BBD6_1762471254369.png",
+        category: "Champion",
+        affiliation: "EVOL Defense League",
+        featured: true,
+      },
+      {
+        name: "The Sovereign Alliance",
+        alias: "Unity Force",
+        bio: "Elite team of heroes representing different realms and disciplines. Together they maintain balance across all EVOLVERSE territories.",
+        powers: ["Unified field generation", "Multi-realm coordination", "Collective consciousness", "Strategic sovereignty"],
+        imageUrl: "/attached_assets/809A94B0-323A-4060-88D8-7FA2EFD78D3D_1762471254369.png",
+        category: "Guardian",
+        affiliation: "EVOLVERSE Council",
+        featured: true,
+      },
+      {
+        name: "The Celestial Protectors",
+        alias: "Star Guardians",
+        bio: "Cosmic-tier heroes who defend the EVOLVERSE from inter-dimensional threats. Masters of celestial energy and galactic warfare.",
+        powers: ["Cosmic energy projection", "Starlight shields", "Dimensional barriers", "Celestial navigation"],
+        imageUrl: "/attached_assets/E85D983B-2E69-48A1-9010-00F3E0704086_1762471254369.png",
+        category: "Warrior",
+        affiliation: "Galactic Defense Network",
+        featured: true,
+      },
+    ];
+
+    for (const hero of evolHeroesData) {
+      const id = randomUUID();
+      this.evolHeroes.set(id, { ...hero, id });
+    }
+
+    // Seed EVOL Events
+    const evolEventsData = [
+      {
+        title: "EVOL College World Series Championship",
+        category: "Sports",
+        description: "The most prestigious collegiate baseball tournament in the EVOLVERSE. Teams from Safe Haven universities compete for ultimate glory.",
+        imageUrl: "/attached_assets/D15039CF-4779-41D3-B68A-4D5934C50173_1762471254369.png",
+        venue: "Atlantis Prime Stadium",
+        eventDate: "2025-06-15",
+        status: "Upcoming",
+        attendees: 75000,
+      },
+      {
+        title: "Holographic Harmony Concert: Signal Choir Live",
+        category: "Concert",
+        description: "Immersive holographic performance featuring the legendary Signal Choir. Experience ceremonial frequencies in full dimensional audio.",
+        imageUrl: "/attached_assets/E381BA0E-0709-4FB9-9113-88A28E95CB7D_1762471254369.png",
+        venue: "Harmonic District Arena",
+        eventDate: "2025-07-20",
+        status: "Upcoming",
+        attendees: 125000,
+      },
+    ];
+
+    for (const event of evolEventsData) {
+      const id = randomUUID();
+      this.evolEvents.set(id, { ...event, id });
+    }
+
+    // Seed EVOL Analytics
+    const evolAnalyticsData = [
+      {
+        metricName: "Total Net Worth",
+        value: "5.3",
+        unit: "Trillion",
+        category: "Finance",
+        changePercent: "12.5",
+        lastUpdated: new Date().toISOString(),
+      },
+      {
+        metricName: "Annual Revenue",
+        value: "987",
+        unit: "Billion",
+        category: "Finance",
+        changePercent: "8.3",
+        lastUpdated: new Date().toISOString(),
+      },
+      {
+        metricName: "Global Market Share",
+        value: "62",
+        unit: "Percentage",
+        category: "Market",
+        changePercent: "5.7",
+        lastUpdated: new Date().toISOString(),
+      },
+    ];
+
+    for (const analytics of evolAnalyticsData) {
+      const id = randomUUID();
+      this.evolAnalytics.set(id, { ...analytics, id });
+    }
   }
 
   // User methods
@@ -1976,6 +2191,63 @@ export class MemStorage implements IStorage {
   // MetaVault Summary methods
   async getMetaVaultSummary(): Promise<MetaVaultSummary | undefined> {
     return this.metaVaultSummary;
+  }
+
+  // EVOL Media methods
+  async getAllEvolMedia(): Promise<EvolMedia[]> {
+    return Array.from(this.evolMedia.values());
+  }
+
+  async getEvolMedia(id: string): Promise<EvolMedia | undefined> {
+    return this.evolMedia.get(id);
+  }
+
+  async getFeaturedEvolMedia(): Promise<EvolMedia[]> {
+    return Array.from(this.evolMedia.values()).filter(media => media.featured);
+  }
+
+  // EVOL Product methods
+  async getAllEvolProducts(): Promise<EvolProduct[]> {
+    return Array.from(this.evolProducts.values());
+  }
+
+  async getEvolProduct(id: string): Promise<EvolProduct | undefined> {
+    return this.evolProducts.get(id);
+  }
+
+  async getFeaturedEvolProducts(): Promise<EvolProduct[]> {
+    return Array.from(this.evolProducts.values()).filter(product => product.featured);
+  }
+
+  // EVOL Hero methods
+  async getAllEvolHeroes(): Promise<EvolHero[]> {
+    return Array.from(this.evolHeroes.values());
+  }
+
+  async getEvolHero(id: string): Promise<EvolHero | undefined> {
+    return this.evolHeroes.get(id);
+  }
+
+  async getFeaturedEvolHeroes(): Promise<EvolHero[]> {
+    return Array.from(this.evolHeroes.values()).filter(hero => hero.featured);
+  }
+
+  // EVOL Event methods
+  async getAllEvolEvents(): Promise<EvolEvent[]> {
+    return Array.from(this.evolEvents.values());
+  }
+
+  async getEvolEvent(id: string): Promise<EvolEvent | undefined> {
+    return this.evolEvents.get(id);
+  }
+
+  // EVOL Analytics methods
+  async getAllEvolAnalytics(): Promise<EvolAnalytics[]> {
+    return Array.from(this.evolAnalytics.values());
+  }
+
+  async getEvolAnalytics(id: string): Promise<EvolAnalytics | undefined> {
+    return this.evolAnalytics.get(id);
   }
 }
 

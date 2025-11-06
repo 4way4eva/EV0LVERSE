@@ -590,6 +590,83 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // EVOL Media Routes
+  app.get("/api/evol-media", async (req, res) => {
+    try {
+      const media = await storage.getAllEvolMedia();
+      res.json(media);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch EVOL media" });
+    }
+  });
+
+  app.get("/api/evol-media/featured", async (req, res) => {
+    try {
+      const media = await storage.getFeaturedEvolMedia();
+      res.json(media);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch featured EVOL media" });
+    }
+  });
+
+  // EVOL Products Routes
+  app.get("/api/evol-products", async (req, res) => {
+    try {
+      const products = await storage.getAllEvolProducts();
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch EVOL products" });
+    }
+  });
+
+  app.get("/api/evol-products/featured", async (req, res) => {
+    try {
+      const products = await storage.getFeaturedEvolProducts();
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch featured EVOL products" });
+    }
+  });
+
+  // EVOL Heroes Routes
+  app.get("/api/evol-heroes", async (req, res) => {
+    try {
+      const heroes = await storage.getAllEvolHeroes();
+      res.json(heroes);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch EVOL heroes" });
+    }
+  });
+
+  app.get("/api/evol-heroes/featured", async (req, res) => {
+    try {
+      const heroes = await storage.getFeaturedEvolHeroes();
+      res.json(heroes);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch featured EVOL heroes" });
+    }
+  });
+
+  // EVOL Events Routes
+  app.get("/api/evol-events", async (req, res) => {
+    try {
+      const events = await storage.getAllEvolEvents();
+      res.json(events);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch EVOL events" });
+    }
+  });
+
+  // EVOL Analytics Routes
+  app.get("/api/evol-analytics", async (req, res) => {
+    try {
+      const analytics = await storage.getAllEvolAnalytics();
+      res.json(analytics);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch EVOL analytics" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

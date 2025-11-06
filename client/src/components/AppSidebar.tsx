@@ -30,6 +30,10 @@ import {
   Film,
   Sparkles,
   Layers,
+  Tv,
+  ShoppingBag,
+  Calendar,
+  BarChart3,
 } from "lucide-react";
 
 const menuItems = [
@@ -115,6 +119,36 @@ const menuItems = [
         title: "EVOL Studios",
         url: "/evol-studios",
         icon: Film,
+      },
+    ],
+  },
+  {
+    title: "EVOL Universe",
+    items: [
+      {
+        title: "Media Center",
+        url: "/media-center",
+        icon: Tv,
+      },
+      {
+        title: "EVOL Products",
+        url: "/evol-products",
+        icon: ShoppingBag,
+      },
+      {
+        title: "Heroes & Champions",
+        url: "/heroes",
+        icon: Shield,
+      },
+      {
+        title: "Events & Sports",
+        url: "/events",
+        icon: Calendar,
+      },
+      {
+        title: "Analytics",
+        url: "/analytics",
+        icon: BarChart3,
       },
     ],
   },

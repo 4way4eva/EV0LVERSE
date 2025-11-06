@@ -458,3 +458,102 @@ export const insertMetaVaultSummarySchema = createInsertSchema(metaVaultSummary)
 
 export type InsertMetaVaultSummary = z.infer<typeof insertMetaVaultSummarySchema>;
 export type MetaVaultSummary = typeof metaVaultSummary.$inferSelect;
+
+// EVOL Media Content (News, Videos, Articles)
+export const evolMedia = pgTable("evol_media", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  category: text("category").notNull(), // News, Sports, Entertainment, Tech, Finance
+  description: text("description").notNull(),
+  imageUrl: text("image_url"),
+  publishedDate: text("published_date").notNull(),
+  author: text("author").notNull(),
+  featured: boolean("featured").default(false),
+  views: integer("views").default(0),
+});
+
+export const insertEvolMediaSchema = createInsertSchema(evolMedia).omit({
+  id: true,
+});
+
+export type InsertEvolMedia = z.infer<typeof insertEvolMediaSchema>;
+export type EvolMedia = typeof evolMedia.$inferSelect;
+
+// EVOL Tech Products (VR Headsets, Hoverboards, Audio)
+export const evolProducts = pgTable("evol_products", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  tagline: text("tagline").notNull(),
+  category: text("category").notNull(), // VR, Audio, Transportation, Wearables
+  description: text("description").notNull(),
+  imageUrl: text("image_url").notNull(),
+  price: decimal("price", { precision: 10, scale: 2 }),
+  specs: text("specs").array().notNull(),
+  featured: boolean("featured").default(false),
+  releaseDate: text("release_date"),
+});
+
+export const insertEvolProductSchema = createInsertSchema(evolProducts).omit({
+  id: true,
+});
+
+export type InsertEvolProduct = z.infer<typeof insertEvolProductSchema>;
+export type EvolProduct = typeof evolProducts.$inferSelect;
+
+// EVOL Heroes & Characters
+export const evolHeroes = pgTable("evol_heroes", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  alias: text("alias"),
+  bio: text("bio").notNull(),
+  powers: text("powers").array().notNull(),
+  imageUrl: text("image_url").notNull(),
+  category: text("category").notNull(), // Champion, Guardian, Warrior, Icon
+  affiliation: text("affiliation"), // EVOL, Bleu Lions, etc.
+  featured: boolean("featured").default(false),
+});
+
+export const insertEvolHeroSchema = createInsertSchema(evolHeroes).omit({
+  id: true,
+});
+
+export type InsertEvolHero = z.infer<typeof insertEvolHeroSchema>;
+export type EvolHero = typeof evolHeroes.$inferSelect;
+
+// EVOL Events & Sports
+export const evolEvents = pgTable("evol_events", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  category: text("category").notNull(), // Sports, Concert, Conference, Competition
+  description: text("description").notNull(),
+  imageUrl: text("image_url").notNull(),
+  venue: text("venue"),
+  eventDate: text("event_date").notNull(),
+  status: text("status").notNull(), // Upcoming, Live, Completed
+  attendees: integer("attendees"),
+});
+
+export const insertEvolEventSchema = createInsertSchema(evolEvents).omit({
+  id: true,
+});
+
+export type InsertEvolEvent = z.infer<typeof insertEvolEventSchema>;
+export type EvolEvent = typeof evolEvents.$inferSelect;
+
+// EVOL Analytics & Metrics
+export const evolAnalytics = pgTable("evol_analytics", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  metricName: text("metric_name").notNull(),
+  value: text("value").notNull(),
+  unit: text("unit"), // Trillion, Billion, Percentage
+  category: text("category").notNull(), // Finance, Market, Growth
+  changePercent: decimal("change_percent", { precision: 5, scale: 2 }),
+  lastUpdated: text("last_updated").notNull(),
+});
+
+export const insertEvolAnalyticsSchema = createInsertSchema(evolAnalytics).omit({
+  id: true,
+});
+
+export type InsertEvolAnalytics = z.infer<typeof insertEvolAnalyticsSchema>;
+export type EvolAnalytics = typeof evolAnalytics.$inferSelect;

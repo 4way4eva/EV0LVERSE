@@ -20,6 +20,11 @@ import MythologyConsolePage from "@/pages/MythologyConsolePage";
 import CodexAuditConsolePage from "@/pages/CodexAuditConsolePage";
 import MetaScaleObservatoryPage from "@/pages/MetaScaleObservatoryPage";
 import TreasuryLedgerPage from "@/pages/TreasuryLedgerPage";
+import MediaCenterPage from "@/pages/MediaCenterPage";
+import ProductsPage from "@/pages/ProductsPage";
+import HeroesPage from "@/pages/HeroesPage";
+import EventsPage from "@/pages/EventsPage";
+import AnalyticsPage from "@/pages/AnalyticsPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -39,6 +44,11 @@ function Router() {
       <Route path="/codex-audit" component={CodexAuditConsolePage} />
       <Route path="/metascale-observatory" component={MetaScaleObservatoryPage} />
       <Route path="/treasury-ledger" component={TreasuryLedgerPage} />
+      <Route path="/media-center" component={MediaCenterPage} />
+      <Route path="/evol-products" component={ProductsPage} />
+      <Route path="/heroes" component={HeroesPage} />
+      <Route path="/events" component={EventsPage} />
+      <Route path="/analytics" component={AnalyticsPage} />
       <Route component={NotFound} />
     </Switch>
   );
