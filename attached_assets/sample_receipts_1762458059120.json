@@ -1,0 +1,51 @@
+{
+  "schema": "EV0L/BLEU_RECEIPTS_SAMPLE.v2",
+  "epoch": "2025-10-04",
+  "receipts": [
+    {
+      "bill": "BABY_BLEU",
+      "bucket": "benefits_subsidies",
+      "payout": 52000,
+      "reinvest": 5778,
+      "kpi": {
+        "maternal_mortality_\u2193": true
+      }
+    },
+    {
+      "bill": "BABY_BLEU",
+      "bucket": "capacity_capex",
+      "payout": 18000,
+      "reinvest": 72000
+    },
+    {
+      "bill": "NAVY_BLEU",
+      "bucket": "workforce_scholarships",
+      "payout": 25000,
+      "reinvest": 25000
+    },
+    {
+      "bill": "NAVY_BLEU",
+      "bucket": "reserves",
+      "payout": 0,
+      "reinvest": 60000
+    },
+    {
+      "bill": "AGRI_BLEU",
+      "bucket": "benefits_subsidies",
+      "payout": 30000,
+      "reinvest": 3333
+    },
+    {
+      "bill": "ENERGY_BLEU",
+      "bucket": "capacity_capex",
+      "payout": 15000,
+      "reinvest": 60000
+    },
+    {
+      "bill": "RESPIRATORY_BLEU",
+      "bucket": "benefits_subsidies",
+      "payout": 12000,
+      "reinvest": 1333
+    }
+  ]
+}
