@@ -290,6 +290,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Mythology Deities Routes (Nike, Hermes, Nyx/NØX13)
+  app.get("/api/mythology-deities", async (req, res) => {
+    try {
+      const deities = await storage.getAllMythologyDeities();
+      res.json(deities);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch mythology deities" });
+    }
+  });
+
+  app.get("/api/mythology-deities/:id", async (req, res) => {
+    try {
+      const deity = await storage.getMythologyDeity(req.params.id);
+      if (!deity) {
+        return res.status(404).json({ error: "Deity not found" });
+      }
+      res.json(deity);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch deity" });
+    }
+  });
+
+  app.get("/api/mythology-deities/name/:name", async (req, res) => {
+    try {
+      const deity = await storage.getMythologyDeityByName(req.params.name);
+      if (!deity) {
+        return res.status(404).json({ error: "Deity not found" });
+      }
+      res.json(deity);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch deity by name" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;
