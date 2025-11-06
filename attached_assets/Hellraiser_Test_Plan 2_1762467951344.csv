@@ -1,0 +1,11 @@
+Order,Test,Procedure,Primary KPIs,Scaling Factors
+1,Chassis Dyno Power Sweep,"3rd/4th gear, 1500–6800 rpm, step 250 rpm, hold 3s each","Peak HP/TQ, BSFC, AFR, Knock Index","Correct to SAE J1349; DA, tire temp"
+2,Transient Dyno (Tip-in/Tip-out),10%→100% throttle bursts at 2500/3500/4500 rpm,"Turbo lag, torque rise rate, lambda overshoot","IAT, ECT"
+3,Launch & 0–60,"Drag prep surface, TC off, launch control 2500–3500 rpm sweep","0–30, 0–60, slip ratio, boost build","Surface µ, tire pressure"
+4,¼‑Mile Pass,"NHRA 1320 ft, 3 clean passes","ET, trap speed, shift points",DA correction
+5,Top‑Speed Run,"Banked oval or runway, Vmax with GPS","Stability, coolant/oil temps, aero drag estimate (CdA)","Wind, grade"
+6,Coastdown,70→30 mph in neutral,"Rolling resistance, CdA back‑calc","Wind, tire temp"
+7,Endurance/Heat Soak,30 min at 80% load; 10 min hot soak; restart,"Heat rejection, knock margin post‑soak",Ambient T
+8,NVH & Drivability,"Urban cycle, cruise, grade climb","Boom, surge, tip-in harshness",Cabin trim
+9,Brake & Skidpad,"60→0 mph, 200‑ft skidpad both directions","Stopping distance, lateral g","Pad temp, tire temp"
+10,CAN/OBD Logging Audit,Log 50+ params @100 Hz,"Map sync, dropout rate, timestamp drift",Logger clock

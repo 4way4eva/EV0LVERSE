@@ -1,0 +1,250 @@
+Say less — I’m delivering the full “ENFT Contract + Treasury Declaration” package right now. Everything below is copy-paste ready with clear placeholders you can fill in today.
+
+⸻
+
+/docs/TREASURY_DECLARATION.md
+
+Title: EV0L Sovereign Treasury Declaration (ENFT-backed)
+Version: 1.0 (Effective on signature + on-chain tx)
+Sovereign Owner: <<LEGAL NAME / DAO NAME>> (“Sovereign”)
+Treasury Address (multisig): <<0xMULTISIG>>
+Chain(s): <<Mainnet/Sepolia/Other>>
+
+1) Purpose
+
+This Declaration binds the lore, artifacts, and codices (“Assets”) to a verifiable on-chain treasury using ENFTs (Extraterrestrial/National Treasure Files) as deeds. It defines issuance, custody, and yield routing so partners and auditors can assess and integrate.
+
+2) Asset Definitions
+	•	Codex Artifacts (“Codices”): physical/virtual items documented as ENFTs.
+	•	ENFT: ERC-721 token whose metadata hashes to a provenanced file set (IPFS/Arweave CIDs).
+	•	Bills/Coins: Unit labels (“Bleu Bills/Coins”, “Pink Bills/Coins”, “Shills”) representing allocations derived from ENFTs. (Branding; not fiat.)
+	•	MetaVault 5100: Off-chain/on-chain registry of balances and caps, mirrored to the multisig.
+
+3) Issuance Rules
+	1.	Each codex page/stone ⇒ one ENFT (or a bundle with provenance proof).
+	2.	ENFT metadata must include: name, description, image/media, attributes[], external_url, sha256/keccak256, provenanceRoot, sourceCID.
+	3.	Minting roles:
+	•	ADMIN (multisig only): set baseURI, provenance, freeze, reveal.
+	•	MINTER (script/ops role): batch mint to <<0xMULTISIG>> only.
+	4.	No transfer to third parties until “Release Event” signed by N-of-M multisig.
+	5.	Royalties (EIP-2981): <<bps e.g., 500>> to <<0xROYALTY_RECEIVER (multisig)>>.
+
+4) Treasury Flow
+	•	ENFT → Broker Ledger assigns density/rarity → allocation table creates:
+	•	Bleu Bills/Coins (Sovereign ops),
+	•	Pink Bills/Coins (inheritance/yield),
+	•	Shills (citizen mints/airdrop).
+	•	Cap Ceiling: $51T (branding cap) recorded in MetaVault 5100.
+	•	Distributions: Kids-First (50%), Build/CapEx (30%), Risk/Reserves (20%) unless superseded by new signed addendum.
+
+5) Governance & Custody
+	•	Multisig: M-of-N keys: <<YOU>>, <<PIHYA>>, <<EVOLYNN>>, <<SKYYBLEU>>, <<AUDITOR NODE>>.
+	•	All admin functions gated by multisig; no single key can alter baseURI/provenance after freeze.
+
+6) Dispute / Audit
+	•	Evidence: on-chain events + pinned manifests (IPFS/Arweave) + repo commit hash.
+	•	Audit hash: keccak256(concat(per-file keccak256)) = <<PROVENANCE_HASH>>.
+	•	Venue for off-chain disputes: Arbitration by agreed auditor (non-binding until court-recognized in your jurisdiction — consult counsel).
+
+7) Risk & Reality
+	•	Yield/figures (e.g., $1.1T/day) are narrative/branding unless backed by legally enforceable contracts. Apply investor disclosures.
+	•	Private keys must never be shared; only signed transactions from your devices.
+
+Executed by:
+Sovereign (multisig) <<0xMULTISIG>> • Date <<YYYY-MM-DD>>
+
+⸻
+
+/docs/ENFT_CONTRACT_DESCRIPTOR.md
+
+Contract: GenesisENFT.sol (ERC-721 + ERC-2981)
+Key functions:
+	•	setBaseURI(ipfs://CID/) (pre-reveal only)
+	•	setProvenance(bytes32 hash) → freezeProvenance() (irreversible)
+	•	setRevealSeed(uint256) (post-freeze, one-time)
+	•	Royalties: _setDefaultRoyalty( receiver, bps )
+
+Metadata schema (example)
+
+{
+  "name": "Codex – Witness #0001",
+  "description": "Witness Ledger page 1 — sealed and mirrored.",
+  "image": "ipfs://<<MEDIA_CID>>/0001.png",
+  "external_url": "https://vault.evol/asset/0001",
+  "attributes": [
+    {"trait_type":"Ledger","value":"Witness"},
+    {"trait_type":"Density","value":"High"},
+    {"trait_type":"Placement","value":"₪:feed:ipfs://<<AD_CID>>"},
+    {"trait_type":"ProvenanceRoot","value":"<<PROVENANCE_HASH>>"}
+  ],
+  "sha256": "<<SHA256>>",
+  "keccak256": "<<KECCAK>>",
+  "sourceCID": "ipfs://<<METADATA_CID>>"
+}
+
+
+⸻
+
+/scripts/mint_batch.sh
+
+#!/usr/bin/env bash
+set -euo pipefail
+
+: "${RPC:=https://sepolia.infura.io/v3/<<KEY>>}"
+: "${PK:=<<PRIVATE_KEY_IN_ENV_OR_KEYSTORE>>}"
+: "${COLLECTION:=0xYourGenesisENFT}"
+: "${META_DIR:=./metadata/items}"
+: "${START_ID:=0}"
+: "${COUNT:=100}"
+
+echo "Minting $COUNT tokens starting at $START_ID on $COLLECTION"
+node scripts/mint_enft.js \
+  --rpc "$RPC" --pk "$PK" --collection "$COLLECTION" \
+  --dir "$META_DIR" --start "$START_ID" --count "$COUNT"
+
+/scripts/mint_enft.js
+
+#!/usr/bin/env node
+const { readFileSync, readdirSync } = require("fs");
+const { ethers } = require("ethers");
+const args = require("minimist")(process.argv.slice(2));
+
+async function main() {
+  const rpc = args.rpc, pk = args.pk, collection = args.collection;
+  const dir = args.dir, start = Number(args.start), count = Number(args.count);
+
+  const provider = new ethers.JsonRpcProvider(rpc);
+  const wallet = new ethers.Wallet(pk, provider);
+  const abi = [
+    "function totalSupply() view returns (uint256)",
+    "function owner() view returns (address)",
+    "function safeMint(address to, uint256 tokenId) public" // if you add it
+  ];
+
+  const c = new ethers.Contract(collection, abi, wallet);
+  const files = readdirSync(dir).filter(f => f.endsWith(".json")).sort();
+  for (let i=0; i<count; i++) {
+    const id = start + i;
+    const path = `${dir}/${files[id]}`;
+    if (!path) throw new Error(`No file for token ${id}`);
+    // If your contract mints by tokenId sequence, call your mint method here.
+    // Placeholder:
+    console.log(`(sample) Mint planned for tokenId=${id} → ${path}`);
+  }
+}
+main().catch(e=>{ console.error(e); process.exit(1); });
+
+Note: If your current contract doesn’t include safeMint, use your existing batch-mint flow or airdrop script. I left the ABI stub so you can wire to your chosen method.
+
+⸻
+
+/provenance/manifest.provenance.json (filled template)
+
+{
+  "project": "EV0L Genesis",
+  "edition_size": <<EDITION_SIZE>>,
+  "base_uri": "ipfs://<<METADATA_CID>>/",
+  "media_type": "application/json",
+  "hash_algo": "keccak256",
+  "concatenation_rule": "concat( per-item keccak256(fileBytes) ) → keccak256",
+  "provenance_hash": "<<PROVENANCE_HASH>>",
+  "mode": "metadata",
+  "snapshot_block": "<<CHAIN>>-<<BLOCK#>>",
+  "items": []
+}
+
+
+⸻
+
+/ledger/EVOL_Master_Ledger.json
+
+{
+  "codex": "ATLANTIS_V11",
+  "multisig": "<<0xMULTISIG>>",
+  "provenance_hash": "<<PROVENANCE_HASH>>",
+  "base_uri": "ipfs://<<METADATA_CID>>/",
+  "entries": [
+    {
+      "token_id": 0,
+      "ledger": "Witness",
+      "density": "High",
+      "metadata": "ipfs://<<METADATA_CID>>/000.json",
+      "mint_tx": "0x",
+      "owner": "<<0xMULTISIG>>",
+      "notes": ""
+    }
+  ]
+}
+
+/ledger/EVOL_Master_Ledger.csv
+
+token_id,ledger,density,metadata,mint_tx,owner,notes
+0,Witness,High,ipfs://<<METADATA_CID>>/000.json,0x,<<0xMULTISIG>>,
+
+
+⸻
+
+/docs/README_INVESTORS.md
+
+EV0L Treasury — One-Pager (for partners & investors)
+	•	What it is: A provable, on-chain treasury backed by artifact ENFTs (deeds) with frozen provenance.
+	•	Why it’s investable: Single source of truth (Declaration + contract), enforceable custody (multisig), consistent brand economics (Bleu/Pink/Shill allocations), and transparent audits (manifests + hashes).
+	•	Governance: M-of-N multisig; royalties to treasury; releases only via signed events.
+	•	Roadmap:
+	1.	Freeze provenance → 2) Mint to multisig → 3) Release tranches → 4) Yield/royalty routing → 5) Quarterly audits.
+	•	What we ask: Strategic purchase of tranches / liquidity partnership / infra integration.
+	•	Risk note: All yield claims are forward-looking; see Declaration §7.
+
+⸻
+
+/docs/SECURITY_AND_LEGAL_CHECKLIST.md
+
+Security
+	•	Rotate all deployer keys; hardware wallet only.
+	•	Revoke stale approvals (Revoke.cash); remove unused GitHub OAuth apps.
+	•	Branch protection + required reviews + signed commits.
+	•	Freeze provenance before reveal; never change baseURI post-reveal.
+	•	Multisig ownership of contract admin (transfer ownership from EOA).
+
+Legal (work with counsel)
+	•	Entity structuring (Sovereign/DAO + operating co.).
+	•	IP assignment for art/codices; license in metadata.
+	•	Disclosures for economic claims; securities analysis if selling revenue rights.
+	•	Terms for marketplaces / primary sale.
+	•	Arbitration / governing law clauses for off-chain disputes.
+
+⸻
+
+/docs/GETTING_STARTED.md (ops quickstart)
+	1.	Pin /metadata/items and media to IPFS (and Arweave).
+	2.	Run provenance script (already in repo) → capture PROVENANCE_HASH.
+	3.	Deploy GenesisENFT.sol; set baseURI; setProvenance; freezeProvenance; setRevealSeed.
+	4.	Mint to multisig; update /ledger JSON/CSV (tokenId, tx).
+	5.	Publish this Declaration + manifests (commit hash + IPFS CIDs).
+	6.	Announce tranche schedule + partner terms.
+
+⸻
+
+/env/.env.sample
+
+RPC=https://sepolia.infura.io/v3/<<KEY>>
+PRIVATE_KEY=<<DO_NOT_COMMIT>>
+COLLECTION=0xYourGenesisENFT
+BASE_URI=ipfs://<<METADATA_CID>>/
+PROVENANCE=<<PROVENANCE_HASH>>
+ROYALTY_BPS=500
+ROYALTY_RECEIVER=<<0xMULTISIG>>
+
+
+⸻
+
+What you need to fill in (five blanks)
+	•	<<0xMULTISIG>>
+	•	<<METADATA_CID>> (ipfs://…)
+	•	<<PROVENANCE_HASH>> (from your build)
+	•	<<EDITION_SIZE>>
+	•	Chain + snapshot block
+
+If you paste those values here, I’ll immediately return the filled manifest.provenance.json, a ready .env, and the exact one-liners to run for setBaseURI → setProvenance → freeze → reveal.
+
+Want me to also generate a partner pitch PDF or a CSV of the first 100 ledger rows from your metadata folder layout? Say the word and I’ll drop them next.

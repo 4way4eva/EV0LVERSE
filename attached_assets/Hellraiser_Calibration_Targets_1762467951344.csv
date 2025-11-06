@@ -1,0 +1,15 @@
+Subsystem,Target,Notes
+Engine Output,≥820 hp @ crank; ≥700 whp,Beat Hellcat/Redeye stock by margin
+0–60 mph,≤3.2 s,Street tire; ≤3.0 s on drag radial
+¼‑Mile ET,≤10.4 s @ ≥135 mph,DA corrected
+Top Speed,≥205 mph,Stability priority
+Boost Control,Peak 16–18 psi; hold to 6500 rpm,2.65L blower or twin turbo equiv.
+AFR/Lambda,0.80–0.82 λ (WOT boost),E10 pump gas; richer on E85 0.78
+Ignition Timing,Knock index <2%; MBT timing ±2°,IAT comp tables active
+Cam Phasing (VVT),"Low‑rpm advance for torque, high‑rpm retard for VE",Blend map validated on dyno
+Torque Management,Soft limit 800 lb‑ft; protect gearbox,Per‑gear torque shaping
+Shift Strategy,WOT shifts 6500–6800 rpm,Torque cut 40–60 ms
+Cooling,ECT ≤105°C; Oil ≤130°C; IAT2 ≤60°C,After 30‑min 80% load
+Fuel System,DI+PI duty ≤85%,Low‑side ≥72 psi under WOT
+Aero CdA,≤0.70 m² (coupe est.),Splitter + rear decklid spoiler
+Braking,60→0 ≤105 ft,"400mm rotors, 6‑piston front"
