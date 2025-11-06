@@ -43,6 +43,13 @@ The project integrates mythological narratives from the BLACK§BLEU Sovereign Zo
    - Search and filter functionality
    - ROI metrics and overscale projections table
 
+7. **ENFT Story Mode** (`/story-mode`)
+   - 13 interactive story chapters with expandable narratives
+   - Rich visual storytelling using ceremonial imagery (EVOL Awards, Pour House, SORA Spiral, etc.)
+   - Chapter progression system with unlock status tracking
+   - Category badges (Event, Location, Technology, Institution, Protocol, Wisdom, Infrastructure)
+   - Featured character integration linking to EvolVerse heroes
+
 ### Technical Implementation
 - **Navigation**: Shadcn sidebar primitives with grouped menu items (Core, Command & Control, Operations)
 - **Data Layer**: All pages fetch from RESTful API endpoints using TanStack Query
@@ -57,6 +64,7 @@ The project integrates mythological narratives from the BLACK§BLEU Sovereign Zo
 - `GET /api/mall-nodes` - Mall Command Center data
 - `GET /api/ceremonial-rituals` - Ceremonial Protocol data
 - `GET /api/market-products` - Market Intelligence data
+- `GET /api/story-chapters` - ENFT Story Mode chapters
 
 ## User Preferences
 
@@ -98,6 +106,7 @@ Preferred communication style: Simple, everyday language.
   - Mall Nodes (physical/virtual commerce hubs)
   - Market Products (ceremonial commerce items)
   - Ceremonial Rituals (protocol definitions)
+  - Story Chapters (ENFT narrative sequences)
 
 ### Authentication & Authorization
 - **Current State**: Basic user schema with username/password (foundation only)

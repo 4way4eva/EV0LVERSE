@@ -233,6 +233,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Story Chapters Routes
+  app.get("/api/story-chapters", async (req, res) => {
+    try {
+      const chapters = await storage.getStoryChapters();
+      res.json(chapters);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch story chapters" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

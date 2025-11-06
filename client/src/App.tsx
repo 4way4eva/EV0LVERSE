@@ -13,6 +13,7 @@ import HiddenSocietiesPage from "@/pages/HiddenSocietiesPage";
 import MallCommandPage from "@/pages/MallCommandPage";
 import CeremonialPage from "@/pages/CeremonialPage";
 import MarketIntelligencePage from "@/pages/MarketIntelligencePage";
+import StoryModePage from "@/pages/StoryModePage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/mall-command" component={MallCommandPage} />
       <Route path="/ceremonial" component={CeremonialPage} />
       <Route path="/market-intelligence" component={MarketIntelligencePage} />
+      <Route path="/story-mode" component={StoryModePage} />
       <Route component={NotFound} />
     </Switch>
   );

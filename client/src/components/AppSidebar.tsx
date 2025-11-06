@@ -25,6 +25,7 @@ import {
   Building2,
   Flame,
   TrendingUp,
+  BookOpen,
 } from "lucide-react";
 
 const menuItems = [
@@ -75,6 +76,11 @@ const menuItems = [
         title: "Market Intelligence",
         url: "/market-intelligence",
         icon: TrendingUp,
+      },
+      {
+        title: "ENFT Story Mode",
+        url: "/story-mode",
+        icon: BookOpen,
       },
     ],
   },

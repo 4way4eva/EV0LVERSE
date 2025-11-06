@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer, decimal } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, decimal, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -136,3 +136,23 @@ export const insertCeremonialRitualSchema = createInsertSchema(ceremonialRituals
 
 export type InsertCeremonialRitual = z.infer<typeof insertCeremonialRitualSchema>;
 export type CeremonialRitual = typeof ceremonialRituals.$inferSelect;
+
+// Story Chapters
+export const storyChapters = pgTable("story_chapters", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  chapterNumber: integer("chapter_number").notNull(),
+  title: text("title").notNull(),
+  subtitle: text("subtitle").notNull(),
+  narrative: text("narrative").notNull(),
+  imagePath: text("image_path").notNull(),
+  category: text("category").notNull(),
+  unlocked: boolean("unlocked").notNull().default(true),
+  charactersFeatured: text("characters_featured").array().notNull(),
+});
+
+export const insertStoryChapterSchema = createInsertSchema(storyChapters).omit({
+  id: true,
+});
+
+export type InsertStoryChapter = z.infer<typeof insertStoryChapterSchema>;
+export type StoryChapter = typeof storyChapters.$inferSelect;
