@@ -324,6 +324,125 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Codex Layers Routes (10-layer EV0L Codex system)
+  app.get("/api/codex-layers", async (req, res) => {
+    try {
+      const layers = await storage.getAllCodexLayers();
+      res.json(layers);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch codex layers" });
+    }
+  });
+
+  app.get("/api/codex-layers/:id", async (req, res) => {
+    try {
+      const layer = await storage.getCodexLayer(req.params.id);
+      if (!layer) {
+        return res.status(404).json({ error: "Codex layer not found" });
+      }
+      res.json(layer);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch codex layer" });
+    }
+  });
+
+  app.get("/api/codex-layers/number/:layerNumber", async (req, res) => {
+    try {
+      const layerNumber = parseInt(req.params.layerNumber);
+      const layer = await storage.getCodexLayerByNumber(layerNumber);
+      if (!layer) {
+        return res.status(404).json({ error: "Codex layer not found" });
+      }
+      res.json(layer);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch codex layer by number" });
+    }
+  });
+
+  // Environmental Cities Routes (Climate & Density Tracking)
+  app.get("/api/environmental-cities", async (req, res) => {
+    try {
+      const cities = await storage.getAllEnvironmentalCities();
+      res.json(cities);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch environmental cities" });
+    }
+  });
+
+  app.get("/api/environmental-cities/:id", async (req, res) => {
+    try {
+      const city = await storage.getEnvironmentalCity(req.params.id);
+      if (!city) {
+        return res.status(404).json({ error: "Environmental city not found" });
+      }
+      res.json(city);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch environmental city" });
+    }
+  });
+
+  app.get("/api/environmental-cities/region/:region", async (req, res) => {
+    try {
+      const cities = await storage.getEnvironmentalCitiesByRegion(req.params.region);
+      res.json(cities);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch cities by region" });
+    }
+  });
+
+  app.get("/api/environmental-cities/biome/:biome", async (req, res) => {
+    try {
+      const cities = await storage.getEnvironmentalCitiesByBiome(req.params.biome);
+      res.json(cities);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch cities by biome" });
+    }
+  });
+
+  // Image Audits Routes (ENFT Density Metrics & Provenance)
+  app.get("/api/image-audits", async (req, res) => {
+    try {
+      const audits = await storage.getAllImageAudits();
+      res.json(audits);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch image audits" });
+    }
+  });
+
+  app.get("/api/image-audits/:id", async (req, res) => {
+    try {
+      const audit = await storage.getImageAudit(req.params.id);
+      if (!audit) {
+        return res.status(404).json({ error: "Image audit not found" });
+      }
+      res.json(audit);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch image audit" });
+    }
+  });
+
+  app.get("/api/image-audits/file/:fileName", async (req, res) => {
+    try {
+      const audit = await storage.getImageAuditByFileName(req.params.fileName);
+      if (!audit) {
+        return res.status(404).json({ error: "Image audit not found" });
+      }
+      res.json(audit);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch image audit by filename" });
+    }
+  });
+
+  app.get("/api/image-audits/density/:minScore", async (req, res) => {
+    try {
+      const minScore = parseFloat(req.params.minScore);
+      const audits = await storage.getImageAuditsByDensityScore(minScore);
+      res.json(audits);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch image audits by density score" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;
