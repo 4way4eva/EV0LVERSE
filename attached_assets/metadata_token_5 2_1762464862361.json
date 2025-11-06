@@ -1,0 +1,9 @@
+{
+  "name": "Mineral–Seed Fusion: Hematite + Cocoa",
+  "description": "This ENFT represents a Mineral–Seed fusion combining hematite with cocoa to create grounding foods and magnetically charged produce.",
+  "image": "ipfs://<YOUR_IMAGE_CID>",
+  "cross_type": "Mineral–Seed",
+  "fusion_targets": ["Hematite + Cocoa"],
+  "outcome": "Grounding Foods, Magnetically Charged Produce",
+  "recipient_address": "0x57d958b9dd489c71e2872877ad2d7283c09b4da9"
+}

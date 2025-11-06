@@ -1,0 +1,6 @@
+key,value,notes
+minutes_from_midnight,610,10*60+10
+binary_1010_decimal,10,1010₂ = 10₁₀
+fibonacci_index,15,F15 = 610
+neighbors,377|610|987,adjacent Fibonacci numbers
+digital_root,7,6+1+0

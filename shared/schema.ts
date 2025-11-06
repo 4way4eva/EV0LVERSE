@@ -223,3 +223,27 @@ export const insertStudioProjectSchema = createInsertSchema(studioProjects).omit
 
 export type InsertStudioProject = z.infer<typeof insertStudioProjectSchema>;
 export type StudioProject = typeof studioProjects.$inferSelect;
+
+// Mythology Deities (Nike, Hermes, Nyx/NØX - Divine Protocol System)
+export const mythologyDeities = pgTable("mythology_deities", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(), // Nike, Hermes, Nyx
+  greekName: text("greek_name").notNull(),
+  romanName: text("roman_name").notNull(),
+  domain: text("domain").notNull(), // Victory, Trade/Travel/Messaging, Night/Dreams/Death
+  evolEncoding: text("evol_encoding").array().notNull(), // How deity is encoded in EV0LVERSE
+  reactiveProtocols: text("reactive_protocols").array().notNull(), // Modern system activations
+  classicalSymbols: text("classical_symbols").array().notNull(), // Winged sandals, caduceus, veil
+  modernActivations: text("modern_activations").array().notNull(), // JetBoots, BLEU-Chain oracle, Checkout Cloak
+  gateNumber: integer("gate_number"), // For NØX gate system (1-13)
+  ceremonyType: text("ceremony_type"), // Ritual category
+  primaryColor: text("primary_color").notNull(),
+  iconSymbol: text("icon_symbol").notNull(),
+});
+
+export const insertMythologyDeitySchema = createInsertSchema(mythologyDeities).omit({
+  id: true,
+});
+
+export type InsertMythologyDeity = z.infer<typeof insertMythologyDeitySchema>;
+export type MythologyDeity = typeof mythologyDeities.$inferSelect;

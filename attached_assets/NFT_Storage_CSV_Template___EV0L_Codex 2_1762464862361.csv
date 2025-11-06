@@ -1,0 +1,11 @@
+token_id,name,metadata_json_path,image_cid_placeholder,metadata_cid
+1,EV0L Codex — Infinity Core,metadata_token_1.json,REPLACE_IMAGE_CID_1,
+2,EV0L Codex — Assurance Layer,metadata_token_2.json,REPLACE_IMAGE_CID_2,
+3,EV0L Codex — Knowledge Layer,metadata_token_3.json,REPLACE_IMAGE_CID_3,
+4,EV0L Codex — Puzzle Layer,metadata_token_4.json,REPLACE_IMAGE_CID_4,
+5,EV0L Codex — Blessed Layer,metadata_token_5.json,REPLACE_IMAGE_CID_5,
+6,EV0L Codex — Weapons Layer,metadata_token_6.json,REPLACE_IMAGE_CID_6,
+7,EV0L Codex — Meds Layer,metadata_token_7.json,REPLACE_IMAGE_CID_7,
+8,EV0L Codex — Transport Layer,metadata_token_8.json,REPLACE_IMAGE_CID_8,
+9,EV0L Codex — Energy Layer,metadata_token_9.json,REPLACE_IMAGE_CID_9,
+10,EV0L Codex — Justice Layer,metadata_token_10.json,REPLACE_IMAGE_CID_10,

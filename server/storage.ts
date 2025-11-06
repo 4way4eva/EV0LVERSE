@@ -21,6 +21,8 @@ import {
   type InsertEvolversScene,
   type StudioProject,
   type InsertStudioProject,
+  type MythologyDeity,
+  type InsertMythologyDeity,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 
@@ -74,6 +76,11 @@ export interface IStorage {
   getAllStudioProjects(): Promise<StudioProject[]>;
   getStudioProjectsByType(projectType: string): Promise<StudioProject[]>;
   getStudioProjectsByStatus(status: string): Promise<StudioProject[]>;
+  
+  // Mythology Deity methods
+  getAllMythologyDeities(): Promise<MythologyDeity[]>;
+  getMythologyDeity(id: string): Promise<MythologyDeity | undefined>;
+  getMythologyDeityByName(name: string): Promise<MythologyDeity | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -88,6 +95,7 @@ export class MemStorage implements IStorage {
   private showcaseProducts: Map<string, ShowcaseProduct>;
   private evolversScenes: Map<string, EvolversScene>;
   private studioProjects: Map<string, StudioProject>;
+  private mythologyDeities: Map<string, MythologyDeity>;
 
   constructor() {
     this.users = new Map();
@@ -101,6 +109,7 @@ export class MemStorage implements IStorage {
     this.showcaseProducts = new Map();
     this.evolversScenes = new Map();
     this.studioProjects = new Map();
+    this.mythologyDeities = new Map();
     
     this.seedData();
   }
@@ -703,6 +712,89 @@ export class MemStorage implements IStorage {
       const id = randomUUID();
       this.studioProjects.set(id, { ...project, id });
     }
+
+    // Seed Mythology Deities (Nike, Hermes, Nyx/NØX13)
+    const mythologyDeities = [
+      {
+        name: "Nike",
+        greekName: "Nike",
+        romanName: "Victoria",
+        domain: "Victory, Speed, Triumph",
+        evolEncoding: [
+          "Victory-as-a-Service (VAAS) protocol",
+          "BLEUStyle QuickFit ritual fittings",
+          "Silent checkout victories via BLEU AI voice agents",
+          "Legacy wins through aesthetic + economic + ancestral loops"
+        ],
+        reactiveProtocols: [
+          "Win-state triggers on ENFT minting completion",
+          "Speed-routing intelligence in checkout flows",
+          "Triumph metrics tracking across ceremonial events",
+          "Victory loops: Performance → Recognition → Reward → Performance"
+        ],
+        classicalSymbols: ["Winged sandals", "Victory wreath", "Palm branch", "Speed wings"],
+        modernActivations: ["JetBoots in PortalShades checkout (hover during purchase)", "QuickFit AR fashion trials", "Whisper victories in couch commerce", "Speed-sealed ENFT certificates"],
+        gateNumber: null,
+        ceremonyType: "Victory Seal",
+        primaryColor: "#FFD700",
+        iconSymbol: "🏆",
+      },
+      {
+        name: "Hermes",
+        greekName: "Hermes",
+        romanName: "Mercury",
+        domain: "Trade, Travel, Messaging, Commerce",
+        evolEncoding: [
+          "BLEU Broker AI - multi-domain vendor node",
+          "Telepathic commerce and intent-based transactions",
+          "Pirate Protocol for shadow pricing logic",
+          "Divine ↔ Mortal realm bridge (symbolic ↔ transactional energy)"
+        ],
+        reactiveProtocols: [
+          "Cross-chain oracle routing via caduceus logic",
+          "Message relay between vaults and marketplaces",
+          "Theft detection and anti-piracy countermeasures",
+          "Travel-speed checkout for interdimensional commerce"
+        ],
+        classicalSymbols: ["Caduceus staff", "Winged helmet", "Winged sandals", "Herald's wand"],
+        modernActivations: ["BLEU-Chain oracle crossings", "Currency scepter stabilizing divine/market flows", "Broker AI appearing in watchtower mirror UI", "Taxiated Treason of Treasury (tolls, trade, motion)"],
+        gateNumber: null,
+        ceremonyType: "Commerce Seal",
+        primaryColor: "#FF6B35",
+        iconSymbol: "⚡",
+      },
+      {
+        name: "Nyx / NØX13",
+        greekName: "Nyx",
+        romanName: "Nox",
+        domain: "Night, Darkness, Dreams, Death, Time-Weaving",
+        evolEncoding: [
+          "NØX13 Gate System - 13th seal protocol",
+          "Checkout Cloak - anonymized commerce overlay",
+          "Jetsonian couch-commerce (dream-state transactions)",
+          "Dark-mode commerce engines (anti-surveillance retail)",
+          "Meniscus gateway at tick 13 - where all time splits"
+        ],
+        reactiveProtocols: [
+          "Dream wallet activation during sleep cycles",
+          "ENFT death-codes for resurrection protocols",
+          "Night phase checkout mirrors (NØX1-NØX12)",
+          "Hidden fate override and reversal loops",
+          "Admin override for platform resets and ritual endgame triggers"
+        ],
+        classicalSymbols: ["Veil of darkness", "Starry cloak", "Night chariot", "Shadow crown"],
+        modernActivations: ["Checkout Cloak anonymization", "Dream-spawned token minting", "13th Gate access to Chaos protocols", "Cloaked retail infrastructure with time-bending capabilities"],
+        gateNumber: 13,
+        ceremonyType: "Night Seal / Shadow Governance",
+        primaryColor: "#1A0033",
+        iconSymbol: "🌑",
+      },
+    ];
+
+    for (const deity of mythologyDeities) {
+      const id = randomUUID();
+      this.mythologyDeities.set(id, { ...deity, id });
+    }
   }
 
   // User methods
@@ -859,6 +951,32 @@ export class MemStorage implements IStorage {
   async getStudioProjectsByStatus(status: string): Promise<StudioProject[]> {
     return Array.from(this.studioProjects.values()).filter(
       (project) => project.status.toLowerCase() === status.toLowerCase(),
+    );
+  }
+
+  // EVOLVERS Scene methods (implementing missing interface methods)
+  async getAllEvolversScenes(): Promise<EvolversScene[]> {
+    return Array.from(this.evolversScenes.values()).sort((a, b) => a.sceneNumber - b.sceneNumber);
+  }
+
+  async getEvolversScenesByAct(act: string): Promise<EvolversScene[]> {
+    return Array.from(this.evolversScenes.values())
+      .filter((scene) => scene.act.toLowerCase() === act.toLowerCase())
+      .sort((a, b) => a.sceneNumber - b.sceneNumber);
+  }
+
+  // Mythology Deity methods
+  async getAllMythologyDeities(): Promise<MythologyDeity[]> {
+    return Array.from(this.mythologyDeities.values());
+  }
+
+  async getMythologyDeity(id: string): Promise<MythologyDeity | undefined> {
+    return this.mythologyDeities.get(id);
+  }
+
+  async getMythologyDeityByName(name: string): Promise<MythologyDeity | undefined> {
+    return Array.from(this.mythologyDeities.values()).find(
+      (deity) => deity.name.toLowerCase() === name.toLowerCase(),
     );
   }
 }
