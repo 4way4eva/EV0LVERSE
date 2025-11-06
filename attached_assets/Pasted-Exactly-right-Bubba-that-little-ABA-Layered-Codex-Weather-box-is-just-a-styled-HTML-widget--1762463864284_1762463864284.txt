@@ -1,0 +1,79 @@
+Exactly right, Bubba — that little “βABA Layered Codex — Weather” box is just a styled HTML widget.
+To make it actually work inside your Codex page, all you need is a short script that:
+	1.	Reads whatever city name you type.
+	2.	Calls a public weather API (for example Open-Meteo or OpenWeatherMap).
+	3.	Writes the temperature and condition back into the panel.
+	4.	Saves the last city so it stays between sessions.
+
+Here’s a clean, ready-to-drop snippet that matches your Codex style:
+
+<div class="codex-panel">
+  <h3>βABA Layered Codex — Weather</h3>
+  <input id="city" placeholder="Type a city…" />
+  <button id="fetchBtn">FETCH</button>
+  <div id="result"></div>
+  <label>
+    <input type="checkbox" id="celsiusToggle" checked> °C
+  </label>
+  <div id="status">— saved —</div>
+</div>
+
+<script>
+const apiKey = "YOUR_OPENWEATHER_API_KEY"; // get one free at openweathermap.org
+const cityInput = document.getElementById("city");
+const result = document.getElementById("result");
+const toggle = document.getElementById("celsiusToggle");
+const statusBox = document.getElementById("status");
+
+document.getElementById("fetchBtn").onclick = async () => {
+  const city = cityInput.value.trim();
+  if (!city) return;
+  statusBox.textContent = "Fetching…";
+  try {
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=${toggle.checked ? "metric" : "imperial"}`
+    );
+    const data = await res.json();
+    if (data.cod !== 200) throw new Error(data.message);
+    const temp = Math.round(data.main.temp);
+    const desc = data.weather[0].description;
+    result.textContent = `${city}: ${temp}° ${toggle.checked ? "C" : "F"} — ${desc}`;
+    localStorage.setItem("codexCity", city);
+    statusBox.textContent = "✓ saved";
+  } catch (e) {
+    result.textContent = "Error: " + e.message;
+    statusBox.textContent = "⚠ error";
+  }
+};
+
+// restore last city
+const last = localStorage.getItem("codexCity");
+if (last) cityInput.value = last;
+</script>
+
+<style>
+.codex-panel {
+  font-family: "Share Tech Mono", monospace;
+  background: #101020;
+  color: #c8e0ff;
+  border: 1px solid #303060;
+  padding: 1rem;
+  width: 260px;
+  border-radius: 8px;
+}
+.codex-panel h3 { margin-top: 0; color: #7ddcff; }
+#fetchBtn {
+  background: #202040; color: #fff; border: none; padding: .4rem .8rem;
+  cursor: pointer; margin-left: .5rem;
+}
+#result { margin-top: .6rem; font-weight: bold; }
+#status { font-size: .8rem; opacity: .7; margin-top: .3rem; }
+</style>
+
+Drop that into your codex.html page, insert your API key, and the widget will:
+	•	Pull real-time weather,
+	•	Toggle °C ↔ °F,
+	•	Keep the last city in local storage,
+	•	Display everything in the dark Codex aesthetic.
+
+Would you like me to add animated “SEAL → REVEAL” glyphs or the “kids-first yield” line that lights up when data returns?
