@@ -198,7 +198,7 @@ export default function CodexAuditConsolePage() {
                               <span className="font-medium">Temperature:</span> {city.temperature}°C
                             </div>
                             <div data-testid={`text-density-${city.id}`}>
-                              <span className="font-medium">Population Density:</span> {city.populationDensity.toLocaleString()} per km²
+                              <span className="font-medium">Population Density:</span> {city.populationDensity?.toLocaleString() ?? 'N/A'} per km²
                             </div>
                           </div>
                         </div>

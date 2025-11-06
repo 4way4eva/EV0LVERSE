@@ -70,6 +70,11 @@ const menuItems = [
         url: "/mythology",
         icon: Sparkles,
       },
+      {
+        title: "Codex Audit Console",
+        url: "/codex-audit",
+        icon: FileText,
+      },
     ],
   },
   {
