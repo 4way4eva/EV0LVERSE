@@ -1,0 +1,202 @@
+Confirmed. Here’s the full DTO codex plus the “and more” layers, formatted for direct PPI load and clipboard use.
+
+DTO MASTER CODEX (list-form)
+
+Philosophy
+	•	Stops mint points: steal; contested miss + secured board; offensive foul
+	•	Deflections count equal to steals
+	•	Win first eight seconds post-stop
+
+Conversion Windows
+	•	0–4 Strike: hit-ahead; lane sprint; corner 3
+	•	4–8 Flow: early drag; cross screen to force switch; secondary push
+	•	8+ Set: flow into Zoom; Chicago; Stack without reset
+
+Role Tags + Core KPIs
+	•	Glove (POA): screen NAV grade; on-ball TOs forced
+	•	Claw (Wing): deflections per 36; on/off eFG allowed
+	•	Anchor (Rim): rim DFG%; DREB share
+	•	Free Safety (Gap): steals + deflections sum; early tag calls logged
+	•	Outlet (Floor Gen): potential assists in first six seconds; hit-ahead accuracy
+	•	Snowbird (Speed): 0–4 window points; leak trigger correctness
+	•	Trailer (Big touch): screen-assist points; drag-screen conversion rate
+
+Universal Spacing Rules
+	•	First three strides vertical, not lateral
+	•	Corner lift only on baseline ice or skip read
+	•	Middle filled last; rim first, corner second, slot third
+
+Pre-Called Triggers
+	•	Trap made → Snowbird auto leak (weakside last)
+	•	Two deflections in a row → Green Light push (Outlet hunts pitch; Trailer sprints into drag)
+	•	Long rebound to guard → Pitch Ahead now (touches beat dribbles)
+	•	Baseline ice → Skip & Shoot (weakside 45 cut; corner lift)
+
+Call Sheet
+	•	GREEN 94: full-court face-guard PG
+	•	BLACK ICE: side PnR ice to baseline; Anchor drop at nail
+	•	CLAW SWIPE: gap pack; pre-rotate low man; dig on bounce
+	•	SNOWBIRD 15: designate leak jersey on all live-ball stops
+	•	NASH 77: mandatory hit-ahead within first three strides
+	•	KIDD 05: automatic early drag on cross-half
+	•	WILLIAMS 55: skip-pass vs strong-side stunt
+	•	LIN 17: snake-and-kick vs deep drop; shooter relocates to 45
+
+Role-Specific Autopilot Triggers (three each)
+	•	Glove: weak-hand shade on live dribble; top-lock DHOs; peel-switch only on red call
+	•	Claw: top-lock shooters off pin-downs; stunt-and-recover from 45; choke handoffs with inside foot up
+	•	Anchor: call drop/level/switch early; verticality no swipe down; high-point first board then chin
+	•	Free Safety: sit nail vs empty corner; tag-and-go on roller; jump outside-hand lanes on two-side
+	•	Outlet: outlet wide outside lane line; pitch to chest away from rim; throw early not perfect
+	•	Snowbird: leak on trap pick-up; leak on weakside block contest; leak on long rebound to our guard
+	•	Trailer: rim-run to front; if guarded flow into drag; if denied flip to DHO
+
+Practice Blocks (12-minute capsules)
+	•	Three-Stop Run: stack three stops that convert ≤ six seconds; miss resets
+	•	Four-Second Rule: any live-ball stop must yield a shot ≤ four seconds; grade shot quality
+	•	Deflection Tax: every rep requires a deflection before shot
+	•	Outlet Race: board→chin→pivot→wide outlet; clock = rebound to first pass
+	•	77 Chain: five consecutive hit-aheads without a dribble past half
+	•	05 Conveyor: drag screen timing drill (Trailer arrival synced to Outlet two-count)
+	•	Skip Lab: baseline ice into skip→shot or skip→one-more
+	•	Verticality Ladder: rim contests without fouling; whistle if arms drop
+	•	Nail Patrol: Free Safety positioning vs empty-corner actions
+	•	Leak Discipline: Snowbird leaks only on triggers; false leaks = turnover
+
+Drill Stack (30)
+1 Closeout→Contest→Board→Outlet
+2 Two-deflection possession
+3 Ice-to-skip shooting
+4 Hit-ahead accuracy lane lines
+5 Early drag reads (drop; level; switch)
+6 Snake-and-kick with 45 relocate
+7 Top-lock pin-down denial
+8 DHO choke footwork
+9 Peel-switch scrimmage
+10 Low-man pre-rotate charges
+11 Rim-run then flip to DHO
+12 Gap-dig timing then recover
+13 Long-rebound pitch-ahead race
+14 Secondary push to hammer action
+15 Chicago into stack continuation
+16 Free-throw box-out to strike
+17 Sideline inbound steal scripts
+18 Late-clock stop→strike (8 seconds)
+19 Two-side vs single-side help ID
+20 Board-value: contested board points
+21 Screen-assist creation lanes
+22 Hockey-assist hunt (≤ eight seconds)
+23 Corner lift timing vs baseline ice
+24 Outlet footwork under pressure
+25 Green-Light recognition (two defl)
+26 Snowbird numbering drill (15 calls)
+27 Nail tag→X-out rotation
+28 Verticality + high-point gauntlet
+29 Early post seal in flow window
+30 Film-to-floor: recreate three opponent actions
+
+Scoreboard KPIs (post-game)
+	•	Team deflections; top three deflectors
+	•	Points off live-ball stops by window
+	•	Time to first pass after board/steal (avg)
+	•	Secondary assists in first eight seconds
+	•	Opponent eFG with Glove/Claw primary
+	•	Screen-assist points (Trailer)
+	•	Rim DFG% and DREB share (Anchor)
+	•	Hit-ahead attempts vs possessions
+	•	Turnover quality: live-ball vs dead-ball created
+
+Game-Day Checklist
+	•	Assign Snowbird 15 jersey
+	•	Confirm ICE coverage and drop level
+	•	Opponent handoff frequency flag
+	•	Early drag frequency target set
+	•	Hit-ahead quota set
+	•	Nail and low-man voice captains named
+
+Scouting Packages (plug-ins)
+	•	Heavy handoff teams: top-lock, choke DHOs, pre-rotate low man, WILLIAMS 55 skips
+	•	Deep drop bigs: LIN 17 snake; 45 relocate; drag re-screen
+	•	Switch-all wings: cross screen to smash switch; slip timing; elbow seals
+	•	Zone 2-3: drag to distort top; skip to lifted corner; dunker spot flash
+	•	1-3-1: baseline runner; short corner touch; skip over the nail
+
+Special Teams (clock states)
+	•	Two-for-one: force quick strike then set early drag on return
+	•	After timeouts: scripted stop then first-touch pitch
+	•	Last four minutes: foul discipline rises; deflection rate sustains pace
+
+Culture Standards
+	•	Motor over measurables
+	•	Guards pass ahead before bounce
+	•	Bigs default to drag without prompt
+	•	Envy economy ignored; tape wins
+
+PPI Data Dictionary (for dashboard ingest)
+	•	Stop Event: type; time; window bucket; shooter result; expected points added
+	•	Deflection Event: deflector; location; outcome; chain length
+	•	Outlet Event: rebounder; outlet lane; time to pass; target; accuracy grade
+	•	Hit-Ahead Event: attempt yes/no; completion; shot type; xP
+	•	Drag Event: arrival time; coverage faced; outcome; screen-assist points
+	•	Role Attribution: primary; secondary; trigger compliance rate
+	•	Penalties: false leak; late outlet; swipe-down foul on verticality
+
+Compensation Hooks (NIL/brand)
+	•	Deflection chains bonuses
+	•	Pitch-ahead assists in Strike/Flow windows
+	•	Screen-assist leader incentives
+	•	Defensive eFG suppression multipliers
+
+Hand Signals (simple)
+	•	94 = closed fist high
+	•	ICE = forearm to hip
+	•	15 = tap jersey front
+	•	77 = two fingers each hand forward
+	•	05 = open hand to rim then circle
+	•	55 = wrist flick
+	•	17 = index snake motion
+
+Glossary
+	•	Strike; Flow; Set; Ice; Top-lock; Peel-switch; Nail; Low-man; DHO; Drag; Screen-assist
+
+History Anchors
+	•	Ravens 2000 defense DNA
+	•	Patriots disguise/adjust tree
+	•	Reid sequencing for flow math
+
+Cross-Sport Port
+	•	Simulated pressure = creepers
+	•	Turnovers = short field = expected points bump
+
+MODULES (field-ready)
+
+Module A — Roles + Triggers
+	•	Seven roles with three autopilot triggers each
+	•	Compliance rate target: ninety percent per role
+	•	Non-compliance → role retune next rotation
+
+Module B — Calls + Drills
+	•	Eight calls mapped to first and second reads
+	•	Thirty-drill progression ordered by install week
+
+Module C — KPIs + Recruiting
+	•	Nine board KPIs + four role KPIs
+	•	Recruiting filters and minimums per role
+
+QUICK PLAYCARD (two pages, condensed)
+
+Page 1: Calls + Reads
+	•	94 face-guard; ICE baseline; SWIPE gap; 15 leak; 77 pitch; 05 drag; 55 skip; 17 snake
+	•	First read = rim; second = corner; third = slot lift
+
+Page 2: Windows + Rules
+	•	Strike ≤ four seconds; Flow ≤ eight; Set flows no reset
+	•	Pitch before bounce; rim first; no dead corner cuts unless ICE
+
+OPPONENT SCRIPTS (attach by scout)
+	•	Handoff hubs; Drop centers; Switch-all wings; Zones 2-3, 1-3-1
+
+IMPLEMENTATION ORDER (one practice block)
+	•	Install calls; install triggers; run Three-Stop; run 77 Chain; finish with Outlet Race
+
+If you want this mirrored into your PPI, I can output the same content as a flat field list next.
