@@ -58,6 +58,22 @@ The project integrates mythological narratives from the BLACK§BLEU Sovereign Zo
    - NØX13 Gate System visualization (13th seal protocol with admin override capabilities)
    - Tab-based interface for EV0L encoding, reactive protocols, and classical/modern symbol mapping
 
+9. **Codex Audit Console** (`/codex-audit`)
+   - **Codex Layers Tab**: 10-layer EV0L Codex system (Infinity Core → Justice)
+     - Multilingual laws in 6 languages (English, Swahili, Yoruba, Hebrew, Arabic, Nahuatl)
+     - Glyphs, HMMM resonance patterns, hieroglyphs
+     - Revenue streams and PPPPI status tracking
+   - **Environmental Cities Tab**: Climate tracking for 7 Safe Haven cities
+     - Real-time weather, temperature, population density
+     - Coordinates, biomes, vault guardians
+     - Safe haven status (Active/Under Construction/Planned)
+     - Mall node connections
+   - **Image Audits Tab**: ENFT provenance and density metrics
+     - Density scores, entropy bits, edge detection, colorfulness
+     - File metadata (resolution, size, compression ratio)
+     - Blockchain provenance (IPFS CIDs, Keccak-256 hashes)
+     - Quality metrics with progress bar visualizations
+
 ### Technical Implementation
 - **Navigation**: Shadcn sidebar primitives with grouped menu items (Core, Command & Control, Operations)
 - **Data Layer**: All pages fetch from RESTful API endpoints using TanStack Query
@@ -74,6 +90,9 @@ The project integrates mythological narratives from the BLACK§BLEU Sovereign Zo
 - `GET /api/market-products` - Market Intelligence data
 - `GET /api/story-chapters` - ENFT Story Mode chapters
 - `GET /api/mythology-deities` - Mythology & Divine Protocol data
+- `GET /api/codex-layers` - 10-layer EV0L Codex system
+- `GET /api/environmental-cities` - Environmental tracking for Safe Haven cities
+- `GET /api/image-audits` - ENFT provenance and density metrics
 
 ## User Preferences
 
@@ -116,6 +135,10 @@ Preferred communication style: Simple, everyday language.
   - Market Products (ceremonial commerce items)
   - Ceremonial Rituals (protocol definitions)
   - Story Chapters (ENFT narrative sequences)
+  - Mythology Deities (Greek/Roman deity integration)
+  - Codex Layers (10-layer EV0L Codex with multilingual laws)
+  - Environmental Cities (7 Safe Haven cities with climate tracking)
+  - Image Audits (ENFT provenance and density metrics)
 
 ### Authentication & Authorization
 - **Current State**: Basic user schema with username/password (foundation only)
