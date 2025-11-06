@@ -443,6 +443,99 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // MetaSchools Routes (Educational/Consciousness Sequencing Systems)
+  app.get("/api/meta-schools", async (req, res) => {
+    try {
+      const schools = await storage.getAllMetaSchools();
+      res.json(schools);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch meta schools" });
+    }
+  });
+
+  app.get("/api/meta-schools/:id", async (req, res) => {
+    try {
+      const school = await storage.getMetaSchool(req.params.id);
+      if (!school) {
+        return res.status(404).json({ error: "Meta school not found" });
+      }
+      res.json(school);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch meta school" });
+    }
+  });
+
+  app.get("/api/meta-schools/status/:status", async (req, res) => {
+    try {
+      const schools = await storage.getMetaSchoolsByStatus(req.params.status);
+      res.json(schools);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch schools by status" });
+    }
+  });
+
+  // MetaNations Routes (Sovereign Nation-State Structures)
+  app.get("/api/meta-nations", async (req, res) => {
+    try {
+      const nations = await storage.getAllMetaNations();
+      res.json(nations);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch meta nations" });
+    }
+  });
+
+  app.get("/api/meta-nations/:id", async (req, res) => {
+    try {
+      const nation = await storage.getMetaNation(req.params.id);
+      if (!nation) {
+        return res.status(404).json({ error: "Meta nation not found" });
+      }
+      res.json(nation);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch meta nation" });
+    }
+  });
+
+  app.get("/api/meta-nations/status/:status", async (req, res) => {
+    try {
+      const nations = await storage.getMetaNationsByDiplomaticStatus(req.params.status);
+      res.json(nations);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch nations by diplomatic status" });
+    }
+  });
+
+  // MetaGalaxies Routes (Cosmic-Scale Organizational Structures)
+  app.get("/api/meta-galaxies", async (req, res) => {
+    try {
+      const galaxies = await storage.getAllMetaGalaxies();
+      res.json(galaxies);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch meta galaxies" });
+    }
+  });
+
+  app.get("/api/meta-galaxies/:id", async (req, res) => {
+    try {
+      const galaxy = await storage.getMetaGalaxy(req.params.id);
+      if (!galaxy) {
+        return res.status(404).json({ error: "Meta galaxy not found" });
+      }
+      res.json(galaxy);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch meta galaxy" });
+    }
+  });
+
+  app.get("/api/meta-galaxies/consciousness/:level", async (req, res) => {
+    try {
+      const galaxies = await storage.getMetaGalaxiesByConsciousnessLevel(req.params.level);
+      res.json(galaxies);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch galaxies by consciousness level" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;
