@@ -26,6 +26,8 @@ import {
   Flame,
   TrendingUp,
   BookOpen,
+  Package,
+  Film,
 } from "lucide-react";
 
 const menuItems = [
@@ -81,6 +83,16 @@ const menuItems = [
         title: "ENFT Story Mode",
         url: "/story-mode",
         icon: BookOpen,
+      },
+      {
+        title: "Product Showcase",
+        url: "/products",
+        icon: Package,
+      },
+      {
+        title: "EVOL Studios",
+        url: "/evol-studios",
+        icon: Film,
       },
     ],
   },

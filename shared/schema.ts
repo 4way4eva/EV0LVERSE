@@ -156,3 +156,70 @@ export const insertStoryChapterSchema = createInsertSchema(storyChapters).omit({
 
 export type InsertStoryChapter = z.infer<typeof insertStoryChapterSchema>;
 export type StoryChapter = typeof storyChapters.$inferSelect;
+
+// Showcase Products (Physical/Hardware Products)
+export const showcaseProducts = pgTable("showcase_products", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  tagline: text("tagline").notNull(),
+  category: text("category").notNull(), // Hardware, Apparel, Infrastructure, Gaming
+  description: text("description").notNull(),
+  features: text("features").array().notNull(),
+  imagePath: text("image_path").notNull(),
+  price: text("price"),
+  availability: text("availability").notNull(), // Coming Soon, Pre-Order, Available
+  badge: text("badge"), // New, Limited Edition, etc.
+});
+
+export const insertShowcaseProductSchema = createInsertSchema(showcaseProducts).omit({
+  id: true,
+});
+
+export type InsertShowcaseProduct = z.infer<typeof insertShowcaseProductSchema>;
+export type ShowcaseProduct = typeof showcaseProducts.$inferSelect;
+
+// EVOLVERS Theater Scenes (Act I screenplay content)
+export const evolversScenes = pgTable("evolvers_scenes", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  act: text("act").notNull(),
+  sceneNumber: integer("scene_number").notNull(),
+  sceneTitle: text("scene_title").notNull(),
+  location: text("location").notNull(),
+  sceneType: text("scene_type").notNull(),
+  character: text("character"),
+  narration: text("narration"),
+  dialogueLines: text("dialogue_lines").array(),
+  visualElements: text("visual_elements").array(),
+  ritualInterface: text("ritual_interface"),
+});
+
+export const insertEvolversSceneSchema = createInsertSchema(evolversScenes).omit({
+  id: true,
+});
+
+export type InsertEvolversScene = z.infer<typeof insertEvolversSceneSchema>;
+export type EvolversScene = typeof evolversScenes.$inferSelect;
+
+// EVOL Studios Projects (Film, Animation, Media Productions)
+export const studioProjects = pgTable("studio_projects", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  tagline: text("tagline").notNull(),
+  projectType: text("project_type").notNull(), // Film, Series, Documentary, VR Experience, Ceremonial Broadcast, Animation
+  status: text("status").notNull(), // In Development, Production, Post-Production, Released
+  releaseYear: integer("release_year"),
+  description: text("description").notNull(),
+  director: text("director"),
+  producer: text("producer"),
+  keyFeatures: text("key_features").array().notNull(),
+  genres: text("genres").array().notNull(),
+  imagePath: text("image_path").notNull(),
+  trailerUrl: text("trailer_url"),
+});
+
+export const insertStudioProjectSchema = createInsertSchema(studioProjects).omit({
+  id: true,
+});
+
+export type InsertStudioProject = z.infer<typeof insertStudioProjectSchema>;
+export type StudioProject = typeof studioProjects.$inferSelect;

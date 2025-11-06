@@ -14,6 +14,8 @@ import MallCommandPage from "@/pages/MallCommandPage";
 import CeremonialPage from "@/pages/CeremonialPage";
 import MarketIntelligencePage from "@/pages/MarketIntelligencePage";
 import StoryModePage from "@/pages/StoryModePage";
+import ProductShowcasePage from "@/pages/ProductShowcasePage";
+import EvolStudiosPage from "@/pages/EvolStudiosPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -27,6 +29,8 @@ function Router() {
       <Route path="/ceremonial" component={CeremonialPage} />
       <Route path="/market-intelligence" component={MarketIntelligencePage} />
       <Route path="/story-mode" component={StoryModePage} />
+      <Route path="/products" component={ProductShowcasePage} />
+      <Route path="/evol-studios" component={EvolStudiosPage} />
       <Route component={NotFound} />
     </Switch>
   );

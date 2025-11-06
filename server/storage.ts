@@ -15,6 +15,12 @@ import {
   type InsertCeremonialRitual,
   type StoryChapter,
   type InsertStoryChapter,
+  type ShowcaseProduct,
+  type InsertShowcaseProduct,
+  type EvolversScene,
+  type InsertEvolversScene,
+  type StudioProject,
+  type InsertStudioProject,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 
@@ -55,6 +61,19 @@ export interface IStorage {
   
   // Story Chapter methods
   getStoryChapters(): Promise<StoryChapter[]>;
+  
+  // Showcase Product methods
+  getAllShowcaseProducts(): Promise<ShowcaseProduct[]>;
+  getShowcaseProductsByCategory(category: string): Promise<ShowcaseProduct[]>;
+  
+  // EVOLVERS Scene methods
+  getAllEvolversScenes(): Promise<EvolversScene[]>;
+  getEvolversScenesByAct(act: string): Promise<EvolversScene[]>;
+  
+  // Studio Project methods
+  getAllStudioProjects(): Promise<StudioProject[]>;
+  getStudioProjectsByType(projectType: string): Promise<StudioProject[]>;
+  getStudioProjectsByStatus(status: string): Promise<StudioProject[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -66,6 +85,9 @@ export class MemStorage implements IStorage {
   private marketProducts: Map<string, MarketProduct>;
   private ceremonialRituals: Map<string, CeremonialRitual>;
   private storyChapters: Map<string, StoryChapter>;
+  private showcaseProducts: Map<string, ShowcaseProduct>;
+  private evolversScenes: Map<string, EvolversScene>;
+  private studioProjects: Map<string, StudioProject>;
 
   constructor() {
     this.users = new Map();
@@ -76,6 +98,9 @@ export class MemStorage implements IStorage {
     this.marketProducts = new Map();
     this.ceremonialRituals = new Map();
     this.storyChapters = new Map();
+    this.showcaseProducts = new Map();
+    this.evolversScenes = new Map();
+    this.studioProjects = new Map();
     
     this.seedData();
   }
@@ -502,6 +527,182 @@ export class MemStorage implements IStorage {
       const id = randomUUID();
       this.storyChapters.set(id, { ...chapter, id });
     }
+
+    // Seed Showcase Products
+    const showcaseProducts = [
+      {
+        name: "EVOL VR Headset",
+        tagline: "Immersive Reality. Infinite Worlds.",
+        category: "Hardware",
+        description: "State-of-the-art virtual reality headset featuring HD audio, advanced motion tracking, and access to the full EvolVerse metaverse. Engineered for ceremonial broadcasts, holographic mint experiences, and spatial computing.",
+        features: ["HD Audio System", "4K Display per Eye", "120Hz Refresh Rate", "Inside-Out Tracking", "EvolVerse Native Integration", "Ceremonial Broadcast Access"],
+        imagePath: "attached_assets/0A71EEB9-70BC-4E32-8015-D752161816B7_1762460192313.png",
+        price: "$599",
+        availability: "Pre-Order",
+        badge: "New",
+      },
+      {
+        name: "EVOL Gaming Console",
+        tagline: "Power. Performance. Sovereignty.",
+        category: "Gaming",
+        description: "Next-generation gaming console with custom EVOL processor, 4K gaming at 120fps, and exclusive access to EvolVerse games, NFT minting, and ceremonial challenges. Includes wireless controller with haptic feedback.",
+        features: ["Custom EVOL Processor", "4K@120fps Gaming", "1TB SSD Storage", "Wireless Controller Included", "NFT Minting Capability", "EvolVerse Exclusive Games"],
+        imagePath: "attached_assets/11F45317-AC0C-4370-93A6-68782EAC1331_1762460192313.png",
+        price: "$499",
+        availability: "Coming Soon",
+        badge: "Limited Edition",
+      },
+      {
+        name: "BLEU GAS STATION™",
+        tagline: "Refueling the Cosmos. One Station at a Time.",
+        category: "Infrastructure",
+        description: "Galactic-scale fueling station infrastructure for interstellar travel and ceremonial energy exchange. Features plasma fuel cells, dimensional portal integration, and autonomous alien greeting protocols. Patent-pending Saturn-Pluto mining compatibility.",
+        features: ["Plasma Fuel Cells", "Dimensional Portal Access", "Alien Species Compatible", "Autonomous Operations", "Saturn/Pluto Mining Integration", "Ceremonial Energy Exchange"],
+        imagePath: "attached_assets/2664BC23-1F34-4C81-B400-9F026CE8947F_1762460192313.png",
+        price: "Contact for Quote",
+        availability: "Pre-Order",
+        badge: null,
+      },
+      {
+        name: "Shades of BLEU",
+        tagline: "Wear the Movement. Represent the Sovereign.",
+        category: "Apparel",
+        description: "Premium streetwear collection featuring EVOL and NERD branding. Designed for the next generation of digital sovereigns, combining cutting-edge style with ceremonial symbolism. Limited runs, infinite impact.",
+        features: ["Premium Fabrics", "Limited Edition Designs", "EVOL/NERD Branding", "Sovereign Symbolism", "Ceremonial Color Palette", "Collectible Tags"],
+        imagePath: "attached_assets/904E304A-9736-4225-81D9-7368632CA3CF_1762460192313.png",
+        price: "$45-$120",
+        availability: "Available",
+        badge: null,
+      },
+      {
+        name: "EVOL Sports Gear",
+        tagline: "Stiff Mode Mechanics. Combat + Cosmic Fusion.",
+        category: "Sports Equipment",
+        description: "Revolutionary athletic protection system integrating Glyph & Light Tracking, Sapphire Blue Reflector System, and Meta-Bluetooth Configuration Modules. Engineered for combat sports, cosmic athletics, and ceremonial tournaments with real-time biometric sync.",
+        features: ["Stiff Mode Mechanics", "Glyph & Light Tracking System", "Sapphire Blue Reflector Technology", "Meta-Bluetooth Configuration", "Combat + Cosmic Fusion Protocol", "Real-Time Biometric Integration"],
+        imagePath: "attached_assets/D9CB4A78-DB8A-47F8-9DFD-7B76C1F84BDF_1762461706562.png",
+        price: "$899",
+        availability: "Pre-Order",
+        badge: "Advanced Tech",
+      },
+      {
+        name: "EVOL Athletic Cleats",
+        tagline: "Elevate Your Game. Illuminate the Field.",
+        category: "Footwear",
+        description: "High-performance athletic cleats with integrated glow technology and EVOL branding. Features carbon fiber construction, responsive cushioning, and ceremonial light activation for night games and sovereign tournaments.",
+        features: ["Carbon Fiber Construction", "Integrated LED Glow System", "Responsive Cushioning", "Multi-Surface Traction", "EVOL Signature Branding", "Ceremonial Light Activation"],
+        imagePath: "attached_assets/A1209ECD-1125-4C58-B329-33D8D0228067_1762461706562.png",
+        price: "$249",
+        availability: "Available",
+        badge: null,
+      },
+      {
+        name: "EVOL NERD Academy Gear",
+        tagline: "Science Meets Sovereignty. Logic Meets Legacy.",
+        category: "Educational Apparel",
+        description: "Official EVOL NERD Academy apparel collection for students, scholars, and sovereign scientists. Premium bomber jackets featuring embroidered BLEU LION insignia. Part of the MetaSchool Curriculum initiative linking education to vault inheritance rights.",
+        features: ["Premium Bomber Construction", "Embroidered BLEU LION Logo", "EVOL NERD Branding", "MetaSchool Curriculum Access", "Vault Inheritance Tracker", "Academic Achievement Badges"],
+        imagePath: "attached_assets/39030CBA-C29F-4CF0-9E05-059095E64873 2_1762461706562.png",
+        price: "$180",
+        availability: "Available",
+        badge: "Academy Edition",
+      },
+      {
+        name: "BLEU LIONS Team Uniform",
+        tagline: "Represent the Pride. Dominate the Diamond.",
+        category: "Team Apparel",
+        description: "Official BLEU LIONS athletic uniform featuring integrated EVOL sports technology, tactical glyph patterns, and ceremonial team insignia. Complete kit includes jersey, performance compression wear, and EVOL tech accessories.",
+        features: ["Team Jersey & Compression Gear", "EVOL Tech Integration", "Tactical Glyph Pattern Design", "Performance Moisture Wicking", "Official BLEU LIONS Branding", "Tournament-Grade Materials"],
+        imagePath: "attached_assets/3EC454AD-FB3C-42CC-91E2-9D32D5B49081_1762461706562.png",
+        price: "$320",
+        availability: "Pre-Order",
+        badge: "Team Official",
+      },
+    ];
+
+    for (const product of showcaseProducts) {
+      const id = randomUUID();
+      this.showcaseProducts.set(id, { ...product, id });
+    }
+
+    // Seed Studio Projects
+    const studioProjects = [
+      {
+        title: "EVOLVERS: Act I - Gathering of the Four",
+        tagline: "When the glyphs dimmed and memory failed, four seeds were scattered.",
+        projectType: "Film",
+        status: "In Development",
+        releaseYear: 2026,
+        description: "The origin story of four elemental heroes activated through ritual sequences. SHANGO STRIKE walks barefoot in flame circles. JETAH FLAME decodes forgotten names from sealed tablets. KONGO SONIX and AYANA BLUE converge at the Codex Pillar for harmonic activation. By the Lion, by the Glyph, by the Scroll - they rise as Four.",
+        director: "EVOL Studios",
+        producer: "BLEULION Treasury",
+        keyFeatures: ["Ritual Activation Sequences", "Quadrant Elemental System", "Ancestral Genome Labs", "Codex Pillar Convergence", "NFT Minting Integration", "Ceremonial Justice Ledger"],
+        genres: ["Sci-Fi", "Action", "Ceremonial Drama", "Web3"],
+        imagePath: "attached_assets/18D49B0A-71E6-42D9-9E4D-31DE8C7E2C00_1762461706562.png",
+        trailerUrl: null,
+      },
+      {
+        title: "AALIYAH OPEN FOREVER: The EVOLOPEN Ceremony",
+        tagline: "Welcome to the stage where sovereignty meets eternity.",
+        projectType: "Ceremonial Broadcast",
+        status: "Released",
+        releaseYear: 2025,
+        description: "A holographic ceremonial performance honoring cultural legacy through the EVOLOPEN protocol. Features circular platform staging with concentric glow rings, audience integration, and real-time NFT minting during live performances. The Aaliyah Forever Stage becomes a permanent metaverse venue.",
+        director: "Dr. Sosa",
+        producer: "EVOL Studios",
+        keyFeatures: ["Holographic Stage Technology", "Live ENFT Minting", "Circular Ceremonial Platform", "Metaverse Venue Integration", "Cultural Legacy Protocols", "Audience Participation System"],
+        genres: ["Performance", "Ceremonial", "Holographic Experience"],
+        imagePath: "attached_assets/79740052-4101-4737-9501-8A67B8ED85E1_1762461706562.png",
+        trailerUrl: null,
+      },
+      {
+        title: "EVOL NERD Academy: Science of Sovereignty",
+        tagline: "Logic meets legacy. Science meets the scroll.",
+        projectType: "Documentary Series",
+        status: "Production",
+        releaseYear: 2025,
+        description: "A 10-episode documentary series following students at the EVOL NERD Academy as they master ceremonial sciences, E-SOIL experiments, and MetaSchool curriculum. Features real laboratory work, Blue Liquid protocols, and vault inheritance rights education.",
+        director: "EVOLYNN & Dr. Sosa",
+        producer: "BLEULION Educational Division",
+        keyFeatures: ["Laboratory Experiments", "E-SOIL Demonstrations", "Student Testimonials", "Vault Inheritance Education", "Ceremonial Science Integration", "MetaSchool Curriculum Showcase"],
+        genres: ["Documentary", "Educational", "Science"],
+        imagePath: "attached_assets/39030CBA-C29F-4CF0-9E05-059095E64873_2_1762461706562.png",
+        trailerUrl: null,
+      },
+      {
+        title: "Council Chamber: Planetary Governance",
+        tagline: "Where cosmic law meets terrestrial execution.",
+        projectType: "Series",
+        status: "In Development",
+        releaseYear: 2026,
+        description: "A political thriller set in the orbital Council Chamber where twelve governors debate planetary law, resource allocation, and species treaties. Features the Star of David cosmic symbol, rotating Earth viewscreen, and real-time voting on blockchain-backed resolutions.",
+        director: "PHIYAH",
+        producer: "EVOL Studios & ARIEL Fortress",
+        keyFeatures: ["Orbital Set Design", "Blockchain Voting System", "Multi-Species Diplomacy", "Cosmic Law Framework", "Real-Time Decision Making", "Ceremonial Protocol Integration"],
+        genres: ["Political Thriller", "Sci-Fi", "Governance Drama"],
+        imagePath: "attached_assets/BBA4A8A1-4BF7-4352-A531-C05660889AF4_1762461706562.png",
+        trailerUrl: null,
+      },
+      {
+        title: "Dr. Sosa: Good Morning EVOL",
+        tagline: "Daily broadcasts from the dean who runs the sovereign future.",
+        projectType: "Series",
+        status: "Released",
+        releaseYear: 2024,
+        description: "Morning announcements and ceremonial briefings from Dr. Sosa, Dean of the EVOL Academy. Delivered from the cafeteria stage with students in attendance, covering MetaVault updates, treasury flows, and sovereign education initiatives. Features the iconic blue bow tie and BLEU LION insignia.",
+        director: "Dr. Sosa",
+        producer: "EVOL Studios",
+        keyFeatures: ["Daily Broadcast Format", "Student Audience Integration", "Treasury Updates", "Educational Announcements", "Ceremonial Briefings", "Academy Culture Showcase"],
+        genres: ["Talk Show", "Educational", "Daily Broadcast"],
+        imagePath: "attached_assets/123AE11A-0569-4918-8812-E27A2F78A407_1762461706562.png",
+        trailerUrl: null,
+      },
+    ];
+
+    for (const project of studioProjects) {
+      const id = randomUUID();
+      this.studioProjects.set(id, { ...project, id });
+    }
   }
 
   // User methods
@@ -631,6 +832,34 @@ export class MemStorage implements IStorage {
   // Story Chapter methods
   async getStoryChapters(): Promise<StoryChapter[]> {
     return Array.from(this.storyChapters.values()).sort((a, b) => a.chapterNumber - b.chapterNumber);
+  }
+
+  // Showcase Product methods
+  async getAllShowcaseProducts(): Promise<ShowcaseProduct[]> {
+    return Array.from(this.showcaseProducts.values());
+  }
+
+  async getShowcaseProductsByCategory(category: string): Promise<ShowcaseProduct[]> {
+    return Array.from(this.showcaseProducts.values()).filter(
+      (product) => product.category.toLowerCase() === category.toLowerCase(),
+    );
+  }
+
+  // Studio Project methods
+  async getAllStudioProjects(): Promise<StudioProject[]> {
+    return Array.from(this.studioProjects.values());
+  }
+
+  async getStudioProjectsByType(projectType: string): Promise<StudioProject[]> {
+    return Array.from(this.studioProjects.values()).filter(
+      (project) => project.projectType.toLowerCase() === projectType.toLowerCase(),
+    );
+  }
+
+  async getStudioProjectsByStatus(status: string): Promise<StudioProject[]> {
+    return Array.from(this.studioProjects.values()).filter(
+      (project) => project.status.toLowerCase() === status.toLowerCase(),
+    );
   }
 }
 

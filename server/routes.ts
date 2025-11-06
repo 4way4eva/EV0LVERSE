@@ -243,6 +243,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Showcase Products Routes
+  app.get("/api/showcase-products", async (req, res) => {
+    try {
+      const products = await storage.getAllShowcaseProducts();
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch showcase products" });
+    }
+  });
+
+  app.get("/api/showcase-products/category/:category", async (req, res) => {
+    try {
+      const products = await storage.getShowcaseProductsByCategory(req.params.category);
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch showcase products by category" });
+    }
+  });
+
+  // Studio Projects Routes
+  app.get("/api/studio-projects", async (req, res) => {
+    try {
+      const projects = await storage.getAllStudioProjects();
+      res.json(projects);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch studio projects" });
+    }
+  });
+
+  app.get("/api/studio-projects/type/:projectType", async (req, res) => {
+    try {
+      const projects = await storage.getStudioProjectsByType(req.params.projectType);
+      res.json(projects);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch studio projects by type" });
+    }
+  });
+
+  app.get("/api/studio-projects/status/:status", async (req, res) => {
+    try {
+      const projects = await storage.getStudioProjectsByStatus(req.params.status);
+      res.json(projects);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch studio projects by status" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;
