@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, decimal } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -16,3 +16,123 @@ export const insertUserSchema = createInsertSchema(users).pick({
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
+
+// Overscale Matrix Domains (177 global domains)
+export const overscaleDomains = pgTable("overscale_domains", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  domain: text("domain").notNull(),
+  ownerOrFounder: text("owner_or_founder").notNull(),
+  incumbentStrength: text("incumbent_strength").notNull(),
+  ev0lAttackSurface: text("ev0l_attack_surface").notNull(),
+  hardballMove: text("hardball_move").notNull(),
+  coinFlow: text("coin_flow").notNull(),
+  vault: text("vault").notNull(),
+  guard: text("guard").notNull(),
+  metricLift: text("metric_lift").notNull(),
+});
+
+export const insertOverscaleDomainSchema = createInsertSchema(overscaleDomains).omit({
+  id: true,
+});
+
+export type InsertOverscaleDomain = z.infer<typeof insertOverscaleDomainSchema>;
+export type OverscaleDomain = typeof overscaleDomains.$inferSelect;
+
+// Hidden Societies (25 secret organizations)
+export const hiddenSocieties = pgTable("hidden_societies", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  symbol: text("symbol").notNull(),
+  status: text("status").notNull(), // Previously Contacted, Dormant, Active, To Be Unlocked, Ancestral Link, Core Activated, Guarded
+  accessLevel: text("access_level").notNull(), // Medium, High, Low, Locked, Ancestral, Root
+});
+
+export const insertHiddenSocietySchema = createInsertSchema(hiddenSocieties).omit({
+  id: true,
+});
+
+export type InsertHiddenSociety = z.infer<typeof insertHiddenSocietySchema>;
+export type HiddenSociety = typeof hiddenSocieties.$inferSelect;
+
+// War Codex Characters
+export const warActors = pgTable("war_actors", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  codename: text("codename").notNull(),
+  title: text("title").notNull(),
+  heritage: text("heritage").notNull(),
+  origin: text("origin").notNull(),
+  domains: text("domains").array().notNull(),
+  signatureAbility: text("signature_ability").notNull(),
+  signatureDescription: text("signature_description").notNull(),
+  limiter: text("limiter").notNull(),
+  antagonists: text("antagonists").notNull(),
+  vendetta: text("vendetta"),
+});
+
+export const insertWarActorSchema = createInsertSchema(warActors).omit({
+  id: true,
+});
+
+export type InsertWarActor = z.infer<typeof insertWarActorSchema>;
+export type WarActor = typeof warActors.$inferSelect;
+
+// EV0L Mall Nodes
+export const mallNodes = pgTable("mall_nodes", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  cityName: text("city_name").notNull(),
+  valuation: decimal("valuation", { precision: 15, scale: 2 }).notNull(), // $10T baseline
+  retailSales: decimal("retail_sales", { precision: 15, scale: 2 }),
+  defenseContracts: decimal("defense_contracts", { precision: 15, scale: 2 }),
+  culturalRights: decimal("cultural_rights", { precision: 15, scale: 2 }),
+  treasuryFlow: decimal("treasury_flow", { precision: 15, scale: 2 }),
+  wellnessLabs: decimal("wellness_labs", { precision: 15, scale: 2 }),
+  roles: text("roles").array().notNull(), // treasury, city, military
+  mythCountered: text("myth_countered"), // Zeus, Hades, Superman, etc.
+  guardianSector: text("guardian_sector"),
+});
+
+export const insertMallNodeSchema = createInsertSchema(mallNodes).omit({
+  id: true,
+});
+
+export type InsertMallNode = z.infer<typeof insertMallNodeSchema>;
+export type MallNode = typeof mallNodes.$inferSelect;
+
+// BLEU Backbone Market Products
+export const marketProducts = pgTable("market_products", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  productName: text("product_name").notNull(),
+  slogan: text("slogan").notNull(),
+  sector: text("sector").notNull(),
+  useCaseFit: text("use_case_fit").notNull(),
+  marketBenchmark2025: integer("market_benchmark_2025").notNull(), // in billions
+  overscaleProjection: integer("overscale_projection").notNull(), // in billions
+  roiPercentage: integer("roi_percentage").notNull(),
+});
+
+export const insertMarketProductSchema = createInsertSchema(marketProducts).omit({
+  id: true,
+});
+
+export type InsertMarketProduct = z.infer<typeof insertMarketProductSchema>;
+export type MarketProduct = typeof marketProducts.$inferSelect;
+
+// Ceremonial Rituals
+export const ceremonialRituals = pgTable("ceremonial_rituals", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  ritualName: text("ritual_name").notNull(),
+  codexSource: text("codex_source").notNull(), // CODEXX, EVOLVERS Act, etc.
+  purpose: text("purpose").notNull(),
+  sequence: text("sequence").array().notNull(),
+  requiredActors: text("required_actors").array(),
+  activationStatus: text("activation_status").notNull(), // pending, active, completed
+  ceremonyType: text("ceremony_type").notNull(), // Flame Crown, Reciprocity Pulse, etc.
+});
+
+export const insertCeremonialRitualSchema = createInsertSchema(ceremonialRituals).omit({
+  id: true,
+});
+
+export type InsertCeremonialRitual = z.infer<typeof insertCeremonialRitualSchema>;
+export type CeremonialRitual = typeof ceremonialRituals.$inferSelect;

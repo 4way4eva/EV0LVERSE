@@ -1,0 +1,24 @@
+EV0L Clean Deliverable
+Generated: 2025-09-26 23:30:51 (local server time)
+
+What this is:
+- Normalized extraction of your uploaded archive (including nested .zip files).
+- Removed system cruft (.__MACOSX, .DS_Store, Thumbs.db).
+- Standardized filenames to avoid Windows/macOS reserved characters.
+- Included MANIFEST.csv and MANIFEST.json with SHA256 hashes for integrity.
+- This packaging is lossless: file contents are unchanged.
+
+Extraction log:
+[
+  {
+    "zip": "/mnt/data/cbf9a13c3296043ae749060409d485aa973ed8d92e4b554e715a579123c0a1d0-2025-09-26-21-14-40-961f43f506ba49b8ae7e8820657e5be2.zip.zip",
+    "outdir": "/mnt/data/EVOL_CLEANROOM/stage1",
+    "count": 2
+  }
+]
+
+Source root examined: /mnt/data/EVOL_CLEANROOM/stage1
+
+How to verify integrity:
+- Compare SHA256 values in MANIFEST.csv with your local hashes.
+
