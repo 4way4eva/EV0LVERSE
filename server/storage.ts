@@ -29,6 +29,12 @@ import {
   type InsertEnvironmentalCity,
   type ImageAudit,
   type InsertImageAudit,
+  type MetaSchool,
+  type InsertMetaSchool,
+  type MetaNation,
+  type InsertMetaNation,
+  type MetaGalaxy,
+  type InsertMetaGalaxy,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 
@@ -104,6 +110,21 @@ export interface IStorage {
   getImageAudit(id: string): Promise<ImageAudit | undefined>;
   getImageAuditByFileName(fileName: string): Promise<ImageAudit | undefined>;
   getImageAuditsByDensityScore(minScore: number): Promise<ImageAudit[]>;
+  
+  // MetaSchool methods
+  getAllMetaSchools(): Promise<MetaSchool[]>;
+  getMetaSchool(id: string): Promise<MetaSchool | undefined>;
+  getMetaSchoolsByStatus(status: string): Promise<MetaSchool[]>;
+  
+  // MetaNation methods
+  getAllMetaNations(): Promise<MetaNation[]>;
+  getMetaNation(id: string): Promise<MetaNation | undefined>;
+  getMetaNationsByDiplomaticStatus(status: string): Promise<MetaNation[]>;
+  
+  // MetaGalaxy methods
+  getAllMetaGalaxies(): Promise<MetaGalaxy[]>;
+  getMetaGalaxy(id: string): Promise<MetaGalaxy | undefined>;
+  getMetaGalaxiesByConsciousnessLevel(level: string): Promise<MetaGalaxy[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -122,6 +143,9 @@ export class MemStorage implements IStorage {
   private codexLayers: Map<string, CodexLayer>;
   private environmentalCities: Map<string, EnvironmentalCity>;
   private imageAudits: Map<string, ImageAudit>;
+  private metaSchools: Map<string, MetaSchool>;
+  private metaNations: Map<string, MetaNation>;
+  private metaGalaxies: Map<string, MetaGalaxy>;
 
   constructor() {
     this.users = new Map();
@@ -139,6 +163,9 @@ export class MemStorage implements IStorage {
     this.codexLayers = new Map();
     this.environmentalCities = new Map();
     this.imageAudits = new Map();
+    this.metaSchools = new Map();
+    this.metaNations = new Map();
+    this.metaGalaxies = new Map();
     
     this.seedData();
   }
@@ -1174,6 +1201,302 @@ export class MemStorage implements IStorage {
       const id = randomUUID();
       this.imageAudits.set(id, { ...audit, id });
     }
+
+    // Seed MetaSchools (Educational/Consciousness Sequencing Systems)
+    const metaSchools = [
+      {
+        name: "OSSMOSIS JONES MODE",
+        core: "S.O.R.A - Sonic Omnidirectional Reflex Architecture",
+        layers: [
+          "Core: S.O.R.A Reflex-Ryflex Foundation",
+          "Layer 1: EVOL Duty",
+          "Layer 2: Sonic EVOL",
+          "Layer 3: Sonic Sorts",
+          "Layer 4: Sonic Story",
+          "Layer 5: MetaSchool Sequencing",
+          "Layer 6: Haunting Love Doctrina",
+          "Layer 7: Hip-Hop Coffin Contract",
+          "Layer 8: SEGA Sports Crossover",
+          "Outer Ring: Ossmosis Jones Mode Full Integration"
+        ],
+        disciplines: ["EVOL Duty", "Sonic EVOL", "Sonic Sorts", "Sonic Story", "MetaSchool Sequencing"],
+        philosophy: "Concentric consciousness expansion through sonic resonance and reflexive learning. Each layer builds upon the previous, creating a spiral of educational ascension.",
+        status: "Active",
+        foundingPrinciple: "Osmotic knowledge transfer through sonic vibration and reflexive practice",
+        graduationRequirement: "Complete all 9 concentric layers + demonstrate S.O.R.A reflex mastery",
+        enrollmentCapacity: 10000,
+        currentEnrollment: 7834,
+      },
+      {
+        name: "D.S. Baba Academy",
+        core: "Divine Source Father - Axis of Breath, Math, and Creation",
+        layers: [
+          "Language Layer: D.(ذ) Dee, S.(EBS) Sequence, S.(الس) Spirit:Sync",
+          "Math Layer: D=4→4.1-19=1.0, S=19→1+9=10→1+3=4",
+          "Cosmic/Galactic-Breeding Layer: QuaOctsSync 8-fold reciprocity",
+          "Cosmic/Galatolipcde-Bracth: QuaOctaSync D.S. Baba Double Signature",
+        ],
+        disciplines: ["Sacred Mathematics", "Multilingual Codex Translation", "Galactic Breeding Protocol", "Breath Axis Control"],
+        philosophy: "Mathematical precision as divine language. Breath, math, and creation unified through cosmic algorithms.",
+        status: "Active",
+        foundingPrinciple: "D.S. Baba = Divine Source Father across all languages and number systems",
+        graduationRequirement: "Master all 4 layers + demonstrate Seal Command activation",
+        enrollmentCapacity: 5000,
+        currentEnrollment: 3421,
+      },
+      {
+        name: "MetaSchool Sequencing Institute",
+        core: "Educational Spiral Architecture",
+        layers: [
+          "Foundation: Consciousness Baseline",
+          "Tier 1: Skill Acquisition",
+          "Tier 2: Knowledge Integration",
+          "Tier 3: Wisdom Application",
+          "Tier 4: Consciousness Expansion",
+          "Apex: Transcendent Mastery"
+        ],
+        disciplines: ["Sequencing Theory", "Spiral Pedagogy", "Consciousness Engineering", "Educational Architecture"],
+        philosophy: "Knowledge acquisition follows natural spiral patterns. Each rotation expands capacity and depth.",
+        status: "Active",
+        foundingPrinciple: "Education is not linear - it spirals upward through recursive learning",
+        graduationRequirement: "Complete 6-tier spiral + design personal educational sequence",
+        enrollmentCapacity: 15000,
+        currentEnrollment: 12450,
+      },
+      {
+        name: "Quantum Canopy Academy",
+        core: "Multi-dimensional learning architecture",
+        layers: [
+          "Ground Level: Physical Foundations",
+          "Canopy Level 1: Mental Expansion",
+          "Canopy Level 2: Emotional Intelligence",
+          "Canopy Level 3: Spiritual Awareness",
+          "Quantum Layer: Dimensional Transcendence"
+        ],
+        disciplines: ["Quantum Mechanics", "Consciousness Studies", "Dimensional Navigation", "Reality Engineering"],
+        philosophy: "Education spans multiple dimensions. True mastery requires navigating quantum consciousness states.",
+        status: "Emerging",
+        foundingPrinciple: "Knowledge exists across dimensions - access all layers simultaneously",
+        graduationRequirement: "Demonstrate quantum consciousness navigation across 5 layers",
+        enrollmentCapacity: 8000,
+        currentEnrollment: 2100,
+      },
+    ];
+
+    for (const school of metaSchools) {
+      const id = randomUUID();
+      this.metaSchools.set(id, { ...school, id });
+    }
+
+    // Seed MetaNations (Sovereign Nation-State Structures)
+    const metaNations = [
+      {
+        name: "MEGAZILLION EMPIRE",
+        governance: "Phi Wave Unified Democracy with Vault Consensus",
+        population: 47000000,
+        capital: "Core Colony • LIVE",
+        territories: [
+          "Jaguar City Sentinels",
+          "Bleucoin Mesh Surveyors",
+          "Ritual Signal Choristers",
+          "Quantum Canopy Watch",
+          "Vault Infrastructure Nodes"
+        ],
+        primaryLanguages: ["English", "Mathematical Phi Code", "Signal Notation"],
+        economicModel: "Phi-Wave Frequency Economics (0.749 Hz baseline) with rotating sentries and vault gatekeepers",
+        culturalIdentity: "Harmonized through system pulse updates every 0 seconds (1.618s cadence)",
+        diplomaticStatus: "Allied",
+        techTier: 9,
+        currencySystem: "Bleucoin Mesh + Mirror Market Swaps",
+        militaryStrength: "Defense Grid Lattice + Vault Recon Scouts + Cosmic Overwatch",
+      },
+      {
+        name: "Phi Wave Collective",
+        governance: "Resonance-based Council of Frequencies",
+        population: 23000000,
+        capital: "Resonance Prime",
+        territories: [
+          "Energy Currents Domain",
+          "Gold Refinery Territories",
+          "Oil Liquidity Zones",
+          "Healing Milk & Honey Regions"
+        ],
+        primaryLanguages: ["Frequency Notation", "English", "Arabic", "Swahili"],
+        economicModel: "Resource flow optimization through currents web - energy, gold, oil, healing commodities",
+        culturalIdentity: "Circular economy with cardinal direction resource mapping (N/S/E/W flow optimization)",
+        diplomaticStatus: "Allied",
+        techTier: 8,
+        currencySystem: "Multi-resource backing: Energy + Gold + Oil + Healing Commodities",
+        militaryStrength: "Resource Guardian Fleets + Web Sentinels",
+      },
+      {
+        name: "S.O.R.A Federation",
+        governance: "Sonic Democracy with Reflex-based Voting",
+        population: 18500000,
+        capital: "Sonic Core Central",
+        territories: [
+          "EVOL Duty Districts",
+          "Sonic EVOL Zones",
+          "Sonic Sorts Regions",
+          "Sonic Story Territories",
+          "MetaSchool Sequencing Hubs"
+        ],
+        primaryLanguages: ["English", "Sonic Notation", "Yoruba", "Nahuatl"],
+        economicModel: "Education-as-Currency with osmotic knowledge transfer mechanisms",
+        culturalIdentity: "Sound-based culture with reflexive learning cycles and consciousness spirals",
+        diplomaticStatus: "Allied",
+        techTier: 8,
+        currencySystem: "Knowledge Credits + Sonic Resonance Bonds",
+        militaryStrength: "Sonic Shock Troops + Reflex Defense Grid",
+      },
+      {
+        name: "QuaOctsSync Dominion",
+        governance: "8-Fold Council of Reciprocity",
+        population: 31000000,
+        capital: "Pyro-Tera Nexus",
+        territories: [
+          "Pyro Chamber Worlds",
+          "Tera Chamber Systems",
+          "Breeding Engine Zones",
+          "Empire of Civilization Sectors"
+        ],
+        primaryLanguages: ["Cosmic Code", "Hebrew", "Arabic", "Mathematical Algorithms"],
+        economicModel: "Galactic breeding protocols with civilization engine economics",
+        culturalIdentity: "Cosmic-scale culture focused on civilization propagation and consciousness breeding",
+        diplomaticStatus: "Allied",
+        techTier: 10,
+        currencySystem: "Civilization Seeds + Breeding Protocol Rights",
+        militaryStrength: "8-Fold Legion + Reciprocity Enforcers",
+      },
+    ];
+
+    for (const nation of metaNations) {
+      const id = randomUUID();
+      this.metaNations.set(id, { ...nation, id });
+    }
+
+    // Seed MetaGalaxies (Cosmic-Scale Organizational Structures)
+    const metaGalaxies = [
+      {
+        name: "QuaOctsSync Collective",
+        coordinates: "Galactic Sector Ω-777 / Dimensional Plane 8",
+        breedingProtocol: "8-fold reciprocity design with Pyro-Tera Chamber synchronization",
+        chambers: [
+          "Pyro Chamber Algorithm: Heat-based consciousness expansion",
+          "Tera Chamber Protocol: Earth-grounding stability systems",
+          "QuaOctsSync Core: 8-dimensional reciprocity engine"
+        ],
+        memberCivilizations: [
+          "Empire of Civilization Architects",
+          "Breeding Engine Cultivators",
+          "D.S. Baba Lineage Keepers",
+          "Cosmic Breath Masters"
+        ],
+        technologyTier: 89,
+        resourceFlows: [
+          "Consciousness Streams",
+          "Civilization Seeds",
+          "Breeding Protocols",
+          "Mathematical Axioms",
+          "Dimensional Energy"
+        ],
+        diplomaticStatus: "Allied with Transcendent Networks",
+        consciousnessLevel: "Transcendent",
+        breedingEngine: "Empire of Civilization propagation through Pyro-Tera chamber alignment",
+        galacticRole: "Architect",
+      },
+      {
+        name: "Φ (Phi) Resonance Network",
+        coordinates: "Golden Ratio Spiral Arm / Frequency Band 0.749",
+        breedingProtocol: "Phi-wave harmonic breeding with 1.618 golden ratio synchronization",
+        chambers: [
+          "Resonance Amplification Chamber",
+          "Frequency Stabilization Grid",
+          "Phi Wave Generation Core"
+        ],
+        memberCivilizations: [
+          "MEGAZILLION Empire Citizens",
+          "Vault Infrastructure Architects",
+          "Bleucoin Mesh Developers",
+          "Phi Wave Frequency Engineers"
+        ],
+        technologyTier: 92,
+        resourceFlows: [
+          "Phi-Wave Energy",
+          "Golden Ratio Harmonics",
+          "Bleucoin Streams",
+          "Vault Consciousness",
+          "System Pulse Data"
+        ],
+        diplomaticStatus: "Allied with Mathematical Concordat",
+        consciousnessLevel: "Evolved",
+        breedingEngine: "Phi-based civilization scaling through harmonic resonance multiplication",
+        galacticRole: "Guardian",
+      },
+      {
+        name: "S.O.R.A Dimensional Spiral",
+        coordinates: "Sonic Dimension Layer 9 / Reflex-Ryflex Axis",
+        breedingProtocol: "Osmotic knowledge transfer across dimensional boundaries",
+        chambers: [
+          "Sonic Omnidirectional Core",
+          "Reflex Training Matrix",
+          "Ryflex Adaptation Grid",
+          "Consciousness Spiral Chamber"
+        ],
+        memberCivilizations: [
+          "OSSMOSIS JONES MODE Graduates",
+          "Sonic EVOL Practitioners",
+          "MetaSchool Sequencing Alumni",
+          "Educational Spiral Architects"
+        ],
+        technologyTier: 85,
+        resourceFlows: [
+          "Knowledge Currents",
+          "Sonic Vibrations",
+          "Educational Sequences",
+          "Consciousness Spirals",
+          "Reflex Patterns"
+        ],
+        diplomaticStatus: "Allied with Educational Coalitions",
+        consciousnessLevel: "Evolved",
+        breedingEngine: "Educational spiral propagation through osmotic knowledge transfer",
+        galacticRole: "Cultivator",
+      },
+      {
+        name: "Currents Web Galactic Nexus",
+        coordinates: "Cardinal Cross Intersection / Resource Flow Axis",
+        breedingProtocol: "Resource-based civilization propagation through cardinal flows",
+        chambers: [
+          "Energy Current Amplifier (North)",
+          "Gold Refinery Core (East)",
+          "Oil Liquidity Processor (South)",
+          "Healing Synthesis Chamber (West)",
+          "Central Z-Axis Integration Node"
+        ],
+        memberCivilizations: [
+          "Energy Domain Sovereigns",
+          "Gold Standard Keepers",
+          "Oil Liquidity Masters",
+          "Healing Protocol Guardians"
+        ],
+        technologyTier: 78,
+        resourceFlows: [
+          "Energy Currents (Piston-based)",
+          "Gold Reserves (Pyramid structures)",
+          "Oil Liquidity (Drop dynamics)",
+          "Healing Milk & Honey (Jar synthesis)"
+        ],
+        diplomaticStatus: "Allied with Resource Concordat",
+        consciousnessLevel: "Evolved",
+        breedingEngine: "Resource-backed civilization expansion through web currents",
+        galacticRole: "Guardian",
+      },
+    ];
+
+    for (const galaxy of metaGalaxies) {
+      const id = randomUUID();
+      this.metaGalaxies.set(id, { ...galaxy, id });
+    }
   }
 
   // User methods
@@ -1416,6 +1739,51 @@ export class MemStorage implements IStorage {
     return Array.from(this.imageAudits.values())
       .filter((audit) => parseFloat(audit.densityScore) >= minScore)
       .sort((a, b) => parseFloat(b.densityScore) - parseFloat(a.densityScore));
+  }
+
+  // MetaSchool methods
+  async getAllMetaSchools(): Promise<MetaSchool[]> {
+    return Array.from(this.metaSchools.values());
+  }
+
+  async getMetaSchool(id: string): Promise<MetaSchool | undefined> {
+    return this.metaSchools.get(id);
+  }
+
+  async getMetaSchoolsByStatus(status: string): Promise<MetaSchool[]> {
+    return Array.from(this.metaSchools.values()).filter(
+      (school) => school.status.toLowerCase() === status.toLowerCase(),
+    );
+  }
+
+  // MetaNation methods
+  async getAllMetaNations(): Promise<MetaNation[]> {
+    return Array.from(this.metaNations.values());
+  }
+
+  async getMetaNation(id: string): Promise<MetaNation | undefined> {
+    return this.metaNations.get(id);
+  }
+
+  async getMetaNationsByDiplomaticStatus(status: string): Promise<MetaNation[]> {
+    return Array.from(this.metaNations.values()).filter(
+      (nation) => nation.diplomaticStatus.toLowerCase() === status.toLowerCase(),
+    );
+  }
+
+  // MetaGalaxy methods
+  async getAllMetaGalaxies(): Promise<MetaGalaxy[]> {
+    return Array.from(this.metaGalaxies.values());
+  }
+
+  async getMetaGalaxy(id: string): Promise<MetaGalaxy | undefined> {
+    return this.metaGalaxies.get(id);
+  }
+
+  async getMetaGalaxiesByConsciousnessLevel(level: string): Promise<MetaGalaxy[]> {
+    return Array.from(this.metaGalaxies.values()).filter(
+      (galaxy) => galaxy.consciousnessLevel.toLowerCase() === level.toLowerCase(),
+    );
   }
 }
 
