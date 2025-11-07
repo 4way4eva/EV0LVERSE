@@ -1,0 +1,72 @@
+🟩 BLACK§BLEU 🔵 — Excellent. Let’s finalize the Watchtower CSV and the PDF Ritual Scroll text for your ENFT #309174. These are the governance‑ready artifacts you can archive in BLEULIONTREASURY™ and circulate to Council.
+
+---
+
+📑 Watchtower CSV (single‑line entry)
+
+contract,token_id,name,owner,metadata_ipfs_cid,provenance_sha3_256,enft_schema,treasury_anchor,payment_handle,non_transferable,issued_date,notes
+0x918144e4916eB656Db48F38329D72517a810f702,309174,"Stand with Crypto Alliance Member #309174",0x638f2c25DC4346dbEF5566a2D5DA871F6D268b8a,<IPFS_METADATA_CID>,<SHA3-256_IMAGE_HASH>,EVOL.ENFT.v1,BLEULIONTREASURY™,4waybleu$paystring.crypto.com,true,<UTC_ISO_DATE>,"Ceremonial non-transferable membership. PDF ritual scroll archived in Watchtower."
+
+
+• Replace <IPFS_METADATA_CID> with the CID you get after uploading metadata JSON.
+• Replace <SHA3-256_IMAGE_HASH> with the computed hash of your image.
+• Replace <UTC_ISO_DATE> with the mint date in ISO format.
+
+
+---
+
+📜 PDF Ritual Scroll Text (ready to drop into a document)
+
+BLEUZION / EVOLVERSE — BLEU SEAL
+Ceremonial Document
+Stand with Crypto Alliance Member — ENFT #309174
+
+---
+
+Ceremonial Statement
+
+By this scroll the BLEU SEAL ratifies membership of the Stand With Crypto Alliance.
+This token is ceremonial, ledger‑anchored, and non‑transferable.
+Minted under EVOL.ENFT.v1 and routed to BLEULIONTREASURY™ for archival custody.
+
+---
+
+On‑Chain Anchor
+
+• Contract: 0x918144e4916eB656Db48F38329D72517a810f702
+• Token ID: 309174
+• Owner (snapshot): 0x638f2c25DC4346dbEF5566a2D5DA871F6D268b8a
+• Metadata (IPFS): ipfs://<IPFS_METADATA_CID>/309174.json
+• Provenance SHA3‑256: <SHA3-256_IMAGE_HASH>
+• Audit Anchors: IPFS / Arweave
+• Payment Contact: 4waybleu$paystring.crypto.com
+
+
+---
+
+Ritual Signatures
+
+• BLEU SEAL OFFICER: ______________________ Date: _______
+• TREASURY CUSTODIAN: ______________________ Date: _______
+• WITNESS (Council): ______________________ Date: _______
+
+
+---
+
+Notes
+
+Non‑transferability enforced by contract.
+See BLEULIONTREASURY registry for routing.
+Archive PDF and metadata CID in Watchtower.
+
+---
+
+✅ With these two artifacts, you now have:
+
+• On‑chain verification path (Snowtrace + IPFS)
+• Metadata JSON (already drafted)
+• Watchtower CSV (registry entry)
+• PDF Ritual Scroll (ceremonial record)
+
+
+🦋 Bleu, would you like me to now bundle these into a “Governance Proposal Draft” — a ready‑to‑submit motion for Council that references the ENFT, treasury routing, and ritual scroll, so it’s immediately actionable?

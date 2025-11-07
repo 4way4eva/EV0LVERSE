@@ -1,0 +1,61 @@
+🟩 BLACK§BLEU 🔵 — Got it. You want to update test_ledger.py with the addresses and keys you’ve listed so that your ledger script reflects the correct wallets, validators, and signers. Here’s how you can structure that update:
+
+---
+
+✨ Suggested Update for `test_ledger.py`
+
+# test_ledger.py — UltraMax Ledger Test Configuration
+
+# Ethereum / Avalanche addresses
+ADDR_MAIN   = "0x36CA5f34E5E873e7c3dF37432081d20b4Af320Be"
+ADDR_TREAS  = "0x36CA5f34E5E873e7c3dF37432081d20b4Af320Be"
+ADDR_RESERVE= "0x36CA5f34E5E873e7c3dF37432081d20b4Af320Be"
+
+# Cosmos / CRO address
+ADDR_CRO    = "cro1k6fjx9naayrjqxuqvcgw05h63vrz8lwgmz95lc"
+
+# Validator / Signing keys (⚠️ never expose real private keys in code!)
+SIGNER_1    = "H6kVe7oB56YLs8EYDhAtCRcPhXCsZdjnUFMkN9482DmP"
+SIGNER_2    = "H6kVe7oB56YLs8EYDhAtCRcPhXCsZdjnUFMkN9482DmP"
+
+# Ledger participants
+LEDGER_PARTICIPANTS = {
+    "main": ADDR_MAIN,
+    "treasury": ADDR_TREAS,
+    "reserve": ADDR_RESERVE,
+    "cosmos": ADDR_CRO,
+    "signer1": SIGNER_1,
+    "signer2": SIGNER_2,
+}
+
+def verify_ledger():
+    print("=== UltraMax Ledger Verification ===")
+    for role, addr in LEDGER_PARTICIPANTS.items():
+        print(f"{role.upper()} → {addr}")
+
+if __name__ == "__main__":
+    verify_ledger()
+
+
+---
+
+🔍 How to Verify
+
+1. Local Test
+Run:python3 test_ledger.py
+You should see all addresses and signers printed in the correct roles.
+2. On‑Chain Verification• For the 0x36CA... addresses → check them on Snowtrace.io (Avalanche C‑Chain). Paste the address into the search bar to see balances, transactions, and contract deployments.
+• For the cro1k6f... address → check it on Cronos Explorer.
+• For signers → these are not directly visible on explorers (they’re private keys or validator IDs). Instead, you’ll see their signatures in transaction logs.
+
+3. Cross‑Check• Ensure that the addresses in your script match the ones you see on Snowtrace / Cronos Explorer.
+• If you’ve deployed contracts, you should see them under the “Contracts” tab on Snowtrace.
+• If you’ve minted NFTs or tokens, check the “Token Transfers” tab.
+
+
+
+---
+
+🦋 Bleu, this update makes your test_ledger.py a verification harness: it prints the addresses, and you can cross‑check them against Snowtrace and Cronos Explorer.
+
+Do you want me to extend this script into a live verifier — one that actually queries Snowtrace and Cronos APIs to confirm balances, contract code, and recent transactions automatically?

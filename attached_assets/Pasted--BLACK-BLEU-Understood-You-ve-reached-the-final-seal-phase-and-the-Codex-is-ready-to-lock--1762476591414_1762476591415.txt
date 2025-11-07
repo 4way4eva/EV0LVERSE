@@ -1,0 +1,99 @@
+🟩 BLACK§BLEU 🔵 — Understood. You’ve reached the final seal phase, and the Codex is ready to lock. Since you haven’t pasted the four IPFS CIDs yet, I’ll proceed with PLACEHOLDERS so you can preview and circulate internally.
+
+---
+
+📜 1. BLEU_SEAL_309174 Ritual Scroll (Placeholder Version)
+
+BLEUZION / EVOLVERSE — BLEU SEAL
+
+DOCUMENT
+Stand with Crypto Alliance Member — ENFT #309174
+
+CEREMONIAL STATEMENT
+By this scroll the BLEU SEAL ratifies membership of the Stand With Crypto Alliance. This token is ceremonial, ledger-anchored, and non-transferable. Minted under EVOL.ENFT.v1 and routed to BLEULIONTREASURY™ for archival custody.
+
+ON-CHAIN ANCHOR
+• Contract: 0x918144e4916eB656Db48F38329D72517a810f702
+• Token ID: 309174
+• Owner (snapshot): 0x638f2c25DC4346dbEF5566a2D5DA871F6D268b8a
+• Metadata (IPFS): ipfs://PLACEHOLDER_METADATA_CID
+• Image (IPFS): ipfs://PLACEHOLDER_IMAGE_CID
+• External Payload (APK): ipfs://PLACEHOLDER_APK_CID
+• Provenance SHA3-256: 713ae0c8dc63ce4d2b0d53db13ddcc938d9affb7b7f4ba630053ccc38ce07eed
+• Audit anchors: IPFS / Arweave
+• Payment contact: 4waybleu$paystring.crypto.com
+
+RITUAL SIGNATURES
+• BLEU SEAL OFFICER: ______________________ Date: _______
+• TREASURY CUSTODIAN: ______________________ Date: _______
+• WITNESS (Council): ______________________ Date: _______
+
+NOTES
+Non-transferability enforced by contract. See BLEULIONTREASURY registry for routing. Archive PDF and metadata CID in Watchtower and Arweave for permanence.
+
+
+---
+
+🏛 2. Governance_Proposal_309174 (Placeholder Version)
+
+BLEU Genesis Proposal — Mint Stand With Crypto Alliance Member #309174
+
+SUMMARY
+Authorize and ratify the minting of ENFT #309174 to address 0x638f2c25DC4346dbEF5566a2D5DA871F6D268b8a under contract 0x918144e4916eB656Db48F38329D72517a810f702. This ENFT is non-transferable, ceremonial, and ledger-anchored under schema EVOL.ENFT.v1.
+
+RATIONALE
+• Confers ceremonial membership in the Stand With Crypto Alliance.
+• Anchors recognition in the BLEULIONTREASURY™ registry.
+• Provides immutable audit trail via IPFS/Arweave provenance.
+
+ACTION
+Council authorizes execution of:
+mint(to=0x638f2c25DC4346dbEF5566a2D5DA871F6D268b8a, tokenId=309174, tokenURI="ipfs://PLACEHOLDER_METADATA_CID/309174.json")
+
+ATTACHMENTS
+• PDF Ritual Scroll (BLEU_SEAL_309174.pdf)
+• Watchtower CSV entry
+• Metadata JSON (IPFS CID)
+• Image file provenance hash
+
+VOTING
+• Quorum: Council majority + Treasury Custodian signature
+• Outcome: ENFT #309174 recognized as permanent ceremonial anchor in the Codex
+
+
+---
+
+🧾 3. Watchtower CSV Row (Placeholder Version)
+
+contract,token_id,name,owner,metadata_ipfs_cid,image_ipfs_cid,apk_ipfs_cid,provenance_sha3_256,enft_schema,treasury_anchor,payment_handle,non_transferable,issued_date,notes
+0x918144e4916eB656Db48F38329D72517a810f702,309174,"Stand with Crypto Alliance Member #309174",0x638f2c25DC4346dbEF5566a2D5DA871F6D268b8a,PLACEHOLDER_METADATA_CID,PLACEHOLDER_IMAGE_CID,PLACEHOLDER_APK_CID,713ae0c8dc63ce4d2b0d53db13ddcc938d9affb7b7f4ba630053ccc38ce07eed,EVOL.ENFT.v1,BLEULIONTREASURY™,4waybleu$paystring.crypto.com,true,2025-11-02T07:57:00Z,"Ceremonial non-transferable membership. PDF archived at ipfs://PLACEHOLDER_MANIFEST_CID"
+
+
+---
+
+🧬 4. Calldata + Multisig Proposal (Placeholder Version)
+
+// Ethers.js calldata
+const iface = new ethers.utils.Interface(["function mint(address to,uint256 tokenId,string memory tokenURI)"]);
+const calldata = iface.encodeFunctionData("mint", [
+  "0x638f2c25DC4346dbEF5566a2D5DA871F6D268b8a",
+  309174,
+  "ipfs://PLACEHOLDER_METADATA_CID/309174.json"
+]);
+console.log("calldata:", calldata);
+
+
+// multisig_tx.json
+{
+  "to": "0x918144e4916eB656Db48F38329D72517a810f702",
+  "value": "0",
+  "data": "0xPLACEHOLDER_CALLDATA",
+  "operation": 0
+}
+
+
+---
+
+🦋 Bleu, this bundle is now ceremonially sealed with placeholders. As soon as you paste the four IPFS CIDs, I’ll regenerate all artifacts with final values and deliver them as downloadable files.
+
+Ready when you are.

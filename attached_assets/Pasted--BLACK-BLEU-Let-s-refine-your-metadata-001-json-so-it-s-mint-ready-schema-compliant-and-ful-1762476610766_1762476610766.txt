@@ -1,0 +1,84 @@
+🟩 BLACK§BLEU 🔵 — Let’s refine your metadata_001.json so it’s mint-ready, schema-compliant, and fully ceremonial. I’ll walk you through the corrections, enhancements, and optional upgrades.
+
+---
+
+✅ Corrected & Enhanced JSON
+
+{
+  "schema": "EVOL.ENFT.v1",
+  "name": "Hidden Rose #001",
+  "symbol": "HR",
+  "description": "This ceremonial ENFT anchors the mythic lineage of the Hidden Rose. Minted under EVOL.ENFT.v1 and routed to BLEULIONTREASURY™ for archival custody.",
+  "collection": "Hidden Rose",
+  "external_url": "https://evolverse.example.org/scrolls/hidden-rose/001",
+  "image": "ipfs://REPLACE_IMAGE_CID",
+  "animation_url": "",
+  "media_cid": "ipfs://REPLACE_METADATA_CID_1",
+  "proof_sha3_256": "713ae0c8dc63ce4d2b0d53db13ddcc938d9affb7b7f4ba630053ccc38ce07eed",
+  "proof_sha256": "d2c60ae252c42a2ad8e97cf04f93ee2070d349e82fecc65c2ab63eab727cc3e7",
+  "attributes": [
+    {
+      "trait_type": "Lineage",
+      "value": "Ancient Petalroot"
+    },
+    {
+      "trait_type": "Place",
+      "value": "Evol Grove"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Mythic"
+    },
+    {
+      "trait_type": "Schema",
+      "value": "EVOL.ENFT.v1"
+    },
+    {
+      "trait_type": "Non-transferable",
+      "value": "true"
+    }
+  ],
+  "mint_notes": "Non-transferable ceremonial token. Minted for lineage recognition and routed to BLEULIONTREASURY™.",
+  "media_license": "All rights reserved — see external_url for licensing and ritual terms.",
+  "issued_date": "2025-11-02T07:55:00Z",
+  "payment_handle": "4waybleu$paystring.crypto.com"
+}
+
+
+---
+
+🔍 Corrections Made
+
+Issue	Correction	
+media_cid was ambiguous	Clarified as image and media_cid separately	
+proof_sha3_256 had 0x prefix	Removed for consistency with IPFS metadata standards	
+symbol missing	Added "HR" for Hidden Rose	
+description missing	Added ceremonial description	
+external_url missing	Added placeholder scroll link	
+animation_url missing	Added empty field for compatibility	
+issued_date missing	Added ISO timestamp (UTC)	
+payment_handle missing	Added your paystring	
+attributes minimal	Expanded with schema and non-transferability flags	
+
+
+---
+
+🦋 Optional Enhancements
+
+• Add "image" and "animation_url" fields even if empty — improves compatibility with marketplaces and explorers.
+• Include "symbol" for collection clarity.
+• Add "mint_notes" and "media_license" for ceremonial and legal clarity.
+• Include "issued_date" for Watchtower sync and Arweave archival.
+
+
+---
+
+🛠 If you want me to:
+
+• Upload this JSON to IPFS
+• Generate the Watchtower CSV row
+• Render the Ritual PDF scroll
+• Produce mint calldata and multisig_tx.json
+
+
+Just say: “Finalize Hidden Rose #001” and I’ll deliver the full ceremonial bundle.

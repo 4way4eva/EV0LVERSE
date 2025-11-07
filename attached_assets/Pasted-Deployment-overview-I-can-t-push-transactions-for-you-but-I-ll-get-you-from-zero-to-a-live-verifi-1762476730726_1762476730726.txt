@@ -1,0 +1,189 @@
+Deployment overview
+
+I can’t push transactions for you, but I’ll get you from zero to a live, verified deployment with clear steps and copy‑paste commands. You’ll deploy from your machine using a safe setup, then verify everything on Snowtrace.
+
+---
+
+Prerequisites
+
+• Wallet: MetaMask with an Avalanche account (use Fuji testnet first)
+• Funds: Get test AVAX from the Fuji faucet
+• Tools: Node.js 18+, npm, Python 3.10+
+• API keys: Snowtrace (for verification); optional Cronos if you’ll cross‑check there
+
+
+---
+
+Quickstart deploy (Fuji testnet)
+
+1. Initialize project• Create a folder and run:npm init -y
+npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox dotenv
+npx hardhat
+Choose “Create an empty hardhat.config.js”.
+
+2. Add config• hardhat.config.js:require("dotenv").config();
+require("@nomicfoundation/hardhat-toolbox");
+
+module.exports = {
+  solidity: "0.8.20",
+  networks: {
+    fuji: {
+      url: "https://api.avax-test.network/ext/bc/C/rpc",
+      accounts: process.env.PRIVATE_KEY_AVAX ? [process.env.PRIVATE_KEY_AVAX] : []
+    },
+    avalanche: {
+      url: "https://api.avax.network/ext/bc/C/rpc",
+      accounts: process.env.PRIVATE_KEY_AVAX ? [process.env.PRIVATE_KEY_AVAX] : []
+    }
+  },
+  etherscan: {
+    apiKey: {
+      avalancheFujiTestnet: process.env.SNOWTRACE_API_KEY,
+      avalanche: process.env.SNOWTRACE_API_KEY
+    }
+  }
+};
+
+
+3. Add contracts• contracts/zkPoRVerifier.sol:// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+contract zkPoRVerifier {
+    event ZkPoRReceipt(bytes32 epochHash, bytes32 proofHash, bool valid);
+
+    function verify(bytes calldata /*proof*/, bytes32 epochHash, bytes32 proofHash) external returns (bool) {
+        // Placeholder: accept all proofs in test. Replace with real verifier later.
+        emit ZkPoRReceipt(epochHash, proofHash, true);
+        return true;
+    }
+}
+
+• contracts/BleuCrownMintUltraMax.sol:// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+interface IZkPoRVerifier {
+    function verify(bytes calldata proof, bytes32 epochHash, bytes32 proofHash) external returns (bool);
+}
+
+contract BleuCrownMintUltraMax {
+    IZkPoRVerifier public verifier;
+    address public owner;
+
+    event MintExecuted(bytes32 resourceId, uint256 units, address recipient);
+    event CovenantIssued(uint256 tokenId, bytes32 charterHash, address owner);
+
+    uint256 private _nextTokenId;
+
+    constructor(address verifierAddr) {
+        verifier = IZkPoRVerifier(verifierAddr);
+        owner = msg.sender;
+    }
+
+    function mintUltraMax(
+        bytes32 epochHash,
+        bytes32 proofHash,
+        bytes calldata proof,
+        bytes32 resourceId,
+        uint256 units,
+        address recipient,
+        bytes32 charterHash
+    ) external returns (bool) {
+        require(msg.sender == owner, "Only owner");
+        bool ok = verifier.verify(proof, epochHash, proofHash);
+        require(ok, "Invalid zk-PoR");
+        emit MintExecuted(resourceId, units, recipient);
+        emit CovenantIssued(_nextTokenId, charterHash, recipient);
+        _nextTokenId++;
+        return true;
+    }
+}
+
+
+4. Add deploy script• scripts/deploy.js:async function main() {
+  const Verifier = await ethers.getContractFactory("zkPoRVerifier");
+  const verifier = await Verifier.deploy();
+  await verifier.deployed();
+  console.log("zkPoRVerifier:", verifier.address);
+
+  const Mint = await ethers.getContractFactory("BleuCrownMintUltraMax");
+  const mint = await Mint.deploy(verifier.address);
+  await mint.deployed();
+  console.log("BleuCrownMintUltraMax:", mint.address);
+}
+
+main().catch((e) => { console.error(e); process.exitCode = 1; });
+
+
+5. Environment secrets• .env:PRIVATE_KEY_AVAX=your_private_key_without_0x_prefix_or_with_0x
+SNOWTRACE_API_KEY=your_snowtrace_key
+
+
+6. Deploy to Fuji• Run:npx hardhat run scripts/deploy.js --network fuji
+
+• Save the two printed addresses.
+
+7. Verify contracts on Snowtrace• Use Hardhat’s verify helper:npx hardhat verify --network fuji <VERIFIER_ADDRESS>
+npx hardhat verify --network fuji <MINT_ADDRESS> <VERIFIER_ADDRESS>
+
+• If automatic verify fails, use Snowtrace’s web “Verify & Publish” and paste source.
+
+8. Test a mint• scripts/mint.js:async function main() {
+  const mintAddr = "<MINT_ADDRESS>";
+  const Mint = await ethers.getContractFactory("BleuCrownMintUltraMax");
+  const mint = Mint.attach(mintAddr);
+
+  const epochHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes("epoch-0"));
+  const proofHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes("proof-epoch-0"));
+  const fakeProof = "0x"; // placeholder
+  const resourceId = ethers.utils.keccak256(ethers.utils.toUtf8Bytes("PrimeSingularityCore"));
+  const units = 5;
+  const recipient = "<YOUR_AVAX_ADDRESS>";
+  const charterHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes("CROWN-ULTRAMAX"));
+
+  const tx = await mint.mintUltraMax(epochHash, proofHash, fakeProof, resourceId, units, recipient, charterHash);
+  const rc = await tx.wait();
+  console.log("Mint tx:", rc.transactionHash);
+}
+
+main().catch((e) => { console.error(e); process.exitCode = 1; });
+
+• Run:npx hardhat run scripts/mint.js --network fuji
+
+
+
+
+---
+
+What to check on Snowtrace
+
+• Contract pages: Source verified badge, ABI present
+• Transactions tab: Your deploy and mint tx hashes
+• Events/logs:• ZkPoRReceipt(epochHash, proofHash, valid)
+• MintExecuted(resourceId, units, recipient)
+• CovenantIssued(tokenId, charterHash, owner)
+
+
+
+Paste your contract address into Snowtrace’s search to see these. If using mainnet later, switch the network and repeat.
+
+---
+
+Security and operational notes
+
+• Keys: Keep PRIVATE_KEY_AVAX only in .env; never commit it
+• Testnet first: Fuji lets you practice safely
+• Real zk‑PoR: Replace the placeholder verifier with the actual circuit verifier when ready
+• Ownership: The mint function is owner‑gated; you can later add multisig control
+• Records: Add tx hashes and addresses to your ledger CSV and Codex scrolls
+
+
+---
+
+Want me to generate more?
+
+• A multisig‑ready Crown Mint (owner = Gnosis Safe)
+• A real ERC‑721 covenant NFT contract for “CovenantIssued”
+• A Python “Mint Verification Scroll” script that, given a tx hash, decodes events and prints a ceremonial receipt
+
+
+Tell me your preferred network (Fuji vs. Avalanche mainnet) and the address that should be the owner. I’ll tailor the artifacts and commands to your exact setup.

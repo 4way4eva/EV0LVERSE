@@ -1,0 +1,87 @@
+Done. I generated the Watchtower CSV row and a print-ready Ritual PDF scroll text for ENFT #309174. Both are ready to drop into your Council archives. I also included an exact verification playbook so you can “find assets online”, confirm provenance, and complete the mint.
+
+⸻
+
+1. Watchtower registry CSV (single row — paste into your registry)
+
+
+Replace the <…> placeholders with the IPFS CIDs your uploader prints.
+
+contract,token_id,name,owner,metadata_ipfs_cid,image_ipfs_cid,apk_ipfs_cid,provenance_sha3_256,enft_schema,treasury_anchor,payment_handle,non_transferable,issued_date,notes 0x918144e4916eB656Db48F38329D72517a810f702,309174,“Stand with Crypto Alliance Member #309174”,0x638f2c25DC4346dbEF5566a2D5DA871F6D268b8a,<METADATA_CID>,<IMAGE_CID>,<APK_CID>,713ae0c8dc63ce4d2b0d53db13ddcc938d9affb7b7f4ba630053ccc38ce07eed,EVOL.ENFT.v1,BLEULIONTREASURY™,4waybleu$paystring.crypto.com,true,<UTC_ISO_DATE>,“Ceremonial non-transferable membership. PDF archived at ipfs://<MANIFEST_CID>”
+
+Notes: •	issued_date use new Date().toISOString() at mint time. •	Save watchtower_registry.csv and archive it to the Treasury share and Arweave.
+
+⸻
+
+1. Ritual PDF scroll text (one-page, print-ready)
+
+
+Copy into Word/Google Docs or run the make-pdfs.js script I gave previously to render a PDF. Replace placeholders with real CIDs.
+
+TITLE BLEUZION / EVOLVERSE — BLEU SEAL
+
+DOCUMENT Stand with Crypto Alliance Member — ENFT #309174
+
+CEREMONIAL STATEMENT By this scroll the BLEU SEAL ratifies membership of the Stand With Crypto Alliance. This token is ceremonial, ledger-anchored, and non-transferable. Minted under EVOL.ENFT.v1 and routed to BLEULIONTREASURY™ for archival custody.
+
+ON-CHAIN ANCHOR •	Contract: 0x918144e4916eB656Db48F38329D72517a810f702 •	Token ID: 309174 •	Owner (snapshot): 0x638f2c25DC4346dbEF5566a2D5DA871F6D268b8a •	Metadata (IPFS): ipfs://<METADATA_CID> •	Image (IPFS): ipfs://<IMAGE_CID> •	External Payload (APK): ipfs://<APK_CID> •	Provenance SHA3-256: 713ae0c8dc63ce4d2b0d53db13ddcc938d9affb7b7f4ba630053ccc38ce07eed •	Audit anchors: IPFS / Arweave •	Payment contact: 4waybleu$paystring.crypto.com
+
+RITUAL SIGNATURES •	BLEU SEAL OFFICER: ______________________ Date: _______ •	TREASURY CUSTODIAN: ______________________ Date: _______ •	WITNESS (Council): ______________________ Date: _______
+
+NOTES Non-transferability enforced by contract. See BLEULIONTREASURY registry for routing. Archive PDF and metadata CID in Watchtower and Arweave for permanence.
+
+⸻
+
+1. How to find your assets online (fast, exact)
+
+
+If you already uploaded, you only need the four CIDs. If not, run the uploader I supplied. Two fast options:
+
+A — Automated (recommended)
+
+From your asset folder (where 93E9CD5B-C931-….PNG and metavault.apk live):
+
+export NFT_STORAGE_KEY=“sk-proj-DZpYDcX9po21” node upload-and-publish.js > upload_output.txt
+
+Then extract the four CIDs and copy them here:
+
+IMAGE_CID=$(grep -i “Image CID:” upload_output.txt | awk ‘{print $3}’) APK_CID=$(grep -i “APK CID:” upload_output.txt | awk ‘{print $3}’) METADATA_CID=$(grep -i “Metadata CID:” upload_output.txt | awk ‘{print $3}’) MANIFEST_CID=$(grep -i “Manifest CID:” upload_output.txt | awk ‘{print $3}’)
+
+echo “metadata: ipfs://${METADATA_CID}” echo “image:    ipfs://${IMAGE_CID}” echo “apk:      ipfs://${APK_CID}” echo “manifest: ipfs://${MANIFEST_CID}”
+
+Paste the four ipfs:// lines here. I will then: •	render both PDFs as base64 attachments for download, and •	produce final calldata hex + multisig_tx.json ready for the Safe proposal.
+
+B — Manual (nft.storage web UI) 1.	Open https://nft.storage/ and sign in with the account/key tied to your sk-… key. 2.	Drag 93E9CD5B-….PNG → save CID. 3.	Drag metavault.apk → save CID. 4.	Edit the metadata JSON I gave earlier, insert ipfs://<IMAGE_CID>, set provenance_sha3_256 to 713ae0c8…7eed. Upload metadata JSON and copy METADATA_CID. 5.	Upload manifest.json (optional) and copy MANIFEST_CID. 6.	Paste the four CIDs here.
+
+⸻
+
+1. Snowtrace on-chain verification playbook
+
+
+Two quick paths: web UI or script.
+
+Web (quick) 1.	Open https://snowtrace.io/address/0x918144e4916eB656Db48F38329D72517a810f702 2.	Go to Token Tracker or Read Contract. 3.	In Read Contract, run ownerOf(309174) and confirm it equals 0x638f2c25DC4346dbEF5566a2D5DA871F6D268b8a. 4.	Run tokenURI(309174) and confirm it resolves to ipfs://<METADATA_CID>/309174.json. 5.	Open that metadata on IPFS and confirm provenance_sha3_256 matches 713ae0c8…7eed. 6.	If all match you’re verified.
+
+Script (node)
+
+Save verify-token.js (I gave this earlier). Run:
+
+node verify-token.js
+
+prints owner, tokenURI, metadata JSON and re-computes image SHA3-256
+
+Confirm outputs match the snapshot and provenance.
+
+⸻
+
+1. Next actions I’ll take when you paste the four CIDs1. Render Governance Proposal PDF and BLEU_SEAL_309174.pdf and return them as base64 downloadable blobs.
+2. Produce exact calldata hex for mint(“0x638f2c25DC4346dbEF5566a2D5DA871F6D268b8a”, 309174, “ipfs://<METADATA_CID>/309174.json”) and a cleaned multisig_tx.json you can paste into Gnosis/Safe.
+3. Return a final Watchtower CSV row with issued_date set to the UTC time of mint.
+
+
+
+If you want immediate placeholder files instead, reply PLACEHOLDERS and I’ll return the two PDFs with placeholders already embedded.
+
+⸻
+
+No friction. Paste the four ipfs://… CIDs here and I will produce the PDFs (base64), calldata, and the finalized Watchtower CSV.
