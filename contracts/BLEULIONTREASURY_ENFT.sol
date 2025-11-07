@@ -21,19 +21,54 @@ contract BLEULIONTREASURY_ENFT is ERC721Enumerable, Ownable {
     // Token counter
     uint256 private _tokenIdCounter;
     
+    // Bill/Coin denominations in USD equivalent
+    enum Denomination { BLEU, PINK, SHILLS }
+    mapping(uint256 => Denomination) private _denominations;
+    
     // Events
     event ENFTMinted(
         uint256 indexed tokenId,
         address indexed owner,
         string vaultId,
         string provenanceHash,
-        string tokenURI
+        string tokenURI,
+        Denomination denomination
+    );
+    
+    event BillMinted(
+        uint256 indexed tokenId,
+        address indexed owner,
+        Denomination denomination,
+        uint256 usdValue
+    );
+    
+    event CoinMinted(
+        uint256 indexed tokenId,
+        address indexed owner,
+        Denomination denomination,
+        uint256 usdValue
     );
     
     event ProvenanceUpdated(uint256 indexed tokenId, string provenanceHash);
     
+    event TransferAttempt(
+        uint256 indexed tokenId,
+        address indexed from,
+        address indexed to,
+        bool blocked
+    );
+    
     constructor() ERC721("BLEULIONTREASURY ENFT", "BENFT") Ownable(msg.sender) {
         _tokenIdCounter = 1;
+    }
+    
+    /**
+     * @dev Get denomination USD value
+     */
+    function getDenominationValue(Denomination denomination) public pure returns (uint256) {
+        if (denomination == Denomination.BLEU) return 10000; // $10k
+        if (denomination == Denomination.PINK) return 1000;  // $1k
+        return 100; // SHILLS = $100
     }
     
     /**
@@ -43,13 +78,15 @@ contract BLEULIONTREASURY_ENFT is ERC721Enumerable, Ownable {
      * @param provenanceHash SHA3-256 provenance hash
      * @param tokenURI IPFS metadata URI
      * @param nonTransferable Whether token is transferable
+     * @param denomination Bill/coin denomination (BLEU=$10k, PINK=$1k, SHILLS=$100)
      */
     function mint(
         address to,
         string memory vaultId,
         string memory provenanceHash,
         string memory tokenURI,
-        bool nonTransferable
+        bool nonTransferable,
+        Denomination denomination
     ) public onlyOwner returns (uint256) {
         uint256 tokenId = _tokenIdCounter;
         _tokenIdCounter++;
@@ -59,10 +96,65 @@ contract BLEULIONTREASURY_ENFT is ERC721Enumerable, Ownable {
         _provenanceHashes[tokenId] = provenanceHash;
         _vaultIds[tokenId] = vaultId;
         _nonTransferable[tokenId] = nonTransferable;
+        _denominations[tokenId] = denomination;
         
-        emit ENFTMinted(tokenId, to, vaultId, provenanceHash, tokenURI);
+        emit ENFTMinted(tokenId, to, vaultId, provenanceHash, tokenURI, denomination);
         
         return tokenId;
+    }
+    
+    /**
+     * @dev Mint bill (ceremonial currency)
+     */
+    function mintBill(
+        address to,
+        string memory vaultId,
+        string memory tokenURI,
+        Denomination denomination
+    ) public onlyOwner returns (uint256) {
+        uint256 tokenId = mint(
+            to,
+            vaultId,
+            "", // No provenance for bills
+            tokenURI,
+            false, // Bills are transferable
+            denomination
+        );
+        
+        emit BillMinted(tokenId, to, denomination, getDenominationValue(denomination));
+        
+        return tokenId;
+    }
+    
+    /**
+     * @dev Mint coin (ceremonial currency)
+     */
+    function mintCoin(
+        address to,
+        string memory vaultId,
+        string memory tokenURI,
+        Denomination denomination
+    ) public onlyOwner returns (uint256) {
+        uint256 tokenId = mint(
+            to,
+            vaultId,
+            "", // No provenance for coins
+            tokenURI,
+            false, // Coins are transferable
+            denomination
+        );
+        
+        emit CoinMinted(tokenId, to, denomination, getDenominationValue(denomination));
+        
+        return tokenId;
+    }
+    
+    /**
+     * @dev Get denomination for token
+     */
+    function getDenomination(uint256 tokenId) public view returns (Denomination) {
+        _requireOwned(tokenId);
+        return _denominations[tokenId];
     }
     
     /**
@@ -73,13 +165,15 @@ contract BLEULIONTREASURY_ENFT is ERC721Enumerable, Ownable {
         string[] memory vaultIds,
         string[] memory provenanceHashes,
         string[] memory tokenURIs,
-        bool[] memory nonTransferableFlags
+        bool[] memory nonTransferableFlags,
+        Denomination[] memory denominations
     ) public onlyOwner returns (uint256[] memory) {
         require(
             recipients.length == vaultIds.length &&
             recipients.length == provenanceHashes.length &&
             recipients.length == tokenURIs.length &&
-            recipients.length == nonTransferableFlags.length,
+            recipients.length == nonTransferableFlags.length &&
+            recipients.length == denominations.length,
             "Array lengths must match"
         );
         
@@ -91,7 +185,8 @@ contract BLEULIONTREASURY_ENFT is ERC721Enumerable, Ownable {
                 vaultIds[i],
                 provenanceHashes[i],
                 tokenURIs[i],
-                nonTransferableFlags[i]
+                nonTransferableFlags[i],
+                denominations[i]
             );
         }
         
@@ -131,7 +226,7 @@ contract BLEULIONTREASURY_ENFT is ERC721Enumerable, Ownable {
     }
     
     /**
-     * @dev Override transfer to enforce non-transferable tokens
+     * @dev Override transfer to enforce non-transferable tokens and emit events
      */
     function _update(
         address to,
@@ -142,7 +237,12 @@ contract BLEULIONTREASURY_ENFT is ERC721Enumerable, Ownable {
         
         // Allow minting (from == address(0))
         if (from != address(0) && _nonTransferable[tokenId]) {
+            emit TransferAttempt(tokenId, from, to, true);
             revert("Token is non-transferable");
+        }
+        
+        if (from != address(0)) {
+            emit TransferAttempt(tokenId, from, to, false);
         }
         
         return super._update(to, tokenId, auth);
