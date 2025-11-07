@@ -667,6 +667,82 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ENFT Routes
+  app.get("/api/enfts", async (req, res) => {
+    try {
+      const enfts = await storage.getAllEnfts();
+      res.json(enfts);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch ENFTs" });
+    }
+  });
+
+  app.get("/api/enfts/:id", async (req, res) => {
+    try {
+      const enft = await storage.getEnft(req.params.id);
+      if (!enft) {
+        return res.status(404).json({ error: "ENFT not found" });
+      }
+      res.json(enft);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch ENFT" });
+    }
+  });
+
+  app.post("/api/enfts/create-metadata", async (req, res) => {
+    try {
+      const { ipfsService } = await import("./services/ipfs-service");
+      
+      const metadata = ipfsService.createENFTMetadata({
+        name: req.body.name,
+        description: req.body.description,
+        imageIpfsUrl: req.body.imageIpfsUrl,
+        vaultId: req.body.vaultId,
+        provenanceHash: req.body.provenanceHash,
+        codexLayer: req.body.codexLayer,
+        biome: req.body.biome,
+        denomination: req.body.denomination,
+        ceremonyType: req.body.ceremonyType,
+        additionalAttributes: req.body.additionalAttributes,
+      });
+
+      const metadataUrl = await ipfsService.uploadMetadata(metadata);
+      const gatewayUrl = ipfsService.getGatewayUrl(metadataUrl);
+
+      res.json({ 
+        metadataUrl, 
+        gatewayUrl,
+        metadata 
+      });
+    } catch (error: any) {
+      console.error("Metadata creation error:", error);
+      res.status(500).json({ error: error.message || "Failed to create metadata" });
+    }
+  });
+
+  app.post("/api/enfts/register", async (req, res) => {
+    try {
+      const enft = await storage.createEnft({
+        tokenId: req.body.tokenId,
+        vaultId: req.body.vaultId,
+        name: req.body.name,
+        codexReference: req.body.codexReference,
+        densityScore: req.body.densityScore,
+        metadata: req.body.metadata,
+        provenanceHash: req.body.provenanceHash,
+        mintTransaction: req.body.mintTransaction,
+        currentOwner: req.body.currentOwner,
+        mintedDate: new Date().toISOString(),
+        attributes: req.body.attributes || [],
+      });
+      
+      res.json(enft);
+    } catch (error: any) {
+      console.error("ENFT registration error:", error);
+      res.status(500).json({ error: error.message || "Failed to register ENFT" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

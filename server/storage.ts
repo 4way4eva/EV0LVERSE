@@ -147,6 +147,9 @@ export interface IStorage {
   getTreasuryVault(id: string): Promise<TreasuryVault | undefined>;
   
   // ENFT Registry methods
+  getAllEnfts(): Promise<EnftRegistry[]>;
+  getEnft(id: string): Promise<EnftRegistry | undefined>;
+  createEnft(enft: InsertEnftRegistry): Promise<EnftRegistry>;
   getEnftRegistry(): Promise<EnftRegistry[]>;
   getEnftRegistryByVaultId(vaultId: string): Promise<EnftRegistry[]>;
   
@@ -2178,6 +2181,21 @@ export class MemStorage implements IStorage {
   }
 
   // ENFT Registry methods
+  async getAllEnfts(): Promise<EnftRegistry[]> {
+    return Array.from(this.enftRegistry.values());
+  }
+
+  async getEnft(id: string): Promise<EnftRegistry | undefined> {
+    return this.enftRegistry.get(id);
+  }
+
+  async createEnft(enft: InsertEnftRegistry): Promise<EnftRegistry> {
+    const id = crypto.randomUUID();
+    const newEnft = { id, ...enft };
+    this.enftRegistry.set(id, newEnft);
+    return newEnft;
+  }
+
   async getEnftRegistry(): Promise<EnftRegistry[]> {
     return Array.from(this.enftRegistry.values());
   }

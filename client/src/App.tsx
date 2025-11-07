@@ -25,6 +25,7 @@ import ProductsPage from "@/pages/ProductsPage";
 import HeroesPage from "@/pages/HeroesPage";
 import EventsPage from "@/pages/EventsPage";
 import AnalyticsPage from "@/pages/AnalyticsPage";
+import MintENFTPage from "@/pages/MintENFTPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -49,6 +50,7 @@ function Router() {
       <Route path="/heroes" component={HeroesPage} />
       <Route path="/events" component={EventsPage} />
       <Route path="/analytics" component={AnalyticsPage} />
+      <Route path="/mint-enft" component={MintENFTPage} />
       <Route component={NotFound} />
     </Switch>
   );

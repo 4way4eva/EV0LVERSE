@@ -96,6 +96,11 @@ const menuItems = [
         icon: Coins,
       },
       {
+        title: "Mint ENFT",
+        url: "/mint-enft",
+        icon: Sparkles,
+      },
+      {
         title: "Ceremonial Protocols",
         url: "/ceremonial",
         icon: Flame,
