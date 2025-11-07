@@ -14,7 +14,7 @@ Go to **Tools → Secrets** in Replit and add these environment variables:
 ```
 DEPLOYER_PRIVATE_KEY=your_wallet_private_key_here
 ALCHEMY_API_KEY=your_alchemy_api_key_here
-NFT_STORAGE_API_KEY=H6kVe7oB56YLs8EYDhAtCRcPhXCsZdjnUFMkN9482DmP
+NFT_STORAGE_API_KEY=your_nft_storage_api_key_here
 ```
 
 ### Getting Your Keys:
