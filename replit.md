@@ -31,10 +31,17 @@ Currently, there's a basic user schema with username/password as a foundational 
 ## External Dependencies
 
 ### Blockchain & Web3
--   **Target Networks**: Avalanche, Polygon, BLEUChain (custom), Ethereum (Sepolia testnet).
--   **Token Standards**: ERC-721, ERC-1155 for ENFT metadata.
--   **IPFS/Storage**: NFT.Storage integration is planned for metadata and assets.
+-   **Target Networks**: Ethereum Sepolia testnet, Polygon Mumbai testnet, Avalanche Fuji testnet.
+-   **Token Standards**: ERC-721 for ENFT metadata (implemented in `contracts/BLEULIONTREASURY_ENFT.sol`).
+-   **IPFS/Storage**: NFT.Storage integration fully implemented via `server/services/ipfs-service.ts`.
 -   **Provenance**: SHA3-256 hashing for ceremonial scroll verification.
+-   **Smart Contracts**: 
+    - `BLEULIONTREASURY_ENFT.sol`: ERC-721 contract with vault association, provenance tracking, and transfer control.
+    - Deployment tooling: Hardhat configuration and Remix IDE deployment guide available.
+-   **Minting Infrastructure**:
+    - Backend API endpoints: `/api/enfts/create-metadata`, `/api/enfts/register` for IPFS upload and blockchain registration.
+    - Frontend minting page: `/mint-enft` route with wallet connection and form validation.
+    - Treasury ledger integration: Real-time display of minted ENFTs via `/api/enft-registry` endpoint.
 
 ### Third-Party Services
 -   **Neon Database**: Serverless PostgreSQL hosting.
