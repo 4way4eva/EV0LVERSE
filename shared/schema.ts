@@ -428,6 +428,9 @@ export const enftRegistry = pgTable("enft_registry", {
   currentOwner: text("current_owner").notNull(), // Wallet address
   mintedDate: text("minted_date").notNull(),
   attributes: text("attributes").array().notNull(), // Traits/properties
+  denomination: text("denomination"), // BLEU, PINK, SHILLS
+  usdValue: integer("usd_value"), // 10000, 1000, 100
+  tokenType: text("token_type").notNull().default('enft'), // enft, bill, coin
 });
 
 export const insertEnftRegistrySchema = createInsertSchema(enftRegistry).omit({

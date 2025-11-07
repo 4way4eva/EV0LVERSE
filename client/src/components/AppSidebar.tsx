@@ -13,6 +13,7 @@ import {
 import {
   Home,
   Coins,
+  Banknote,
   Droplet,
   Users,
   Image,
@@ -99,6 +100,11 @@ const menuItems = [
         title: "Mint ENFT",
         url: "/mint-enft",
         icon: Sparkles,
+      },
+      {
+        title: "Mint Bills & Coins",
+        url: "/mint-bills-coins",
+        icon: Banknote,
       },
       {
         title: "Ceremonial Protocols",

@@ -28,7 +28,7 @@ export class IPFSService {
   /**
    * Upload ENFT metadata to IPFS via NFT.Storage
    */
-  async uploadMetadata(metadata: ENFTMetadata): Promise<string> {
+  async uploadMetadata(metadata: ENFTMetadata | any): Promise<string> {
     if (!this.client) {
       throw new Error("NFT.Storage API key not configured");
     }
@@ -40,10 +40,9 @@ export class IPFSService {
       });
 
       const cid = await this.client.storeBlob(file);
-      const ipfsUrl = `ipfs://${cid}`;
       
-      console.log("✅ Metadata uploaded to IPFS:", ipfsUrl);
-      return ipfsUrl;
+      console.log("✅ Metadata uploaded to IPFS: ipfs://" + cid);
+      return cid; // Return just the CID
     } catch (error) {
       console.error("❌ IPFS upload failed:", error);
       throw new Error("Failed to upload metadata to IPFS");

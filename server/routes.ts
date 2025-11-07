@@ -734,12 +734,145 @@ export async function registerRoutes(app: Express): Promise<Server> {
         currentOwner: req.body.currentOwner,
         mintedDate: new Date().toISOString(),
         attributes: req.body.attributes || [],
+        denomination: req.body.denomination,
+        usdValue: req.body.usdValue,
+        tokenType: req.body.tokenType || 'enft',
       });
       
       res.json(enft);
     } catch (error: any) {
       console.error("ENFT registration error:", error);
       res.status(500).json({ error: error.message || "Failed to register ENFT" });
+    }
+  });
+
+  // Mint bill
+  app.post("/api/bills/mint", async (req, res) => {
+    try {
+      const { ipfsService } = await import("./services/ipfs-service");
+      const { vaultId, ownerAddress, denomination } = req.body;
+      
+      // Validate denomination
+      const validDenominations = ['BLEU', 'PINK', 'SHILLS'];
+      if (!validDenominations.includes(denomination)) {
+        return res.status(400).json({ error: "Invalid denomination. Must be BLEU, PINK, or SHILLS" });
+      }
+      
+      const usdValues: Record<string, number> = {
+        BLEU: 10000,
+        PINK: 1000,
+        SHILLS: 100
+      };
+      
+      // Create metadata for IPFS (simple object, not ENFTMetadata type)
+      const billMetadata = {
+        name: `${denomination} Bill`,
+        description: `BLEULIONTREASURY Ceremonial Bill - ${denomination} denomination`,
+        denomination: denomination,
+        usd_value: usdValues[denomination],
+        type: 'bill',
+        attributes: [
+          { trait_type: "Type", value: "Bill" },
+          { trait_type: "Denomination", value: denomination },
+          { trait_type: "USD Value", value: usdValues[denomination] },
+          { trait_type: "Vault", value: vaultId }
+        ]
+      };
+      
+      // Upload to IPFS (returns string CID)
+      const ipfsCid = await ipfsService.uploadMetadata(billMetadata);
+      const metadataUrl = `ipfs://${ipfsCid}`;
+      
+      // Register in database
+      const bill = await storage.createEnft({
+        tokenId: Math.floor(Math.random() * 1000000), // Temporary until blockchain mint
+        vaultId: vaultId,
+        name: `${denomination} Bill`,
+        codexReference: `Bill-${denomination}`,
+        densityScore: "Standard",
+        metadata: metadataUrl,
+        currentOwner: ownerAddress,
+        mintedDate: new Date().toISOString(),
+        attributes: [`Type:Bill`, `Denomination:${denomination}`],
+        denomination: denomination,
+        usdValue: usdValues[denomination],
+        tokenType: 'bill',
+      });
+      
+      res.json({ 
+        ...bill, 
+        ipfsCid,
+        metadataUrl,
+        message: `${denomination} bill created successfully`
+      });
+    } catch (error: any) {
+      console.error("Bill minting error:", error);
+      res.status(500).json({ error: error.message || "Failed to mint bill" });
+    }
+  });
+
+  // Mint coin
+  app.post("/api/coins/mint", async (req, res) => {
+    try {
+      const { ipfsService } = await import("./services/ipfs-service");
+      const { vaultId, ownerAddress, denomination } = req.body;
+      
+      // Validate denomination
+      const validDenominations = ['BLEU', 'PINK', 'SHILLS'];
+      if (!validDenominations.includes(denomination)) {
+        return res.status(400).json({ error: "Invalid denomination. Must be BLEU, PINK, or SHILLS" });
+      }
+      
+      const usdValues: Record<string, number> = {
+        BLEU: 10000,
+        PINK: 1000,
+        SHILLS: 100
+      };
+      
+      // Create metadata for IPFS (simple object, not ENFTMetadata type)
+      const coinMetadata = {
+        name: `${denomination} Coin`,
+        description: `BLEULIONTREASURY Ceremonial Coin - ${denomination} denomination`,
+        denomination: denomination,
+        usd_value: usdValues[denomination],
+        type: 'coin',
+        attributes: [
+          { trait_type: "Type", value: "Coin" },
+          { trait_type: "Denomination", value: denomination },
+          { trait_type: "USD Value", value: usdValues[denomination] },
+          { trait_type: "Vault", value: vaultId }
+        ]
+      };
+      
+      // Upload to IPFS (returns string CID)
+      const ipfsCid = await ipfsService.uploadMetadata(coinMetadata);
+      const metadataUrl = `ipfs://${ipfsCid}`;
+      
+      // Register in database
+      const coin = await storage.createEnft({
+        tokenId: Math.floor(Math.random() * 1000000), // Temporary until blockchain mint
+        vaultId: vaultId,
+        name: `${denomination} Coin`,
+        codexReference: `Coin-${denomination}`,
+        densityScore: "Standard",
+        metadata: metadataUrl,
+        currentOwner: ownerAddress,
+        mintedDate: new Date().toISOString(),
+        attributes: [`Type:Coin`, `Denomination:${denomination}`],
+        denomination: denomination,
+        usdValue: usdValues[denomination],
+        tokenType: 'coin',
+      });
+      
+      res.json({ 
+        ...coin, 
+        ipfsCid,
+        metadataUrl,
+        message: `${denomination} coin created successfully`
+      });
+    } catch (error: any) {
+      console.error("Coin minting error:", error);
+      res.status(500).json({ error: error.message || "Failed to mint coin" });
     }
   });
 
