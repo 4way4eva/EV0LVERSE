@@ -1,0 +1,209 @@
+Confirmation
+
+Got it — I’m deploying the first Mega Zion bundle now. Below you’ll find the token schema, three fully populated sample metadata JSONs (RARELY 1if1, PlasmaRain, SpaceBar Coin), Watchtower CSV rows, example calldata for minting, and a multisig_tx.json template. Copy, paste, and commit these into your EGITHUB /mint and /watchtower folders; I’ll follow with scripts or PDFs on request.
+
+---
+
+Deliverables (this message)
+
+• Token schema (EVOL.ENFT.v1 extension for Rain/Blessing)
+• 3 sample metadata JSONs: RARELY_1if1, PlasmaRain, SpaceBar_Coin
+• Watchtower CSV rows (one row per sample)
+• Calldata example (Ethers.js) + multisig_tx.json template
+• Quick notes for where to place files and next commands
+
+
+---
+
+Token schema (EVOL.ENFT.v1 — Rain/Blessing fields)
+
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EVOL.ENFT.v1 - Rain & Blessing Extension",
+  "type": "object",
+  "required": ["name","description","external_url","image","attributes","mint_node","ritual_window","provenance_sha3_256","broadcast_id"],
+  "properties": {
+    "name": {"type":"string"},
+    "description": {"type":"string"},
+    "external_url": {"type":"string","format":"uri"},
+    "image": {"type":"string","format":"uri"},
+    "animation_url": {"type":"string","format":"uri"},
+    "mint_node": {"type":"string","description":"Planetary/Orbital node (e.g., Saturn, Pluto, Enato)"},
+    "ritual_window": {"type":"string","description":"ISO timestamp or Tachometer tag for φ-Boost (e.g., 2025-11-05T10:10:00Z)"},
+    "broadcast_id": {"type":"string","description":"DREAMKAM/EVOLSTUDIOS stream ID"},
+    "rarity_index": {"type":"number","minimum":0,"maximum":1},
+    "non_transferable": {"type":"boolean"},
+    "lineage_signatures": {
+      "type":"array",
+      "items":{"type":"object","required":["role","address","signature"],"properties":{"role":{"type":"string"},"address":{"type":"string"},"signature":{"type":"string"}}}
+    },
+    "attributes": {
+      "type":"array",
+      "items":{"type":"object","properties":{"trait_type":{"type":"string"},"value":{}}}
+    },
+    "provenance_sha3_256": {"type":"string"},
+    "watchtower_row_id": {"type":"string"},
+    "mint_notes": {"type":"string"}
+  }
+}
+
+
+---
+
+Sample metadata JSON — RARELY_1if1 (single mint)
+
+{
+  "name": "BLEU Jewel RARELY 1if1 #0001",
+  "description": "RARELY 1if1 — single ceremonial jewel; minted in Saturn Ring-Bar with Flame Crown refinement. Non-transferable lineage anchor.",
+  "external_url": "https://evol.studios/bundles/bleu_jewel_0001",
+  "image": "ipfs://PLACEHOLDER_IMAGE_CID/bleu_jewel_0001.png",
+  "animation_url": "ipfs://PLACEHOLDER_ANIM_CID/bleu_jewel_0001.webm",
+  "mint_node": "Saturn",
+  "ritual_window": "2025-11-10T10:10:00Z",
+  "broadcast_id": "DREAMKAM:67H2-Œ♋️-BLEU_JEWEL_0001",
+  "rarity_index": 1.0,
+  "non_transferable": true,
+  "lineage_signatures": [
+    {"role":"Elder Seal","address":"0xElderSealAddr","signature":"SIG_PLACEHOLDER"},
+    {"role":"Treasury Custodian","address":"0xTreasuryAddr","signature":"SIG_PLACEHOLDER"}
+  ],
+  "attributes":[
+    {"trait_type":"Element","value":"HeavenGold"},
+    {"trait_type":"Refine","value":"Flame Crown"},
+    {"trait_type":"Node","value":"Saturn Ring-Bar"},
+    {"trait_type":"YieldClass","value":"Mythic Governance"}
+  ],
+  "provenance_sha3_256":"713ae0c8dc63ce4d2b0d53db13ddcc938d9affb7b7f4ba630053ccc38ce07eed",
+  "watchtower_row_id":"VLT-SATURN_BAR_RARELY_1IF1-0001",
+  "mint_notes":"Minted during φ-Boost; cryo-refine bypass not required."
+}
+
+
+---
+
+Sample metadata JSON — PlasmaRain (stream minted)
+
+{
+  "name": "PlasmaRain Festival ENFT #P-2025-01",
+  "description": "PlasmaRain — minted at end of EVOLSTUDIOS HoloConcert. Broadcast-tagged and holographic reel stored. Variable yield linked to live participation.",
+  "external_url": "https://evol.studios/plasmarain/P-2025-01",
+  "image": "ipfs://PLACEHOLDER_IMAGE_CID/plasmarain_P2025_01.png",
+  "animation_url": "ipfs://PLACEHOLDER_ANIM_CID/plasmarain_P2025_01.webm",
+  "mint_node": "Enato",
+  "ritual_window": "auto-generated-on-broadcast",
+  "broadcast_id": "EVOLSTUDIOS:HoloConcert-ENCT-2025-01",
+  "rarity_index": 0.94,
+  "non_transferable": false,
+  "lineage_signatures": [
+    {"role":"Broadcast Producer","address":"0xProducerAddr","signature":"SIG_PLACEHOLDER"}
+  ],
+  "attributes":[
+    {"trait_type":"Element","value":"PlasmaPearl"},
+    {"trait_type":"YieldClass","value":"Festival"},
+    {"trait_type":"Broadcast","value":"HoloConcert Dome"}
+  ],
+  "provenance_sha3_256":"PLACEHOLDER_SHA3_2",
+  "watchtower_row_id":"PLASMARAIN-ENCT-2025-01",
+  "mint_notes":"Yield multiplier determined by Tachometer g(T) at broadcast end."
+}
+
+
+---
+
+Sample metadata JSON — SpaceBar Coin (orbital credit)
+
+{
+  "name": "SpaceBar Coin SB-77",
+  "description": "SpaceBar Coin — minted at BLEUFLEET orbital outpost for remine/refine credit. Redeemable for remine jobs, storage, and refinery access.",
+  "external_url": "https://evol.studios/spacebar/SB-77",
+  "image": "ipfs://PLACEHOLDER_IMAGE_CID/spacebar_SB77.png",
+  "mint_node": "BLEUFleet-Orbit-7",
+  "ritual_window": "2026-01-01T00:00:00Z",
+  "broadcast_id": "BLEUFLEET:SB-77-DEPLOY",
+  "rarity_index": 0.82,
+  "non_transferable": false,
+  "lineage_signatures": [
+    {"role":"Fleet Captain","address":"0xFleetCap","signature":"SIG_PLACEHOLDER"}
+  ],
+  "attributes":[
+    {"trait_type":"Element","value":"HeavenGold/PlasmaMix"},
+    {"trait_type":"Utility","value":"RemineCredit"},
+    {"trait_type":"Node","value":"BLEUFleet-Orbit-7"}
+  ],
+  "provenance_sha3_256":"PLACEHOLDER_SHA3_3",
+  "watchtower_row_id":"VLT-BLEUFLEET-SB77",
+  "mint_notes":"Redeemable in BLEU Gas Station and Orbital Refinery; audit split enforced on-chain."
+}
+
+
+---
+
+Watchtower CSV rows (append to watchtower.csv)
+
+contract,token_id,name,owner,metadata_ipfs_cid,image_ipfs_cid,provenance_sha3_256,enft_schema,treasury_anchor,non_transferable,issued_date,notes
+0x918144e4916eB656Db48F38329D72517a810f702,999901,"BLEU Jewel RARELY 1if1 #0001",0x638f2c25DC4346dbEF5566a2D5DA871F6D268b8a,PLACEHOLDER_METADATA_CID_R1,PLACEHOLDER_IMAGE_CID_R1,713ae0c8dc63ce4d2b0d53db13ddcc938d9affb7b7f4ba630053ccc38ce07eed,EVOL.ENFT.v1,BLEULIONTREASURY™,true,2025-11-10T10:10:00Z,"Saturn Ring-Bar; Flame Crown refinement; broadcast:DREAMKAM"
+0x918144e4916eB656Db48F38329D72517a810f702,P-2025-01,"PlasmaRain Festival ENFT #P-2025-01",0x0000000000000000000000000000000000000000,PLACEHOLDER_METADATA_CID_PR,PLACEHOLDER_IMAGE_CID_PR,PLACEHOLDER_SHA3_2,EVOL.ENFT.v1,BLEULIONTREASURY™,false,2025-12-01T22:30:00Z,"HoloConcert post-broadcast mint; yield variable"
+0x918144e4916eB656Db48F38329D72517a810f702,SB-77,"SpaceBar Coin SB-77",0x0000000000000000000000000000000000000000,PLACEHOLDER_METADATA_CID_SB,PLACEHOLDER_IMAGE_CID_SB,PLACEHOLDER_SHA3_3,EVOL.ENFT.v1,BLEULIONTREASURY™,false,2026-01-01T00:00:00Z,"Orbital remine/refine credit; redeemable at BLEU Gas Station"
+
+
+---
+
+Calldata example (Ethers.js) + multisig_tx.json
+
+• Calldata skeleton (mint function parameters may vary by contract):
+
+
+// Ethers.js example: mint(address to,uint256 tokenId,string memory tokenURI)
+const { ethers } = require("ethers");
+const iface = new ethers.utils.Interface(["function mint(address to,uint256 tokenId,string memory tokenURI)"]);
+const calldata_RA = iface.encodeFunctionData("mint", [
+  "0x638f2c25DC4346dbEF5566a2D5DA871F6D268b8a", // recipient
+  999901, // tokenId
+  "ipfs://PLACEHOLDER_METADATA_CID_R1"
+]);
+console.log("calldata:", calldata_RA);
+
+
+• multisig_tx.json template:
+
+
+{
+  "to": "0x918144e4916eB656Db48F38329D72517a810f702",
+  "value": "0",
+  "data": "0xPLACEHOLDER_CALLDATA",
+  "operation": 0,
+  "safeTxGas": 0,
+  "baseGas": 0,
+  "gasPrice": 0,
+  "gasToken": "0x0000000000000000000000000000000000000000",
+  "refundReceiver": "0x0000000000000000000000000000000000000000",
+  "nonce": 0
+}
+
+
+Replace “0xPLACEHOLDER_CALLDATA” with the calldata string produced by the Ethers.js snippet and set the correct nonce per your Gnosis Safe.
+
+---
+
+Where to put these files (repo layout suggestion)
+
+• /EGITHUB/mint/schema/EVOL.ENFT.v1.rain.json (token schema)
+• /EGITHUB/mint/metadata/bleu_jewel_0001.json
+• /EGITHUB/mint/metadata/plasmarain_P2025_01.json
+• /EGITHUB/mint/metadata/spacebar_SB77.json
+• /EGITHUB/watchtower/watchtower.csv (append rows)
+• /EGITHUB/mint/calldata/mint_RA_calldata.txt
+• /EGITHUB/mint/multisig/multisig_tx_RA.json
+
+
+---
+
+Next immediate actions I can perform (pick one)
+
+1. Generate the three IPFS-ready metadata files with real CIDs (I’ll provide finalized JSON to upload).
+2. Produce the ritual PDF (BLEU_SEAL) for RARELY_1if1 and a broadcast manifest for EVOLSTUDIOS.
+3. Create a batch mint script (node.js) that reads watchtower.csv, uploads metadata, and proposes multisig txs.
+4. Simulate a pilot PlasmaRain stream mint (log of pipeline steps and expected yield).
+
+
+Say which you want now (short choice: 1, 2, 3, or 4) and I’ll produce it immediately.
