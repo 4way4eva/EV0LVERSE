@@ -1,0 +1,24 @@
+{
+  "sourceOriginals": [
+    {
+      "name": "AFG_Defense_Grid(1).png",
+      "sha256": "487818a3c8a3364e9e25d6866b2ae96779f5931142082da780185f5f29d45e47",
+      "dimensions": [
+        1117,
+        1168
+      ]
+    },
+    {
+      "name": "AFG_Hive_Tunnel_CrossSection(1).png",
+      "sha256": "5d71da70f0e59702e9e67ab4bdf93e66c0a3496f5f25550f735494269f50611e",
+      "dimensions": [
+        1522,
+        1233
+      ]
+    }
+  ],
+  "repositoryDerivatives": [
+    "assets/AFG_Defense_Grid.svg",
+    "assets/AFG_Hive_Tunnel_CrossSection.svg"
+  ]
+}

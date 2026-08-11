@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1.0.0",
+  "module": "AFG",
+  "title": "A.F.G. Defense Grid — Perimeter & Hive Topology",
+  "framing": "fictional-simulation",
+  "sourceAssets": [
+    "assets/AFG_Defense_Grid.svg",
+    "assets/AFG_Hive_Tunnel_CrossSection.svg"
+  ],
+  "perimeter": {
+    "core": {
+      "label": "Core Colony",
+      "radiusNormalized": 0.33,
+      "nodeCount": 1
+    },
+    "sentryRing": {
+      "label": "Sentry Ring",
+      "radiusNormalized": 0.67,
+      "nodeCount": 12,
+      "placement": "30-degree intervals"
+    },
+    "scoutRing": {
+      "label": "Scout Ring",
+      "radiusNormalized": 1.0,
+      "nodeCount": 12,
+      "placement": "30-degree intervals"
+    },
+    "radialLanes": 12,
+    "laneMeaning": "detection/response vector in simulation space"
+  },
+  "hiveCrossSection": {
+    "entrance": "vertical funnel / chute",
+    "layers": [
+      "entrance throat",
+      "honey gallery",
+      "brood chamber",
+      "lower hive levels"
+    ],
+    "guardBoundaries": [
+      "outer guard ring",
+      "inner guard ring"
+    ],
+    "canonicalGeometry": "See source cross-section image; no physical construction dimensions are asserted."
+  },
+  "responseStates": [
+    {
+      "id": "detect",
+      "sourceConcept": "scout ping",
+      "simulationMeaning": "Update a threat/interest heatmap and mark the corresponding radial lane."
+    },
+    {
+      "id": "intercept",
+      "sourceConcept": "sentry intercept",
+      "simulationMeaning": "Move a sentry agent to challenge, contain, or redirect an intruding game entity."
+    },
+    {
+      "id": "swarm_response",
+      "sourceConcept": "bee swarm response",
+      "simulationMeaning": "Trigger an abstract area-control event with renderer/gameplay-defined effects."
+    },
+    {
+      "id": "seal_breach",
+      "sourceConcept": "tunnel breach response",
+      "simulationMeaning": "Disable a graph edge, seal a simulated route, and reroute pathfinding."
+    }
+  ],
+  "integration": {
+    "engineHints": [
+      "Unity",
+      "Unreal",
+      "web visualization"
+    ],
+    "movementUtility": "sim/SpiralMovement.cs",
+    "registryDomain": "MILITARY & DEFENSE SYSTEMS",
+    "registryComponent": "A.F.G. Defense Grid",
+    "registryFunction": "Fictional perimeter/hive simulation topology with scout, sentry, and breach-state modeling"
+  }
+}

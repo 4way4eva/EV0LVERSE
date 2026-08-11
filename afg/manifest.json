@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "1.0.0",
+  "module": "AFG",
+  "framing": "fictional-simulation",
+  "hashAlgorithm": "sha256",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "cd09046fa0a7584170c3ab22a9b745d84194dde622ced3cda74c88add7d6f5e4",
+      "bytes": 2989
+    },
+    {
+      "path": "assets/AFG_Defense_Grid.svg",
+      "sha256": "98790854bbaa9cd30c7d3b56c9d01e05e2bfe87e448821c9080b2e698bd24289",
+      "bytes": 5354
+    },
+    {
+      "path": "assets/AFG_Hive_Tunnel_CrossSection.svg",
+      "sha256": "512c330d69c364668f3a19e631c534a3170e5c4ecfb46eba2d788918be18dd6a",
+      "bytes": 2632
+    },
+    {
+      "path": "data/afg-defense-grid.json",
+      "sha256": "737b418dcdd9dfea2a9268baa6840a2b46a94129101193e32f468836de6ab69a",
+      "bytes": 2313
+    },
+    {
+      "path": "data/afg-nodes.csv",
+      "sha256": "8e21d7a560a1d66395221645be23466ad02f3c0c7bc4584ef3b5432c3ff68067",
+      "bytes": 1061
+    },
+    {
+      "path": "docs/REGISTRY_ROW.csv",
+      "sha256": "45f911f3ebc4d68ddfa3b206bb61ba263eded72547f96213f3652207ca5fd4be",
+      "bytes": 166
+    },
+    {
+      "path": "docs/SOURCE_NOTES.md",
+      "sha256": "84e358f5a77cd284ca46a1dfe49128271847d134a3716467c66529faad6ba9f4",
+      "bytes": 2520
+    },
+    {
+      "path": "docs/SOURCE_RASTER_HASHES.json",
+      "sha256": "84821ed583b72e967556503662fa3794ca0aac1042427e0acea479973fd732e6",
+      "bytes": 547
+    },
+    {
+      "path": "schemas/afg-defense-grid.schema.json",
+      "sha256": "446bfbdd67259f2a4ddf037449560e6fff2a1c3ec032e389033518b6e54cab98",
+      "bytes": 1702
+    },
+    {
+      "path": "sim/SpiralMovement.cs",
+      "sha256": "c5d6408797c8abed9a9ec59bc3a33da9fbfb7971a0f8156d064fdde1f7faf41c",
+      "bytes": 369
+    },
+    {
+      "path": "tools/validate_afg_manifest.py",
+      "sha256": "5e00f42df9098f2fc5ac9772004b8123b3c15df9f9ffeef374ef30fa6bf6962b",
+      "bytes": 1951
+    }
+  ],
+  "sourceRasterMetadata": "docs/SOURCE_RASTER_HASHES.json"
+}
