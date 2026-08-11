@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://evolverse.local/schemas/afg-defense-grid.schema.json",
+  "title": "A.F.G. Defense Grid Simulation Topology",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "module",
+    "framing",
+    "perimeter",
+    "hiveCrossSection",
+    "responseStates"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "module": {
+      "const": "AFG"
+    },
+    "framing": {
+      "const": "fictional-simulation"
+    },
+    "perimeter": {
+      "type": "object",
+      "required": [
+        "core",
+        "sentryRing",
+        "scoutRing",
+        "radialLanes"
+      ],
+      "properties": {
+        "core": {
+          "$ref": "#/$defs/ring"
+        },
+        "sentryRing": {
+          "$ref": "#/$defs/ring"
+        },
+        "scoutRing": {
+          "$ref": "#/$defs/ring"
+        },
+        "radialLanes": {
+          "type": "integer",
+          "const": 12
+        }
+      }
+    },
+    "hiveCrossSection": {
+      "type": "object"
+    },
+    "responseStates": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "simulationMeaning"
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "ring": {
+      "type": "object",
+      "required": [
+        "label",
+        "radiusNormalized",
+        "nodeCount"
+      ],
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "radiusNormalized": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "nodeCount": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}

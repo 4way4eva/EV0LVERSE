@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="940" viewBox="0 0 900 940">
+<rect width="100%" height="100%" fill="white"/>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#333}.ring{fill:none;stroke:#111;stroke-width:4}.lane{stroke:#111;stroke-width:3;marker-end:url(#arrow)}.scout{fill:#f6d998;opacity:.75}.sentry{fill:#f6d998;opacity:.75}</style>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#111"/></marker></defs>
+<text x="450" y="42" text-anchor="middle" font-size="34">A.F.G. Defense Grid — Perimeter &amp; Response</text>
+<circle class="ring" cx="450" cy="490" r="390"/>
+<circle class="ring" cx="450" cy="490" r="270"/>
+<circle class="ring" cx="450" cy="490" r="135"/>
+<text x="450" y="498" text-anchor="middle" font-size="24">Core Colony</text>
+<line class="lane" x1="450.0" y1="212.0" x2="450.0" y2="125.0"/>
+<polygon class="sentry" points="450.0,202.0 464.0,232.0 436.0,232.0"/>
+<text x="450.0" y="268.0" text-anchor="middle" font-size="16">Sentry</text>
+<circle class="scout" cx="450.0" cy="100.0" r="18"/>
+<text x="450.0" y="105.0" text-anchor="middle" font-size="14">Scout</text>
+<line class="lane" x1="589.0" y1="249.2" x2="632.5" y2="173.9"/>
+<polygon class="sentry" points="594.0,240.6 591.1,273.6 566.9,259.6"/>
+<text x="564.0" y="298.5" text-anchor="middle" font-size="16">Sentry</text>
+<circle class="scout" cx="645.0" cy="152.3" r="18"/>
+<text x="645.0" y="157.3" text-anchor="middle" font-size="14">Scout</text>
+<line class="lane" x1="690.8" y1="351.0" x2="766.1" y2="307.5"/>
+<polygon class="sentry" points="699.4,346.0 680.4,373.1 666.4,348.9"/>
+<text x="647.5" y="382.0" text-anchor="middle" font-size="16">Sentry</text>
+<circle class="scout" cx="787.7" cy="295.0" r="18"/>
+<text x="787.7" y="300.0" text-anchor="middle" font-size="14">Scout</text>
+<line class="lane" x1="728.0" y1="490.0" x2="815.0" y2="490.0"/>
+<polygon class="sentry" points="738.0,490.0 708.0,504.0 708.0,476.0"/>
+<text x="678.0" y="496.0" text-anchor="middle" font-size="16">Sentry</text>
+<circle class="scout" cx="840.0" cy="490.0" r="18"/>
+<text x="840.0" y="495.0" text-anchor="middle" font-size="14">Scout</text>
+<line class="lane" x1="690.8" y1="629.0" x2="766.1" y2="672.5"/>
+<polygon class="sentry" points="699.4,634.0 666.4,631.1 680.4,606.9"/>
+<text x="647.5" y="610.0" text-anchor="middle" font-size="16">Sentry</text>
+<circle class="scout" cx="787.7" cy="685.0" r="18"/>
+<text x="787.7" y="690.0" text-anchor="middle" font-size="14">Scout</text>
+<line class="lane" x1="589.0" y1="730.8" x2="632.5" y2="806.1"/>
+<polygon class="sentry" points="594.0,739.4 566.9,720.4 591.1,706.4"/>
+<text x="564.0" y="693.5" text-anchor="middle" font-size="16">Sentry</text>
+<circle class="scout" cx="645.0" cy="827.7" r="18"/>
+<text x="645.0" y="832.7" text-anchor="middle" font-size="14">Scout</text>
+<line class="lane" x1="450.0" y1="768.0" x2="450.0" y2="855.0"/>
+<polygon class="sentry" points="450.0,778.0 436.0,748.0 464.0,748.0"/>
+<text x="450.0" y="724.0" text-anchor="middle" font-size="16">Sentry</text>
+<circle class="scout" cx="450.0" cy="880.0" r="18"/>
+<text x="450.0" y="885.0" text-anchor="middle" font-size="14">Scout</text>
+<line class="lane" x1="311.0" y1="730.8" x2="267.5" y2="806.1"/>
+<polygon class="sentry" points="306.0,739.4 308.9,706.4 333.1,720.4"/>
+<text x="336.0" y="693.5" text-anchor="middle" font-size="16">Sentry</text>
+<circle class="scout" cx="255.0" cy="827.7" r="18"/>
+<text x="255.0" y="832.7" text-anchor="middle" font-size="14">Scout</text>
+<line class="lane" x1="209.2" y1="629.0" x2="133.9" y2="672.5"/>
+<polygon class="sentry" points="200.6,634.0 219.6,606.9 233.6,631.1"/>
+<text x="252.5" y="610.0" text-anchor="middle" font-size="16">Sentry</text>
+<circle class="scout" cx="112.3" cy="685.0" r="18"/>
+<text x="112.3" y="690.0" text-anchor="middle" font-size="14">Scout</text>
+<line class="lane" x1="172.0" y1="490.0" x2="85.0" y2="490.0"/>
+<polygon class="sentry" points="162.0,490.0 192.0,476.0 192.0,504.0"/>
+<text x="222.0" y="496.0" text-anchor="middle" font-size="16">Sentry</text>
+<circle class="scout" cx="60.0" cy="490.0" r="18"/>
+<text x="60.0" y="495.0" text-anchor="middle" font-size="14">Scout</text>
+<line class="lane" x1="209.2" y1="351.0" x2="133.9" y2="307.5"/>
+<polygon class="sentry" points="200.6,346.0 233.6,348.9 219.6,373.1"/>
+<text x="252.5" y="382.0" text-anchor="middle" font-size="16">Sentry</text>
+<circle class="scout" cx="112.3" cy="295.0" r="18"/>
+<text x="112.3" y="300.0" text-anchor="middle" font-size="14">Scout</text>
+<line class="lane" x1="311.0" y1="249.2" x2="267.5" y2="173.9"/>
+<polygon class="sentry" points="306.0,240.6 333.1,259.6 308.9,273.6"/>
+<text x="336.0" y="298.5" text-anchor="middle" font-size="16">Sentry</text>
+<circle class="scout" cx="255.0" cy="152.3" r="18"/>
+<text x="255.0" y="157.3" text-anchor="middle" font-size="14">Scout</text>
+<text x="30" y="840" font-size="18" font-weight="bold">Simulation protocol:</text>
+<text x="30" y="867" font-size="17">1) Scouts detect → update interest/threat heatmap</text>
+<text x="30" y="892" font-size="17">2) Sentries intercept → challenge / contain / redirect</text>
+<text x="30" y="917" font-size="17">3) Swarm response → abstract area-control event · 4) Seal breach → close simulated route</text>
+</svg>
